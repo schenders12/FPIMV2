@@ -1,0 +1,61 @@
+@using FPIMV2.Helpers;
+<!DOCTYPE html>
+<html>
+<head>
+	@Html.ServerSideInclude("/includes/common/basic.html")
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+<script  src="http://www.esf.edu/js/ckeditor/ckeditor.js"></script>
+<script>
+   var ROOT = '@Url.Content("~/")';
+</script>
+
+</head>
+<body>
+    <div id="total">
+    <div id="mobbanner"> 
+        @Html.ServerSideInclude("/includes/mobbanner.html")
+	</div>
+	<div id="topbar">
+		<div> 
+            @Html.ServerSideInclude("/includes/topbar.html")
+		</div>
+	</div>
+	<div id="header">
+		<div>
+			<div> <img src="@FPIMV2.Helpers.fns.BannerImage(@ViewContext.RouteData.Values["controller"].ToString(), @ViewContext.RouteData.Values["dept"].ToString())" alt="ESF Web" /> </div>
+		</div>
+	</div>
+	<div id="newtab">
+		<div> 
+			@*Html.ServerSideInclude("/web/includes/bar.html")*@
+            @{
+                HtmlString menubar = fns.BannerMenu(@ViewContext.RouteData.Values["controller"].ToString(), @ViewContext.RouteData.Values["dept"].ToString());
+                @menubar
+            }
+		</div>
+	</div>
+	<div id="container">
+		<div id="inner">
+			<div id="content"> 
+				@*Html.ServerSideInclude("/includes/crumb.html")*@
+                @*Html.MvcSiteMap().Menu(false, true, true)*@
+                @Html.MvcSiteMap().SiteMapPath()
+                @RenderBody()
+			</div>
+			</div>
+		<hr class="clearer" />
+	</div>
+</div>
+
+@Html.ServerSideInclude("/includes/footer.html")
+@Html.ServerSideInclude("/includes/pagetail.html")
+
+    @Styles.Render("~/bundles/themes/base/css")
+    @RenderSection("style", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
