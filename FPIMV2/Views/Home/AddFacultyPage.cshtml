@@ -37,7 +37,7 @@
         <button class="add-page-preview ui-widget-header ui-corner-all" data-profileid = "@Model.ProfileId">Preview Page  </button>
         <button id="add-page-submit" class="add-page-submit ui-widget-header ui-corner-all" data-profileid = "@Model.ProfileId">Add Page  </button>
 
-        @Html.ActionLink("Cancel", "ManagePages", "FPIM", new { profileId = Model.ProfileId}, null)
+        @Html.ActionLink("Cancel", "ManagePages", "Home", new { profileId = Model.ProfileId}, null)
 
     </div>
     

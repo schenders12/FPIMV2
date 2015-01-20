@@ -7,7 +7,7 @@
 
 <h2>Submit your new profile Photo</h2>
 
-@using (Html.BeginForm("SubmitPhoto", "FPIM", FormMethod.Post, new{ enctype="multipart/form-data"}))
+@using (Html.BeginForm("SubmitPhoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.profileId)
@@ -21,7 +21,7 @@
             <input type="file" name="attachment" id="attachment"/> 
         </div>
         <input type="submit" value="Send" class = "ui-widget-header ui-corner-all"/>
-        @Html.ActionLink("Cancel", "AdminIndex", "FPIM", new { profileId = @Model.profileId }, new { @class = "ui-widget-header ui-corner-all" })
+        @Html.ActionLink("Cancel", "AdminIndex", "Home", new { profileId = @Model.profileId }, new { @class = "ui-widget-header ui-corner-all" })
 }
 
 

@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    var url = ROOT + 'FPIM/ViewModulePartial/';
+    var url = ROOT + 'Home/ViewModulePartial/';
 	$.ajax({
 		url: url,
 		type: 'Get',

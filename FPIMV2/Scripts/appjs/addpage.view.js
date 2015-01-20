@@ -20,7 +20,7 @@ $("#add-page-submit").click(function () {
     var sortedModules = $("#sortable-modules").sortable('toArray', { attribute: 'data-modid' });
 
     if (pageTitle != "") {
-        var url = ROOT + 'FPIM/AddFacultyPage/';
+        var url = ROOT + 'Home/AddFacultyPage/';
         $.ajax({
             url: url,
             data: { items: sortedModules, title: pageTitle, profileID: profileID },
@@ -61,7 +61,7 @@ $(document).ready(function () {
     // }).disableSelection(); // sortable
 
     // Get the modules and add them to the available module list
-    var url = ROOT + 'FPIM/GetModules/';
+    var url = ROOT + 'Home/GetModules/';
     $.ajax({
         url: url,
         type: 'Get',

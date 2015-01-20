@@ -13,8 +13,8 @@
 <p></p>
 <p>
 
-  @Html.ActionLink("Add a Module","ChooseModuleTypePartial", "FPIM", new { profileId = @Model.ProfileId}, new {@class="create-module-choose ui-widget-header ui-corner-all", data_profileID=@Model.ProfileId})
-  @Html.ActionLink("Done", "AdminIndex", "FPIM", new { profileId = @Model.ProfileId }, new {@class="ui-widget-header ui-corner-all"})
+  @Html.ActionLink("Add a Module","ChooseModuleTypePartial", "Home", new { profileId = @Model.ProfileId}, new {@class="create-module-choose ui-widget-header ui-corner-all", data_profileID=@Model.ProfileId})
+  @Html.ActionLink("Done", "AdminIndex", "Home", new { profileId = @Model.ProfileId }, new {@class="ui-widget-header ui-corner-all"})
 </p>
 <p></p>
 <p></p>
@@ -33,8 +33,8 @@
           string modData = item.ModuleData;
           <tr>
           <td> 
-             @Html.ActionLink("Edit","EditFacultyModule", "FPIM", new { profileId = @Model.ProfileId, moduleId = @item.FacultyProfileModuleId}, new {@class="edit-module-button btnStyleOne", data_moduleid=@item.FacultyProfileModuleId})
-             @Html.ActionLink("Del","DeleteModulePartial", "FPIM", new { profileId = @Model.ProfileId, moduleId = @item.FacultyProfileModuleId}, new {@class="delete-module-button btnStyleOne", data_moduleid=@item.FacultyProfileModuleId})
+             @Html.ActionLink("Edit","EditFacultyModule", "Home", new { profileId = @Model.ProfileId, moduleId = @item.FacultyProfileModuleId}, new {@class="edit-module-button btnStyleOne", data_moduleid=@item.FacultyProfileModuleId})
+             @Html.ActionLink("Del","DeleteModulePartial", "Home", new { profileId = @Model.ProfileId, moduleId = @item.FacultyProfileModuleId}, new {@class="delete-module-button btnStyleOne", data_moduleid=@item.FacultyProfileModuleId})
           </td>
           <td id="modTitle">
              <strong>@Html.DisplayFor(m => item.ModuleTitle)</strong>

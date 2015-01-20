@@ -15,19 +15,19 @@
 }
 
   <p></p>  
-  <h4>@Html.ActionLink("Manage Files and Documents on the server", "ManageFiles", "FPIM", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
-  <h4>@Html.ActionLink("Manage Modules", "ManageModules", "FPIM", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
-  <h4>@Html.ActionLink("Manage Pages", "ManagePages", "FPIM", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
-  <h4>@Html.ActionLink("Submit a new profile photo", "SubmitPhoto", "FPIM", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
-  <h4>@Html.ActionLink("Manage Department Associations and Areas of Study", "ManageDeptAssocAOS", "FPIM", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
-  <!--<h4>@Html.ActionLink("Manage Department Associations and Areas of Study", "EditDeptAOS", "FPIM", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4> -->
-  <h4>@Html.ActionLink("Preview Your Pages", "ViewFacultyPage", "FPIM", new { profileId = @Model.ProfileId, pageId = ViewBag.MainPageID, fname = ViewBag.fname, lname = ViewBag.lname}, new { profileId = @Model.ProfileId })</h4>
+  <h4>@Html.ActionLink("Manage Files and Documents on the server", "ManageFiles", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
+  <h4>@Html.ActionLink("Manage Modules", "ManageModules", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
+  <h4>@Html.ActionLink("Manage Pages", "ManagePages", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
+  <h4>@Html.ActionLink("Submit a new profile photo", "SubmitPhoto", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
+  <h4>@Html.ActionLink("Manage Department Associations and Areas of Study", "ManageDeptAssocAOS", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
+  <!--<h4>@Html.ActionLink("Manage Department Associations and Areas of Study", "EditDeptAOS", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4> -->
+  <h4>@Html.ActionLink("Preview Your Pages", "ViewFacultyPage", "Home", new { profileId = @Model.ProfileId, pageId = ViewBag.MainPageID, fname = ViewBag.fname, lname = ViewBag.lname}, new { profileId = @Model.ProfileId })</h4>
   <p></p>
   @if (Model.UserId == "schender") {
       <ul>
       <h4>Administrative Functions:</h4>
-      <h4>@Html.ActionLink("Administer Content", "AdministerContent", "FPIM", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
-      <h4>@Html.ActionLink("Manually Add Faculty", "ManuallyAddFaculty", "FPIM", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
+      <h4>@Html.ActionLink("Administer Content", "AdministerContent", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
+      <h4>@Html.ActionLink("Manually Add Faculty", "ManuallyAddFaculty", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
       </ul>
  }
 @section Style {

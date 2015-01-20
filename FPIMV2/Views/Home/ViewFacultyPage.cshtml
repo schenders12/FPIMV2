@@ -24,7 +24,7 @@
   {
     foreach (var page in Model.FacultyPages)
     {
-      @Html.ActionLink(@page.PageTitle,"ViewFacultyPage", "FPIM", new { profileId = @Model.ProfileId, pageID = @page.FacultyPageId}, new { @class = "pageLink", profileId = @page.FacultyPageId, data_pageid=@page.FacultyPageId, data_pagetitle=@page.PageTitle})
+      @Html.ActionLink(@page.PageTitle,"ViewFacultyPage", "Home", new { profileId = @Model.ProfileId, pageID = @page.FacultyPageId}, new { @class = "pageLink", profileId = @page.FacultyPageId, data_pageid=@page.FacultyPageId, data_pagetitle=@page.PageTitle})
       @Html.Raw(" | ")
     }
   }

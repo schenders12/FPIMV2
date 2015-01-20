@@ -15,7 +15,7 @@ $(".create-page-choose").click(function (event) {
     var profileID = $(this).data('profileid');
 
     // Call controller method for editing module
-    var url = ROOT + 'FPIM/ChoosePageTypePartial/';
+    var url = ROOT + 'Home/ChoosePageTypePartial/';
     $.ajax({
         url: url,
         data: { profileID: profileID },
@@ -47,7 +47,7 @@ $(".delete-page-button").click(function (event) {
     var pageID = $(this).data('pageid');
 
     // Call controller method for deleting module
-    var url = ROOT + 'FPIM/DeletePagePartial/';
+    var url = ROOT + 'Home/DeletePagePartial/';
     $.ajax({
         url: url,
         data: { pageId: pageID },

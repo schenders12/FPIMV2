@@ -13,8 +13,8 @@
 <p></p>
 <p></p>
   <p>
-  @Html.ActionLink("Add a Page","ChoosePageTypePartial", "FPIM", new { profileId = @Model.ProfileId}, new {@class="create-page-choose ui-widget-header ui-corner-all", data_profileid=@Model.ProfileId})
-  @Html.ActionLink("Done","AdminIndex", "FPIM", new { profileId = @Model.ProfileId}, new {@class="ui-widget-header ui-corner-all"})
+  @Html.ActionLink("Add a Page","ChoosePageTypePartial", "Home", new { profileId = @Model.ProfileId}, new {@class="create-page-choose ui-widget-header ui-corner-all", data_profileid=@Model.ProfileId})
+  @Html.ActionLink("Done","AdminIndex", "Home", new { profileId = @Model.ProfileId}, new {@class="ui-widget-header ui-corner-all"})
   </p>
 
    <h4>Your Pages</h4>
@@ -30,8 +30,8 @@
       {
         <tr>
            <td> 
-             @Html.ActionLink("Edit Page","EditFacultyPage", "FPIM", new { pageId = @page.FacultyPageId}, new {@class="edit-page-button btnStyleOne", data_pageid=@page.FacultyPageId})
-             @Html.ActionLink("Delete Page","DeletePagePartial", "FPIM", new { pageId = @page.FacultyPageId}, new {@class="delete-page-button btnStyleOne", data_pageid=@page.FacultyPageId})
+             @Html.ActionLink("Edit Page","EditFacultyPage", "Home", new { pageId = @page.FacultyPageId}, new {@class="edit-page-button btnStyleOne", data_pageid=@page.FacultyPageId})
+             @Html.ActionLink("Delete Page","DeletePagePartial", "Home", new { pageId = @page.FacultyPageId}, new {@class="delete-page-button btnStyleOne", data_pageid=@page.FacultyPageId})
           </td>
           <td>
               @if (!(string.IsNullOrEmpty(page.PageTitle)))

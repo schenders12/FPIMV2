@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d1d922cac44943c993b9aea23ba7fa02" Name="Diagram1">
+      <Diagram DiagramId="d1d922cac44943c993b9aea23ba7fa02" Name="FPIMV2_PeopleModel">
         <EntityTypeShape EntityType="PeopleModel.AddFacStaff" Width="1.5" PointX="11.75" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="PeopleModel.CodesAO" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PeopleModel.CommEmpDegree" Width="1.5" PointX="9.875" PointY="0.625" IsExpanded="true" />

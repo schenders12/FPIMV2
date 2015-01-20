@@ -12,7 +12,7 @@ $("#edit-page-submit").click(function () {
     var sortedModules = $("#sortable-modules").sortable('toArray', { attribute: 'data-modid' });
 
     if (pageTitle != "") {
-        var url = ROOT + 'FPIM/EditFacultyPage/';
+        var url = ROOT + 'Home/EditFacultyPage/';
         $.ajax({
             url: url,
             data: { items: sortedModules, title: pageTitle, id: pageID },
@@ -47,7 +47,7 @@ $(document).ready(function () {
     }).disableSelection();
 
     // Get the available modules and add them to the available module list
-    var url = ROOT + 'FPIM/GetModules/';
+    var url = ROOT + 'Home/GetModules/';
     $.ajax({
         url: url,
         type: 'Get',

@@ -7,7 +7,7 @@ $(document).ready(function () {
 // Adds AOS items that are  in database
 $.fn.addItems = function () {
 
-    var url = ROOT + 'FPIM/GetAOSCodes/';
+    var url = ROOT + 'Home/GetAOSCodes/';
     $.ajax({
         //Call GetInstructorList action method
         url: url,

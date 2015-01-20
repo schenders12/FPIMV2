@@ -937,11 +937,7 @@ namespace FPIMV2.Helpers
         {
             switch (controller)
             {
-                case "Spaces":
-                    return "http://www.esf.edu/FPIMV2/Content/banners/spaces.jpg";
                 case "Home":
-                    return "http://www.esf.edu/web/images/banner.jpg";
-                case "FPIM":
                     if (dept != "")
                     {
                         return GetDeptBannerImage(dept);
@@ -1003,11 +999,7 @@ namespace FPIMV2.Helpers
         {
             switch (controller)
             {
-                case "Spaces":
-                    return (fns.HTMLFile("/includes/FPIMV2_fpim.html"));
                 case "Home":
-                    return (fns.HTMLFile("/includes/FPIMV2_fpim.html"));
-                case "FPIM":
                     if (dept != "")
                     {
                         return GetDeptBannerMenu(dept);

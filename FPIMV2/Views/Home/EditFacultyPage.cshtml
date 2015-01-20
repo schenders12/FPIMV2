@@ -58,7 +58,7 @@
 
     <div id="edit-page">
         <button id="edit-page-submit" class="edit-page-submit ui-widget-header ui-corner-all" data-profileid = "@Model.ProfileId">Save</button>
-        @Html.ActionLink("Cancel", "ManagePages", "FPIM", new { profileId = Model.ProfileId}, null)
+        @Html.ActionLink("Cancel", "ManagePages", "Home", new { profileId = Model.ProfileId}, null)
     </div>
     </fieldset>
 }
