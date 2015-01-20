@@ -485,7 +485,7 @@ namespace FPIMV2.Controllers
                 case "External":
                     return RedirectToAction("AddFacultyExternalLink", new { id = profileID });
                 default:
-                    return RedirectToAction("FPIM/Index");
+                    return RedirectToAction("Index");
             }
         }
 
