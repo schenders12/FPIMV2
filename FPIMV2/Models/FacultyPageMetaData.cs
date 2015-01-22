@@ -5,7 +5,7 @@ using System.Web;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace systems.Models
+namespace FPIMV2.Models
 {
     public class FacultyPageMetaData
     {

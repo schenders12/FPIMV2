@@ -9,6 +9,7 @@ using System.Data.Objects.DataClasses;
 using System.Net.Mail;
 using System.Web.Routing;
 using System.Web.Mvc.Ajax;
+using System.Web.Security;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -20,17 +21,29 @@ namespace FPIMV2.Controllers
     public class HomeController : Controller
     {
         private PeopleEntities db = new PeopleEntities();
-
+        // *** Test page for logging in***
+        [HttpGet]
+        public ActionResult TestIndex()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult TestIndex(string id, string atype, string target)
+        {
+            // register the authentication cookie with passed userid
+            // create errata object to pass authentication method
+            //user.username = id;
+            //user.authtype = atype;
+            FormsAuthentication.SetAuthCookie(id, true);
+            return RedirectToAction("Index", new { id = id });
+        }
         // Default page
         public ActionResult Index(string id, string suad, string esfad, string firstname, string lastname)
         {
-            // temp
-            string myID = "schender";
             if (id == null || id == "")
             {
                 // Viewing your own
-                id = User.Identity.Name;
-                id = myID;
+                id = HttpContext.User.Identity.Name;
             }
 
             // Get Employee record
@@ -194,7 +207,7 @@ namespace FPIMV2.Controllers
             SmtpClient smtpClient = new SmtpClient("149.119.6.91", 25);
             smtpClient.Send(mail);
 
-            return RedirectToAction("Index", new { profileId = myPhoto.profileId });
+            return RedirectToAction("AdminIndex", new { profileId = myPhoto.profileId });
 
             /*   if (Request.Files.Count > 0)
                {
@@ -229,10 +242,10 @@ namespace FPIMV2.Controllers
 
         // *** Add a page ***
         [Authorize]
-        public ActionResult AddFacultyPage(string id)
+        public ActionResult AddFacultyPage(string profileID)
         {
             FacultyPage myPage = new FacultyPage();
-            myPage.ProfileId = id;
+            myPage.ProfileId = profileID;
             myPage.FacultyPageId = -1;
             myPage.PageTitle = "";
 
@@ -244,10 +257,10 @@ namespace FPIMV2.Controllers
             return View(myPage);
         }
         // *** Add an external page ***
-        public ActionResult AddFacultyExternalLink(string id)
+        public ActionResult AddFacultyExternalLink(string profileID)
         {
             FacultyPage myPage = new FacultyPage();
-            myPage.ProfileId = id;
+            myPage.ProfileId = profileID;
             myPage.FacultyPageId = -1;
             myPage.PageTitle = "";
             Console.Write("Adding New External Page");
@@ -311,7 +324,7 @@ namespace FPIMV2.Controllers
                 db.FacultyPages.AddObject(myPage);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index", new { profileId = myPage.ProfileId });
+            return RedirectToAction("AdminIndex", new { profileId = myPage.ProfileId });
         }
 
         // *** Edit a Page ***
@@ -391,7 +404,7 @@ namespace FPIMV2.Controllers
         }
         // *** View a Page ***
         [HttpGet]
-        public ActionResult ViewFacultyPage(string profileId, int pageId, string fname, string lname)
+        public ActionResult ViewFacultyPage(int pageId, string profileId, string fname, string lname)
         {
             // Redirect to viewer 
             FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
@@ -461,9 +474,9 @@ namespace FPIMV2.Controllers
                 db.DeleteObject(pageUpdate);
                 db.SaveChanges();
             }
-            //return RedirectToAction("ManagePages", new { profileId = myPage.ProfileId });
-            var redirectUrl = new UrlHelper(Request.RequestContext).Action("ManagePages", new { profileId = myPage.ProfileId });
-            return Json(new { Url = redirectUrl });
+            return RedirectToAction("ManagePages", new { profileId = myPage.ProfileId });
+           // var redirectUrl = new UrlHelper(Request.RequestContext).Action("ManagePages", new { profileId = myPage.ProfileId });
+            //return Json(new { Url = redirectUrl });
         }
 
         // *** Choose a Page Type ***
@@ -481,11 +494,11 @@ namespace FPIMV2.Controllers
             switch (modType)
             {
                 case "Internal":
-                    return RedirectToAction("AddFacultyPage", new { id = profileID });
+                    return RedirectToAction("AddFacultyPage", new { profileID = profileID });
                 case "External":
-                    return RedirectToAction("AddFacultyExternalLink", new { id = profileID });
+                    return RedirectToAction("AddFacultyExternalLink", new { profileID = profileID });
                 default:
-                    return RedirectToAction("Index");
+                    return RedirectToAction("AdminIndex", new { profileID = profileID });
             }
         }
 
@@ -505,14 +518,8 @@ namespace FPIMV2.Controllers
             {
                 case "HTML":
                     return RedirectToAction("AddHTMLModule", new { profileID = profileID });
-                case "FileInclude":
-                    return RedirectToAction("AddFileModule", new { profileID = profileID });
                 case "GradModule":
                     return RedirectToAction("AddGradModule", new { profileID = profileID });
-                case "Publications":
-                    return RedirectToAction("AddPubsModule", new { profileID = profileID });
-                case "Catalog":
-                    return RedirectToAction("AddCatalogModule", new { profileID = profileID });
                 default:
                     return RedirectToAction("ManageModules", new { profileId = profileID });
             }
@@ -550,22 +557,7 @@ namespace FPIMV2.Controllers
         {
             Console.Write("Managing files...");
             ViewBag.profileID = profileId;
-            JsonResult myFiles = GetCourses(profileId, "Fall 2014");
-            ViewBag.myFiles = myFiles;
-
             return View();
-        }
-
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult AddFileModule(FacultyProfileModule module)
-        {
-            if (ModelState.IsValid)
-            {
-                db.FacultyProfileModules.AddObject(module);
-                db.SaveChanges();
-            }
-            return RedirectToAction("ManageModules", new { profileId = module.ProfileId });
         }
 
         // *** Link to a file ***
@@ -602,61 +594,6 @@ namespace FPIMV2.Controllers
             }
             return RedirectToAction("ManageModules", new { profileId = module.ProfileId });
         }
-
-        // *** Add Catalog Module ***
-        [HttpGet]
-        public ActionResult AddCatalogModule(string profileID)
-        {
-            JsonResult catModules = GetCourses(profileID, "Fall 2014");
-            ViewBag.catModules = catModules;
-
-            FacultyProfileModule catMod = new FacultyProfileModule();
-            catMod.ProfileId = profileID;
-            catMod.FacultyPageId = -1;
-            catMod.ModuleType = "Catalog";
-            catMod.DisplayOrder = -1;
-
-            return View(catMod);
-            // return null;
-        }
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult AddCatalogModule(FacultyProfileModule module)
-        {
-            if (ModelState.IsValid)
-            {
-                db.FacultyProfileModules.AddObject(module);
-                db.SaveChanges();
-            }
-            return RedirectToAction("ManageModules", new { profileId = module.ProfileId });
-        }
-
-        // *** Add Publications Module ***
-        [HttpGet]
-        public ActionResult AddPubsModule(string profileID)
-        {
-            FacultyProfileModule pubMod = new FacultyProfileModule();
-            pubMod.ProfileId = profileID;
-            pubMod.FacultyPageId = -1;
-            pubMod.ModuleType = "Grad";
-            pubMod.DisplayOrder = -1;
-            Console.Write("Adding Publications Faculty Module...");
-
-            return View(pubMod);
-            // return null;
-        }
-        [HttpPost]
-        [ValidateInput(false)]
-        public ActionResult AddPubsModule(FacultyProfileModule module)
-        {
-            if (ModelState.IsValid)
-            {
-                db.FacultyProfileModules.AddObject(module);
-                db.SaveChanges();
-            }
-            return RedirectToAction("ManageModules", new { profileId = module.ProfileId });
-        }
-
 
         // *** Edit a Module ***
         [HttpGet]
@@ -730,22 +667,6 @@ namespace FPIMV2.Controllers
             return RedirectToAction("ManageModules", new { profileId = module.ProfileId });
         }
 
-
-        //  *** View a Module ***
-        public ActionResult ViewFacultyModule(int id, string PageTitle)
-        {
-            FacultyProfileModule module = db.FacultyProfileModules.First(m => m.FacultyProfileModuleId == id);
-            return View(module);
-        }
-
-        //  *** View a Module ***
-        public ActionResult ViewModulePartial(int id)
-        {
-            FacultyProfileModule module = db.FacultyProfileModules.First(m => m.FacultyProfileModuleId == id);
-            return PartialView(module);
-        }
-
-
         // Faculty/Staff Department Associations and Areas of Study
         [HttpGet]
         public ActionResult EditAssoc(string id)
@@ -770,7 +691,7 @@ namespace FPIMV2.Controllers
             {
                 db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminIndex", new { profileId = myProfile.ProfileId });
         }
 
         // Faculty Areas of Study (AOS
@@ -795,7 +716,7 @@ namespace FPIMV2.Controllers
             {
                 db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { profileId = myProfile.ProfileId });
         }
 
         // Faculty/Staff Dept Associations/Areas of Study (AOS)
@@ -884,7 +805,7 @@ namespace FPIMV2.Controllers
                 }
             }
 
-            return RedirectToAction("Index", new { profileId = profileId });
+            return RedirectToAction("AdminIndex", new { profileId = profileId });
 
         }
         [HttpGet]
@@ -954,25 +875,18 @@ namespace FPIMV2.Controllers
 
         }
         [HttpGet]
-        public JsonResult GetCourses(string myId, string semester)
+        public ActionResult AdministerContent()
         {
-            // Return all courses for this profile ID and semester
-           // var allMyCourses = catalogDB.TimeScheduleWebs.Select(m => new
-           // {
-           /*     m.CourseID,
-                m.Semester,
-                m.Instructor,
-                m.GeneralCourseTitle,
-                m.SectionCourseTitle,
-                m.Building,
-                m.Room,
-                m.StartTime,
-                m.EndTime*/
-          //  }).Where(m => m.Semester == semester).Where(m => m.Instructor == myId).ToList();
+            List<spFacultyList_Result> MyList = db.spFacultyList("").ToList();
+            ViewBag.MyList = MyList;
+            return View(MyList);
 
-          //  return Json(allMyCourses, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult AdministerContent(FacultyProfile modifiedProfile)
+        {
             return null;
         }
-
     }
+
 }

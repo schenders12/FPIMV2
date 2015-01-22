@@ -1,0 +1,56 @@
+﻿@model FPIMV2.Models.FacultyProfileModule
+
+@{
+    ViewBag.Title = "AddGradModule";
+}
+
+<h2>AddGradModule</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.ProfileId)
+    @Html.HiddenFor(model => model.FacultyPageId)
+    @Html.HiddenFor(model => model.ModuleType)
+    @Html.HiddenFor(model => model.DisplayOrder)
+    
+    <fieldset>
+
+<p>The ESF PIM is designed so that you can manage your publicly viewed information on ESF web sites - be they departmental or personal landing pages. This also allows you to control what is shown and allow you to develop your own &ldquo;business card&rdquo; personal page on the web without any knowledge of HTML.</p>
+
+				<h4>Graduate Student Modules</h4>
+				<p>Graduate Student Modules automatically pull registered graduate students whose records indicate that you are their Major Professor or a co-Major Professor. Between semesters, the list of names pulled pulls the list of students who were registered for classes in the previous semester. If a student is missing from this list, please verify their records with the Office of Instruction and Graduate Studies (OIGS) - paperwork may be processing or a student may not be registered for the current term.</p>
+				<table>
+					<tr>
+						<th scope="row">
+							<h3>Module Type:</h3>
+							<p class="ten">You may pick from four types: full-width, right-side wide, left-side wide, and right-side narrow. If you need any form of custom design treatment, please email your needs to <strong>web@esf.edu</strong>.</p>
+						</th>
+						<td>
+							<select name="ModTitle">
+								<option value="full">Full-Width</option>
+								<option value="rightwide">Right-Wide</option>
+								<option value="rightnarrow">Right-Narrow</option>
+								<option value="left">Left-Wide</option>
+							</select>
+							<input name="ModData" id="ModData" type="hidden" value=" " />
+						</td>
+					</tr>
+				</table>
+				<input name="ModuleType" id="ModuleType" type="hidden" value="<% response.write(ModuleType) %>" />
+				<input name="SUAD" id="SUAD" type="hidden" value="<% response.write(SUAD) %>" />
+				<input type="hidden" name="isSubmitted" value="yes">
+				<p align="center" class="fourteen"><input type="submit" value="Submit Changes" class="fourteen" /></p>
+
+        </fieldset>
+}
+
+<div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/createModule")
+}

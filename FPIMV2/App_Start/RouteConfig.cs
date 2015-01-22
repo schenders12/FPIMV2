@@ -21,17 +21,24 @@ namespace FPIMV2
             routes.MapRoute(
                 name: "FacultyMain",
                 url: "faculty/{profileId}",
-                defaults: new { controller = "Home", action = "ViewMainFacultyPage", pageId = UrlParameter.Optional, dept = "" });
+                defaults: new { controller = "Home", action = "ViewMainFacultyPage", pageId = UrlParameter.Optional, dept = "" }
+                );
 
             routes.MapRoute(
                 name: "Faculty",
                 url: "faculty/{profileId}/{pageId}",
-                defaults: new { controller = "Home", action = "ViewFacultyPage", dept = "" });
+                defaults: new { controller = "Home", action = "ViewFacultyPage", 
+                    pageId = UrlParameter.Optional, 
+                    profileId = UrlParameter.Optional, 
+                    fname = UrlParameter.Optional,
+                    lnamedept  = UrlParameter.Optional },
+                constraints: new { pageId = @"\d+" }
+                );
 
             routes.MapRoute(
                   name: "FacultyAdmin",
                   url: "faculty/admin/{action}/{profileId}",
-                  defaults: new { controller = "Home", action = "AdminIndex", profileId = UrlParameter.Optional, id = UrlParameter.Optional, dept = "" });
+                  defaults: new { controller = "Home", action = "AdminIndex", profileId = UrlParameter.Optional, dept = "" });
 
             routes.MapRoute(
                   name: "FPIMIndex",

@@ -6,7 +6,8 @@
 
 <h2>You are editing the <strong>@Model.ModuleTitle</strong> module.</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
@@ -15,6 +16,7 @@
     @Html.HiddenFor(model => model.FacultyPageId)
     @Html.HiddenFor(model => model.ModuleType)
     @Html.HiddenFor(model => model.DisplayOrder)
+    <fieldset>
     <h5>Your module currently looks like:</h5>
     <div id="sideleft" style="width:900px;">
        <h4>@Model.ModuleTitle</h4>@Html.Raw(@Model.ModuleData)<hr class=clearer />
@@ -22,7 +24,6 @@
 
 <p><strong>HTML Modules</strong></p>
 <p>HTML modules allow you full design control. They are comprised of a Title (a heading which will appear ahead of the module) and a HTML block for design and formatting. Use the WYSIWYG editor or use the source view for tight control.</p>
-        <h3>Title:</h3>
     
         <table id="'edit-module-table">
            <tr>
@@ -61,12 +62,14 @@
               </td>
            </tr>
         </table>
-<div>
-        <p>
-          <input type="submit" value="Save"></input>
-          @Html.ActionLink("Cancel", "ManageModules", "Home", new { profileId = @Model.ProfileId}, new {@class="ui-widget-header ui-corner-all", data_profileid=@Model.ProfileId})
-        </p></div>
+        <p align="center">
+            <input type="submit" id="submitBtn" value="Submit" class="twelve" />
+        </p>
+ </fieldset>
 }
+<div>
+@Html.ActionLink("Cancel", "ManageModules", "Home", new { profileId = @Model.ProfileId }, new { @class = "ui-widget-header ui-corner-all" })
+</div>
 @section Style {
 }
 @section Scripts {

@@ -672,12 +672,6 @@ namespace FPIMV2.Helpers
             return "";
         }
 
-        // Faculty Catalog module
-        public static string CatalogModule(string prof, string type, string year)
-        {
-            return "";
-        }
-
         // Submit a profile photo
         public static bool SubmitPhoto(string to, string from, string cc, string subject, string body, string photoFile)
         {

@@ -14,15 +14,16 @@
     @Html.HiddenFor(model => model.ModuleData)
     @Html.HiddenFor(model => model.DisplayOrder)
     
-    <fieldset>
-        <legend></legend>
         <h3>Type:  @Model.ModuleType</h3>
         <h3>Data:</h3>
         <div>@Html.Raw(@Model.ModuleData)</div>
+        <h3></h3>
+        <h3></h3>
+        <h3></h3>
 
-    </fieldset>
-    <button class="delete-module ui-widget-header ui-corner-all" data-moduleid = "@Model.FacultyProfileModuleId">Delete</button>
-
-    @Html.ActionLink("Cancel", "ManageModules", "Home", new { profileId = @Model.ProfileId}, new { @class = "ui-widget-header ui-corner-all" })
+        <div align="center" position:  fixed; bottom: 20px>
+            <input type="submit" id="submitBtn" value="Yes, Delete this module" class="twelve" />
+            @Html.ActionLink("No, do not delete this module", "ManageModules", "Home", new { profileId = @Model.ProfileId }, new {@class="twelve"})
+        </div>
 }
 <script src="~/Scripts/appjs/index.js"></script>

@@ -33,8 +33,8 @@ $(".create-page-choose").click(function (event) {
 $("#delete-page").dialog({
     autoOpen: false,
     modal: true,
-    width: 1000,
-    height: 550,
+    width: 500,
+    height: 350,
     title: "Are you sure you want to delete this page?"
 });
 

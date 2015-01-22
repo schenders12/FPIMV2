@@ -627,7 +627,6 @@
           <Property Type="Boolean" Name="SProgStudy" Nullable="true" />
           <Property Type="Boolean" Name="SAreaOfStudy" Nullable="false" />
           <Property Type="Boolean" Name="SMajorProf" Nullable="false" />
-          <Property Type="Boolean" Name="SDegProg1" Nullable="false" />
           <Property Type="Boolean" Name="SCoMajorProf" Nullable="true" />
           <Property Type="Boolean" Name="SBaccDegCollNm" Nullable="false" />
           <Property Type="Boolean" Name="SGradDegCollNm" Nullable="false" />
@@ -961,7 +960,6 @@
                 <ScalarProperty Name="SProgStudy" ColumnName="SProgStudy" />
                 <ScalarProperty Name="SAreaOfStudy" ColumnName="SAreaOfStudy" />
                 <ScalarProperty Name="SMajorProf" ColumnName="SMajorProf" />
-                <ScalarProperty Name="SDegProg1" ColumnName="SDegProg1" />
                 <ScalarProperty Name="SCoMajorProf" ColumnName="SCoMajorProf" />
                 <ScalarProperty Name="SBaccDegCollNm" ColumnName="SBaccDegCollNm" />
                 <ScalarProperty Name="SGradDegCollNm" ColumnName="SGradDegCollNm" />

@@ -22,7 +22,7 @@ th, td { vertical-align: top}
 @foreach (var item in Model) {
     <tr>
         <td>
-            <strong>@Html.ActionLink(item.FullName + ", ", "Index", new { id=item.UserId, suad=item.SUAD, esfad=item.ESFAD, lastname = item.LastName, firstname = item.FirstName })</strong>
+            <strong>@Html.ActionLink(item.FullName + ", ", "Index", "Home", new { id=item.UserId, profileID=item.UserId, suad=item.SUAD, esfad=item.ESFAD, lastname = item.LastName, firstname = item.FirstName }, null)</strong>
             @Html.DisplayFor(modelItem => item.CampusTitle)
         </td>
         <td>

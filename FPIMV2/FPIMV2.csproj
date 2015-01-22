@@ -181,12 +181,28 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Upload\FilesStatus.cs" />
+    <Compile Include="Upload\UploadHandler.ashx.cs">
+      <DependentUpon>UploadHandler.ashx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AddPage.css" />
+    <Content Include="Content\bootstrap-image-gallery.min.css" />
+    <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\FPIMUI.css" />
+    <Content Include="Content\FPIMValidate.css" />
+    <Content Include="Content\generalFile.png" />
+    <Content Include="Content\images\delete-icon.jpg" />
+    <Content Include="Content\images\edit-icon.jpg" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\ManageModules.css" />
+    <Content Include="Content\ManagePages.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -228,12 +244,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Scripts\appjs\addpage.view.js" />
     <Content Include="Scripts\appjs\animatedcollapse.js" />
     <Content Include="Scripts\appjs\aosassoc.view.js" />
     <Content Include="Scripts\appjs\catalog.view.js" />
     <Content Include="Scripts\appjs\ckeditor.js" />
-    <Content Include="Scripts\appjs\deletepage.view.js" />
     <Content Include="Scripts\appjs\editpage.view.js" />
     <Content Include="Scripts\appjs\fpim_config.js" />
     <Content Include="Scripts\appjs\index.js" />
@@ -322,11 +336,9 @@
     <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
-    <Content Include="Views\Home\AddCatalogModule.cshtml" />
     <Content Include="Views\Home\AddFacultyExternalLink.cshtml" />
     <Content Include="Views\Home\AddFacultyModule.cshtml" />
     <Content Include="Views\Home\AddFacultyPage.cshtml" />
-    <Content Include="Views\Home\AddFileModule.cshtml" />
     <Content Include="Views\Home\AddHTMLModule.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\AdministerContent.cshtml" />
@@ -334,11 +346,9 @@
     <Content Include="Views\Home\ChoosePageTypePartial.cshtml" />
     <Content Include="Views\Home\DeleteModulePartial.cshtml" />
     <Content Include="Views\Home\DeletePagePartial.cshtml" />
-    <Content Include="Views\Home\DisplayFile.cshtml" />
     <Content Include="Views\Home\EditAssoc.cshtml" />
     <Content Include="Views\Home\EditDeptAOS.cshtml" />
     <Content Include="Views\Home\EditFacultyModule.cshtml" />
-    <Content Include="Views\Home\EditFacultyModulePartial.cshtml" />
     <Content Include="Views\Home\EditFacultyPage.cshtml" />
     <Content Include="Views\Home\EditFacultyProfile.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -348,10 +358,11 @@
     <Content Include="Views\Home\ManageModules.cshtml" />
     <Content Include="Views\Home\ManagePages.cshtml" />
     <Content Include="Views\Home\SubmitPhoto.cshtml" />
-    <Content Include="Views\Home\ViewFacultyModule.cshtml" />
     <Content Include="Views\Home\ViewFacultyPage.cshtml" />
-    <Content Include="Views\Home\ViewModulePartial.cshtml" />
     <Content Include="Views\Home\WelcomeBox.cshtml" />
+    <Content Include="Views\Home\TestIndex.cshtml" />
+    <Content Include="Views\Home\AddGradModule.cshtml" />
+    <Content Include="Upload\UploadHandler.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

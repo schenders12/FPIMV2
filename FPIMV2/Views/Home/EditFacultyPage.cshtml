@@ -58,10 +58,12 @@
 
     <div id="edit-page">
         <button id="edit-page-submit" class="edit-page-submit ui-widget-header ui-corner-all" data-profileid = "@Model.ProfileId">Save</button>
-        @Html.ActionLink("Cancel", "ManagePages", "Home", new { profileId = Model.ProfileId}, null)
     </div>
     </fieldset>
 }
+<div>
+    @Html.ActionLink("Cancel", "ManagePages", "Home", new { profileId = Model.ProfileId}, null)
+</div>
 @section Style {
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/addPage")

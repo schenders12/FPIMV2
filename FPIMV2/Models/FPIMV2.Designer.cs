@@ -3818,10 +3818,9 @@ namespace FPIMV2.Models
         /// <param name="sDegProg">Initial value of the SDegProg property.</param>
         /// <param name="sAreaOfStudy">Initial value of the SAreaOfStudy property.</param>
         /// <param name="sMajorProf">Initial value of the SMajorProf property.</param>
-        /// <param name="sDegProg1">Initial value of the SDegProg1 property.</param>
         /// <param name="sBaccDegCollNm">Initial value of the SBaccDegCollNm property.</param>
         /// <param name="sGradDegCollNm">Initial value of the SGradDegCollNm property.</param>
-        public static spAdviseesPublic_Result CreatespAdviseesPublic_Result(global::System.Int32 recID, global::System.String semester, global::System.String userId, global::System.String lastNm, global::System.String firstNm, global::System.String middleInt, global::System.String suffix, global::System.String emailId, global::System.String degProg, global::System.String progDept, global::System.String progStudy, global::System.String areaOfStudy, global::System.String majorProf, global::System.String coMajorProf, global::System.String baccDegCollNm, global::System.String baccDegCurr, global::System.String baccDegRec, global::System.String gradDegCollNm, global::System.String gradDegCurr, global::System.String gradDegRec, global::System.DateTime processDt, global::System.Boolean sEmailID, global::System.Boolean sDegProg, global::System.Boolean sAreaOfStudy, global::System.Boolean sMajorProf, global::System.Boolean sDegProg1, global::System.Boolean sBaccDegCollNm, global::System.Boolean sGradDegCollNm)
+        public static spAdviseesPublic_Result CreatespAdviseesPublic_Result(global::System.Int32 recID, global::System.String semester, global::System.String userId, global::System.String lastNm, global::System.String firstNm, global::System.String middleInt, global::System.String suffix, global::System.String emailId, global::System.String degProg, global::System.String progDept, global::System.String progStudy, global::System.String areaOfStudy, global::System.String majorProf, global::System.String coMajorProf, global::System.String baccDegCollNm, global::System.String baccDegCurr, global::System.String baccDegRec, global::System.String gradDegCollNm, global::System.String gradDegCurr, global::System.String gradDegRec, global::System.DateTime processDt, global::System.Boolean sEmailID, global::System.Boolean sDegProg, global::System.Boolean sAreaOfStudy, global::System.Boolean sMajorProf, global::System.Boolean sBaccDegCollNm, global::System.Boolean sGradDegCollNm)
         {
             spAdviseesPublic_Result spAdviseesPublic_Result = new spAdviseesPublic_Result();
             spAdviseesPublic_Result.RecID = recID;
@@ -3849,7 +3848,6 @@ namespace FPIMV2.Models
             spAdviseesPublic_Result.SDegProg = sDegProg;
             spAdviseesPublic_Result.SAreaOfStudy = sAreaOfStudy;
             spAdviseesPublic_Result.SMajorProf = sMajorProf;
-            spAdviseesPublic_Result.SDegProg1 = sDegProg1;
             spAdviseesPublic_Result.SBaccDegCollNm = sBaccDegCollNm;
             spAdviseesPublic_Result.SGradDegCollNm = sGradDegCollNm;
             return spAdviseesPublic_Result;
@@ -4602,30 +4600,6 @@ namespace FPIMV2.Models
         private global::System.Boolean _SMajorProf;
         partial void OnSMajorProfChanging(global::System.Boolean value);
         partial void OnSMajorProfChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean SDegProg1
-        {
-            get
-            {
-                return _SDegProg1;
-            }
-            set
-            {
-                OnSDegProg1Changing(value);
-                ReportPropertyChanging("SDegProg1");
-                _SDegProg1 = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("SDegProg1");
-                OnSDegProg1Changed();
-            }
-        }
-        private global::System.Boolean _SDegProg1;
-        partial void OnSDegProg1Changing(global::System.Boolean value);
-        partial void OnSDegProg1Changed();
     
         /// <summary>
         /// No Metadata Documentation available.
