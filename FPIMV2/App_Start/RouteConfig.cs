@@ -31,7 +31,9 @@ namespace FPIMV2
                     pageId = UrlParameter.Optional, 
                     profileId = UrlParameter.Optional, 
                     fname = UrlParameter.Optional,
-                    lnamedept  = UrlParameter.Optional },
+                    lname  = UrlParameter.Optional,
+                    dept = ""
+                },
                 constraints: new { pageId = @"\d+" }
                 );
 

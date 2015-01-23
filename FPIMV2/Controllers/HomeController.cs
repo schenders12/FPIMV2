@@ -241,7 +241,7 @@ namespace FPIMV2.Controllers
         }
 
         // *** Add a page ***
-        [Authorize]
+       // [Authorize]
         public ActionResult AddFacultyPage(string profileID)
         {
             FacultyPage myPage = new FacultyPage();

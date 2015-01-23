@@ -59,8 +59,7 @@ namespace FPIMV2
                         "~/Scripts/FileUpload/load-image.min.js",
                         "~/Scripts/FileUpload/canvas-to-blob.min.js",
                         "~/Scripts/FileUpload/tmpl.min.js",
-                        "~/Scripts/bootstrap.js",
-                        "~/Scripts/bootstrap-image-gallery.min.js",
+                        "~/Scripts/bootstrap.min.js",
                         "~/Scripts/FileUpload/jquery.fileupload.js",
                         "~/Scripts/FileUpload/jquery.iframe-transport.js",
                         "~/Scripts/FileUpload/jquery.fileupload-ip.js",
@@ -100,8 +99,7 @@ namespace FPIMV2
             // Bootstrap
             bundles.Add(new StyleBundle("~/Content/bootStrap").Include(
                         "~/Content/bootStrap.min.css",
-                        "~/Content/bootStrap-responsive.css",
-                        "~/Content/bootstrap-image-gallery.min.css"));
+                        "~/Content/bootStrap-theme.min.css"));
 
             // debug mode
            // BundleTable.EnableOptimizations = true;

@@ -81,14 +81,23 @@
 <div>
     @Html.ActionLink("Done", "AdminIndex", "Home", new { profileId = ViewBag.profileId }, null)
 </div>
-@section Style {
-    @Styles.Render("~/Content/bootStrap")
-    @Styles.Render("~/Content/fileUpload")
-}
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/manageFiles")
+ <link href="@Url.Content("~/Scripts/FileUpload/jquery.fileupload-ui.css")" rel="stylesheet" type="text/css" />
+ <link href="@Url.Content("~/Content/bootStrap.min.css")" rel="stylesheet" type="text/css" />
+ <link href="@Url.Content("~/Content/bootstrap-theme.min.css")" rel="stylesheet" type="text/css" />
+
+
+<script src="@Url.Content("~/Scripts/jquery-2.1.3.min.js")" ></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.11.2.min.js")"></script>
+<script src="@Url.Content("~/Scripts/FileUpload/load-image.min.js")"></script>
+<script src="@Url.Content("~/Scripts/FileUpload/canvas-to-blob.min.js")"></script>
+<script src="@Url.Content("~/Scripts/FileUpload/tmpl.min.js")"></script>
+<script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+<script src="@Url.Content("~/Scripts/FileUpload/jquery.fileupload.js")"></script>
+<script src="@Url.Content("~/Scripts/FileUpload/jquery.iframe-transport.js")"></script>
+<script src="@Url.Content("~/Scripts/FileUpload/jquery.fileupload-ip.js")"></script>
+<script src="@Url.Content("~/Scripts/FileUpload/jquery.fileupload-ui.js")"></script>
+<script src="@Url.Content("~/Scripts/FileUpload/locale.js")"></script>
 <script>
    var jq = jQuery.noConflict();
     jq(document).ready(function() {
@@ -119,7 +128,6 @@
       });
     }); 
 </script>
-}
 
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">

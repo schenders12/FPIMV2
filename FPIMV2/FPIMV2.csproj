@@ -188,8 +188,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\AddPage.css" />
-    <Content Include="Content\bootstrap-image-gallery.min.css" />
-    <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -239,11 +237,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\appjs\addpage.view.js" />
     <Content Include="Scripts\appjs\animatedcollapse.js" />
     <Content Include="Scripts\appjs\aosassoc.view.js" />
     <Content Include="Scripts\appjs\catalog.view.js" />
@@ -253,8 +247,6 @@
     <Content Include="Scripts\appjs\index.js" />
     <Content Include="Scripts\appjs\managemodules.view.js" />
     <Content Include="Scripts\appjs\managepages.view.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Mvc.sitemap" />
     <EntityDeploy Include="Models\FPIMV2.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -263,6 +255,11 @@
     <Content Include="Models\FPIMV2.edmx.diagram">
       <DependentUpon>FPIMV2.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -272,6 +269,8 @@
     </Content>
     <None Include="Properties\PublishProfiles\FPIMV2.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\FileUpload\canvas-to-blob.min.js" />
     <Content Include="Scripts\FileUpload\jquery.fileupload-ip.js" />
     <Content Include="Scripts\FileUpload\jquery.fileupload-ui.css" />
@@ -340,7 +339,6 @@
     <Content Include="Views\Home\AddFacultyModule.cshtml" />
     <Content Include="Views\Home\AddFacultyPage.cshtml" />
     <Content Include="Views\Home\AddHTMLModule.cshtml" />
-    <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Home\AdministerContent.cshtml" />
     <Content Include="Views\Home\ChooseModuleTypePartial.cshtml" />
     <Content Include="Views\Home\ChoosePageTypePartial.cshtml" />

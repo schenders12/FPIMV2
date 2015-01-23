@@ -30,12 +30,15 @@
         <tr>
            <td> 
              @Html.ActionLink("Edit Page","EditFacultyPage", "Home", new { profileId = @page.ProfileId, pageId = @page.FacultyPageId}, new {@class="edit-page-button btnStyleOne", data_pageid=@page.FacultyPageId})
-             @Html.ActionLink("Delete Page","DeletePagePartial", "Home", new {  profileId = @page.ProfileId, pageId = @page.FacultyPageId}, new {@class="delete-page-button btnStyleOne", data_pageid=@page.FacultyPageId})
+              @if (page.PageTitle != "Main")
+              {
+                  @Html.ActionLink("Delete Page","DeletePagePartial", "Home", new {  profileId = @page.ProfileId, pageId = @page.FacultyPageId}, new {@class="delete-page-button btnStyleOne", data_pageid=@page.FacultyPageId})
+              }
           </td>
           <td>
               @if (!(string.IsNullOrEmpty(page.PageTitle)))
               {
-                  @Html.ActionLink(@page.PageTitle,"ViewFacultyPage", new { profileId = @Model.ProfileId, pageID = @page.FacultyPageId, @ViewBag.fname, @ViewBag.lname}, new { profileId = @page.FacultyPageId, data_pageid=@page.FacultyPageId})
+                  @Html.ActionLink(@page.PageTitle,"ViewFacultyPage", new { pageID = @page.FacultyPageId, profileId = @Model.ProfileId, @ViewBag.fname, @ViewBag.lname}, new { profileId = @page.FacultyPageId, data_pageid=@page.FacultyPageId})
               }
           </td>
           <td>

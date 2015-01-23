@@ -23,7 +23,7 @@
   <!--<h4>@Html.ActionLink("Manage Department Associations and Areas of Study", "EditDeptAOS", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4> -->
   <h4>@Html.ActionLink("Preview Your Pages", "ViewFacultyPage", "Home", new { profileId = @Model.ProfileId, pageId = ViewBag.MainPageID, fname = ViewBag.fname, lname = ViewBag.lname}, new { profileId = @Model.ProfileId })</h4>
   <p></p>
-  @if (Model.UserId == "schender") {
+  @if ((Model.UserId == "schender") || (Model.UserId == "potteson")){
       <ul>
       <h4>Administrative Functions:</h4>
       <h4>@Html.ActionLink("Administer Content", "AdministerContent", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
