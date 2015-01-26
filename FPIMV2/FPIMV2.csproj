@@ -336,7 +336,6 @@
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
     <Content Include="Views\Home\AddFacultyExternalLink.cshtml" />
-    <Content Include="Views\Home\AddFacultyModule.cshtml" />
     <Content Include="Views\Home\AddFacultyPage.cshtml" />
     <Content Include="Views\Home\AddHTMLModule.cshtml" />
     <Content Include="Views\Home\AdministerContent.cshtml" />
@@ -361,6 +360,7 @@
     <Content Include="Views\Home\TestIndex.cshtml" />
     <Content Include="Views\Home\AddGradModule.cshtml" />
     <Content Include="Upload\UploadHandler.ashx" />
+    <Content Include="Views\Home\EditDeptAssoc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

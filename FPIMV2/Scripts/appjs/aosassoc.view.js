@@ -1,9 +1,57 @@
-// JavaScript source code for AOS and Assoc page
+// JavaScript source code for AOS and Assoc pages
 
 $(document).ready(function () {
-    $("#primary-association").addItems();
+    $("#dept-assoc").addAssoc();
+    $("#dept-aos").addItems();
+    $("#dept-aos").addAos();
 });
+// Add departmental associations
+$.fn.addAssoc = function () {
 
+    var userid = $(this).data('userid');
+
+    var url = ROOT + 'Home/GetDeptAssoc/';
+    $.ajax({
+        url: url,
+        data: { userID: userid },
+        type: 'Get',
+        success: function (data) {
+            $.each(data, function (i, value) {
+                // Get the department control
+                var deptElement = document.getElementById(value.Dept);
+                if ($(deptElement).is(':checkbox')) {
+                    $(deptElement).prop('checked', true);
+                }
+            });
+        }
+    });
+
+};
+
+// Add areas of study
+$.fn.addAos = function () {
+
+    var userid = $(this).data('userid');
+    var esfad = $(this).data('esfad');
+    var suad = $(this).data('suad');
+
+    var url = ROOT + 'Home/GetDeptAOS/';
+    $.ajax({
+        url: url,
+        data: { userID: userid, esfad: esfad, suad: suad },
+        type: 'Get',
+        success: function (data) {
+            $.each(data, function (i, value) {
+                // Get the department control
+                var aosElement = document.getElementById(value.AOSCode);
+                if ($(aosElement).is(':checkbox')) {
+                    $(aosElement).prop('checked', true);
+                }
+            });
+        }
+    });
+
+};
 // Adds AOS items that are  in database
 $.fn.addItems = function () {
 
@@ -28,7 +76,8 @@ $.fn.addItems = function () {
                 if (deptElement != null) {
                     console.log("Found " + value.Short + ", adding Areas of Interest control...");
                     // Add textarea for participating areas
-                    $(deptElement).after('<div id=\"' + value.Short + '_PA\" style=\"display:none\"><p><strong>' + value.AreaOfStudy + ' Areas of Interest</strong></p>' +
+                    var divname = value.Short + '_DIV';
+                    $(deptElement).after('<div id=\"' + divname + '_PA\" style=\"display:none\"><p><strong>' + value.AreaOfStudy + ' Areas of Interest</strong></p>' +
                                      '<p><textarea name=\"' + value.Short + '_PA\" id=\"ParticipatingAreas\" class=\"twelve\" rows=\"5\" cols=\"80\" maxlength=\"600\">' + '</textarea></div>');
                     // Add the participating areas to the animatedcollapse functions
                     animatedcollapse.addDiv(value.Short + '_PA');
@@ -42,7 +91,8 @@ $.fn.addItems = function () {
                         console.log("Found " + myDeptElementStr + ", adding CBox and PAs");
                         // Add the AOS Checkbox and participating area textbox
                         var paElement = value.Short + '_PA';
-                        $(myDeptElement).after('<div id=' + value.Short + '><p><input id="' + value.Short + '" name="assoc" type="checkbox" value="' + value.Short + '" onClick="javascript: animatedcollapse.toggle(\'' + paElement + '\')">&nbsp' + value.AreaOfStudy + '</p></div>');
+                        var divname = value.Short + '_DIV';
+                        $(myDeptElement).after('<div id=' + divname + '><p><input id="' + value.Short + '" name="assoc" type="checkbox" value="' + value.Short + '" onClick="javascript: animatedcollapse.toggle(\'' + paElement + '\')">&nbsp' + value.AreaOfStudy + '</p></div>');
 
                         // Add the participating areas text box after the checkbox
                         var myAOSElement = document.getElementById(value.Short);
@@ -65,7 +115,7 @@ $.fn.addItems = function () {
                             console.log("Found " + myElementStr+ " adding Cbox " + value.Short);
                              $(myElement).after('<p><input id=\"' + value.Short + '\" name=\"assoc\" type=\"checkbox\" value=\"' + value.Short + '\">&nbsp' + value.AreaOfStudy + '</p>');
                         }
-                    }
+                    } 
                 }
             });
 

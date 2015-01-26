@@ -694,42 +694,13 @@ namespace FPIMV2.Controllers
             return RedirectToAction("AdminIndex", new { profileId = myProfile.ProfileId });
         }
 
-        // Faculty Areas of Study (AOS
-        [HttpGet]
-        public ActionResult EditAOS(string id)
-        {
-            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.UserId == id);
-            // List<spFetchFacultyAOSAssocList_Result> depts = db.spFetchFacultyAOSAssocList(myProfile.UserId, myProfile.ESFAD, myProfile.SUAD).ToList();
-            ViewBag.profileId = myProfile.ProfileId;
-            ViewBag.userID = myProfile.UserId;
-            //  return View(depts);
-            return null;
-        }
-        [HttpPost]
-        public ActionResult EditAOS(spFetchFacultyAOSAssocList_Result updatedAssoc)
-        {
-            string assoc = Request.Form["assoc"];
-            string id = Request.Form["userID"];
-            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.UserId == id);
-            fns.ProcessAssociation(myProfile.UserId, myProfile.ESFAD, myProfile.SUAD, assoc);
-            if (ModelState.IsValid)
-            {
-                db.SaveChanges();
-            }
-            return RedirectToAction("Index", new { profileId = myProfile.ProfileId });
-        }
-
         // Faculty/Staff Dept Associations/Areas of Study (AOS)
         [HttpGet]
         public ActionResult ManageDeptAssocAOS(string profileId)
         {
+            // Get profile
             FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
-            //ViewBag.profileId = myProfile.ProfileId;
-            //ViewBag.userID = myProfile.UserId;
-            //ViewBag.dept = myProfile.Department;
-            //ViewBag.reconciledAreas = myProfile.ReconciledAreas;
 
-            // List<FacultyAOSAssoc> myAssocAOS = db.FacultyAOSAssocs.Where(m => m.ProfileId == myProfile.ProfileId).ToList();
             // Get Employee record
             CommEmployee employee = fns.GetEmployee(myProfile.UserId, myProfile.SUAD, myProfile.ESFAD);
             if (employee != null)
@@ -750,8 +721,54 @@ namespace FPIMV2.Controllers
 
             return View(myProfile);
         }
+        // Faculty/Staff Dept Association
+        [HttpGet]
+        public ActionResult EditDeptAssoc(string profileId)
+        {
+            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
+            ViewBag.profileId = myProfile.ProfileId;
+            ViewBag.userID = myProfile.UserId;
 
-        // Faculty/Staff Dept Associations/Areas of Study (AOS)
+            return View(myProfile);
+        }
+
+        [HttpPost]
+        public ActionResult EditDeptAssoc(FacultyProfile passedProfile)
+        {
+            string dept = Request.Form["dept"];
+            string id = Request.Form["userID"];
+            string profileId = Request.Form["profileID"];
+            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.UserId == id);
+
+            // Loop over all checked boxes
+            if (dept != null)
+            {
+                // Remove existing associations
+                db.spRemoveFDs(myProfile.UserId, myProfile.ESFAD, myProfile.SUAD);
+
+                // Create new associations
+              //  var deptId = 0;
+                var parts = dept.Split(',');
+                foreach (var part in parts)
+                {
+                    // Create a new DB entry
+                    FacultyDept newDept = new FacultyDept();
+                    newDept.UserId = myProfile.UserId;
+                    newDept.ESFAD = myProfile.ESFAD;
+                    newDept.SUAD = myProfile.SUAD;
+                    newDept.Dept = part;
+                    newDept.ForceTop = false;
+                    newDept.AOSCode = "";
+
+                    // Add object to DB
+                    db.FacultyDepts.AddObject(newDept);
+                    db.SaveChanges();
+                   // deptId++;
+                }
+            }
+            return RedirectToAction("AdminIndex", new { profileId = myProfile.ProfileId });
+        }
+        // Faculty/Staff Dept Association
         [HttpGet]
         public ActionResult EditDeptAOS(string profileId)
         {
@@ -759,51 +776,58 @@ namespace FPIMV2.Controllers
             ViewBag.profileId = myProfile.ProfileId;
             ViewBag.userID = myProfile.UserId;
             ViewBag.dept = myProfile.Department;
+            ViewBag.esfad = myProfile.ESFAD;
             ViewBag.reconciledAreas = myProfile.ReconciledAreas;
 
-            List<FacultyAOSAssoc> myAssocAOS = db.FacultyAOSAssocs.Where(m => m.ProfileId == myProfile.ProfileId).ToList();
-            return View(myAssocAOS);
+            List<FacultyDept> myDepts = db.FacultyDepts.Where(m => m.UserId == myProfile.UserId).ToList();
+            ViewBag.myDepts = myDepts;
+            return View(myProfile);
         }
         [HttpPost]
-        public ActionResult EditDeptAOS()
+        public ActionResult EditDeptAOS(FacultyProfile passedProfile)
         {
-            string assoc = Request.Form["assoc"];
+            string aos = Request.Form["assoc"];
             string id = Request.Form["userID"];
+
             string profileId = Request.Form["profileID"];
             FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.UserId == id);
 
-            // Delete existing Assoc/AOS
-            List<FacultyAOSAssoc> delAssocAOS = db.FacultyAOSAssocs.Where(m => m.ProfileId == profileId).ToList();
-            foreach (var entry in delAssocAOS)
+            // Delete existing AOSs
+            List<FacultyAreasXRef> xRefs = db.FacultyAreasXRefs.Where(m => m.UserId == myProfile.UserId).ToList();
+            foreach (FacultyAreasXRef xRef in xRefs)
             {
-                db.DeleteObject(entry);
-                db.SaveChanges();
+                    db.DeleteObject(xRef);
+                    if (ModelState.IsValid)
+                    {
+                        db.SaveChanges();
+                    }
             }
 
-            // Loop over all checked boxes
-            if (assoc != null)
+            // Add new AOSs 
+            if (aos != null)
             {
                 var assocId = 0;
-                var parts = assoc.Split(',');
+                var parts = aos.Split(',');
                 foreach (var part in parts)
                 {
                     // Create a new DB entry
-                    FacultyAOSAssoc newAssocAOS = new FacultyAOSAssoc();
-                    newAssocAOS.ProfileId = profileId;
-                    newAssocAOS.AOSCode = part;
-                    newAssocAOS.AssocAOSId = assocId;
+                    FacultyAreasXRef newAOS = new FacultyAreasXRef();
+                    newAOS.UserId = myProfile.UserId;
+                    newAOS.ESFAD = myProfile.ESFAD;
+                    newAOS.SUAD = myProfile.SUAD;
+                    newAOS.AOSCode = part;
 
                     // Get participating areas (if any)
-                    string aosParAreas = part + "_PA";
-                    string participatingAreas = Request.Form[aosParAreas];
-                    newAssocAOS.ParticipatingAreas = participatingAreas;
+                   // string aosParAreas = part + "_PA";
+                   // string participatingAreas = Request.Form[aosParAreas];
+                   // newAssocAOS.ParticipatingAreas = participatingAreas;
 
                     // Add object to DB
-                    db.FacultyAOSAssocs.AddObject(newAssocAOS);
+                    db.FacultyAreasXRefs.AddObject(newAOS);
                     db.SaveChanges();
                     assocId++;
                 }
-            }
+            } 
 
             return RedirectToAction("AdminIndex", new { profileId = profileId });
 
@@ -852,6 +876,31 @@ namespace FPIMV2.Controllers
             //var results = (from ta in allMyModules
             //                select ta.ModuleTitle).Distinct();
             return Json(allMyModules, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetDeptAssoc(string userID)
+        {
+            // Return all departments for this user
+            var myDepts = db.FacultyDepts.Select(m => new
+            {
+                m.UserId,
+                m.ESFAD,
+                m.SUAD,
+                m.Dept
+            }).Where(m => m.UserId == userID).ToList();
+
+            //var results = (from ta in allMyModules
+            //                select ta.ModuleTitle).Distinct();
+            return Json(myDepts, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetDeptAOS(string userID, string ESFAD, string SUAD)
+        {
+            // Return all areas of study for this user
+            List<spFetchFacultyAOSAssocList_Result> myAOS = db.spFetchFacultyAOSAssocList(userID, ESFAD, SUAD).ToList();
+            return Json(myAOS, JsonRequestBehavior.AllowGet);
         }
 
         // Return URL for image (needed for testing locally

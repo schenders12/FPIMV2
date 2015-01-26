@@ -236,18 +236,18 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<FacultyAOSAssoc> FacultyAOSAssocs
+        public ObjectSet<FacultyAreasXRef> FacultyAreasXRefs
         {
             get
             {
-                if ((_FacultyAOSAssocs == null))
+                if ((_FacultyAreasXRefs == null))
                 {
-                    _FacultyAOSAssocs = base.CreateObjectSet<FacultyAOSAssoc>("FacultyAOSAssocs");
+                    _FacultyAreasXRefs = base.CreateObjectSet<FacultyAreasXRef>("FacultyAreasXRefs");
                 }
-                return _FacultyAOSAssocs;
+                return _FacultyAreasXRefs;
             }
         }
-        private ObjectSet<FacultyAOSAssoc> _FacultyAOSAssocs;
+        private ObjectSet<FacultyAreasXRef> _FacultyAreasXRefs;
 
         #endregion
 
@@ -334,11 +334,11 @@ namespace FPIMV2.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the FacultyAOSAssocs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the FacultyAreasXRefs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToFacultyAOSAssocs(FacultyAOSAssoc facultyAOSAssoc)
+        public void AddToFacultyAreasXRefs(FacultyAreasXRef facultyAreasXRef)
         {
-            base.AddObject("FacultyAOSAssocs", facultyAOSAssoc);
+            base.AddObject("FacultyAreasXRefs", facultyAreasXRef);
         }
 
         #endregion
@@ -638,6 +638,214 @@ namespace FPIMV2.Models
             }
     
             return base.ExecuteFunction("spRemoveFDs", userIdParameter, eSFADParameter, sUADParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="userId">No Metadata Documentation available.</param>
+        /// <param name="eSFAD">No Metadata Documentation available.</param>
+        /// <param name="sUAD">No Metadata Documentation available.</param>
+        /// <param name="dept">No Metadata Documentation available.</param>
+        public int spAssocFac(global::System.String userId, global::System.String eSFAD, global::System.String sUAD, global::System.String dept)
+        {
+            ObjectParameter userIdParameter;
+            if (userId != null)
+            {
+                userIdParameter = new ObjectParameter("UserId", userId);
+            }
+            else
+            {
+                userIdParameter = new ObjectParameter("UserId", typeof(global::System.String));
+            }
+    
+            ObjectParameter eSFADParameter;
+            if (eSFAD != null)
+            {
+                eSFADParameter = new ObjectParameter("ESFAD", eSFAD);
+            }
+            else
+            {
+                eSFADParameter = new ObjectParameter("ESFAD", typeof(global::System.String));
+            }
+    
+            ObjectParameter sUADParameter;
+            if (sUAD != null)
+            {
+                sUADParameter = new ObjectParameter("SUAD", sUAD);
+            }
+            else
+            {
+                sUADParameter = new ObjectParameter("SUAD", typeof(global::System.String));
+            }
+    
+            ObjectParameter deptParameter;
+            if (dept != null)
+            {
+                deptParameter = new ObjectParameter("Dept", dept);
+            }
+            else
+            {
+                deptParameter = new ObjectParameter("Dept", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("spAssocFac", userIdParameter, eSFADParameter, sUADParameter, deptParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="userId">No Metadata Documentation available.</param>
+        /// <param name="eSFAD">No Metadata Documentation available.</param>
+        /// <param name="sUAD">No Metadata Documentation available.</param>
+        /// <param name="aOSCode">No Metadata Documentation available.</param>
+        /// <param name="interestAreas">No Metadata Documentation available.</param>
+        public int spFPIMAOSXrefAddESC(global::System.String userId, global::System.String eSFAD, global::System.String sUAD, global::System.String aOSCode, global::System.String interestAreas)
+        {
+            ObjectParameter userIdParameter;
+            if (userId != null)
+            {
+                userIdParameter = new ObjectParameter("UserId", userId);
+            }
+            else
+            {
+                userIdParameter = new ObjectParameter("UserId", typeof(global::System.String));
+            }
+    
+            ObjectParameter eSFADParameter;
+            if (eSFAD != null)
+            {
+                eSFADParameter = new ObjectParameter("ESFAD", eSFAD);
+            }
+            else
+            {
+                eSFADParameter = new ObjectParameter("ESFAD", typeof(global::System.String));
+            }
+    
+            ObjectParameter sUADParameter;
+            if (sUAD != null)
+            {
+                sUADParameter = new ObjectParameter("SUAD", sUAD);
+            }
+            else
+            {
+                sUADParameter = new ObjectParameter("SUAD", typeof(global::System.String));
+            }
+    
+            ObjectParameter aOSCodeParameter;
+            if (aOSCode != null)
+            {
+                aOSCodeParameter = new ObjectParameter("AOSCode", aOSCode);
+            }
+            else
+            {
+                aOSCodeParameter = new ObjectParameter("AOSCode", typeof(global::System.String));
+            }
+    
+            ObjectParameter interestAreasParameter;
+            if (interestAreas != null)
+            {
+                interestAreasParameter = new ObjectParameter("InterestAreas", interestAreas);
+            }
+            else
+            {
+                interestAreasParameter = new ObjectParameter("InterestAreas", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("spFPIMAOSXrefAddESC", userIdParameter, eSFADParameter, sUADParameter, aOSCodeParameter, interestAreasParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="userId">No Metadata Documentation available.</param>
+        /// <param name="eSFAD">No Metadata Documentation available.</param>
+        /// <param name="sUAD">No Metadata Documentation available.</param>
+        public int spFPIMAOSXrefDelESC(global::System.String userId, global::System.String eSFAD, global::System.String sUAD)
+        {
+            ObjectParameter userIdParameter;
+            if (userId != null)
+            {
+                userIdParameter = new ObjectParameter("UserId", userId);
+            }
+            else
+            {
+                userIdParameter = new ObjectParameter("UserId", typeof(global::System.String));
+            }
+    
+            ObjectParameter eSFADParameter;
+            if (eSFAD != null)
+            {
+                eSFADParameter = new ObjectParameter("ESFAD", eSFAD);
+            }
+            else
+            {
+                eSFADParameter = new ObjectParameter("ESFAD", typeof(global::System.String));
+            }
+    
+            ObjectParameter sUADParameter;
+            if (sUAD != null)
+            {
+                sUADParameter = new ObjectParameter("SUAD", sUAD);
+            }
+            else
+            {
+                sUADParameter = new ObjectParameter("SUAD", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("spFPIMAOSXrefDelESC", userIdParameter, eSFADParameter, sUADParameter);
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="netID">No Metadata Documentation available.</param>
+        /// <param name="eSFAD">No Metadata Documentation available.</param>
+        /// <param name="sUAD">No Metadata Documentation available.</param>
+        /// <param name="participatingAreas">No Metadata Documentation available.</param>
+        public int spFPIMUpdatePariticpatingArea(global::System.String netID, global::System.String eSFAD, global::System.String sUAD, global::System.String participatingAreas)
+        {
+            ObjectParameter netIDParameter;
+            if (netID != null)
+            {
+                netIDParameter = new ObjectParameter("NetID", netID);
+            }
+            else
+            {
+                netIDParameter = new ObjectParameter("NetID", typeof(global::System.String));
+            }
+    
+            ObjectParameter eSFADParameter;
+            if (eSFAD != null)
+            {
+                eSFADParameter = new ObjectParameter("ESFAD", eSFAD);
+            }
+            else
+            {
+                eSFADParameter = new ObjectParameter("ESFAD", typeof(global::System.String));
+            }
+    
+            ObjectParameter sUADParameter;
+            if (sUAD != null)
+            {
+                sUADParameter = new ObjectParameter("SUAD", sUAD);
+            }
+            else
+            {
+                sUADParameter = new ObjectParameter("SUAD", typeof(global::System.String));
+            }
+    
+            ObjectParameter participatingAreasParameter;
+            if (participatingAreas != null)
+            {
+                participatingAreasParameter = new ObjectParameter("ParticipatingAreas", participatingAreas);
+            }
+            else
+            {
+                participatingAreasParameter = new ObjectParameter("ParticipatingAreas", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("spFPIMUpdatePariticpatingArea", netIDParameter, eSFADParameter, sUADParameter, participatingAreasParameter);
         }
 
         #endregion
@@ -2285,24 +2493,24 @@ namespace FPIMV2.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="PeopleModel", Name="FacultyAOSAssoc")]
+    [EdmEntityTypeAttribute(NamespaceName="PeopleModel", Name="FacultyAreasXRef")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class FacultyAOSAssoc : EntityObject
+    public partial class FacultyAreasXRef : EntityObject
     {
         #region Factory Method
     
         /// <summary>
-        /// Create a new FacultyAOSAssoc object.
+        /// Create a new FacultyAreasXRef object.
         /// </summary>
-        /// <param name="assocAOSId">Initial value of the AssocAOSId property.</param>
-        /// <param name="profileId">Initial value of the ProfileId property.</param>
-        public static FacultyAOSAssoc CreateFacultyAOSAssoc(global::System.Int32 assocAOSId, global::System.String profileId)
+        /// <param name="assocId">Initial value of the AssocId property.</param>
+        /// <param name="aOSCode">Initial value of the AOSCode property.</param>
+        public static FacultyAreasXRef CreateFacultyAreasXRef(global::System.Int32 assocId, global::System.String aOSCode)
         {
-            FacultyAOSAssoc facultyAOSAssoc = new FacultyAOSAssoc();
-            facultyAOSAssoc.AssocAOSId = assocAOSId;
-            facultyAOSAssoc.ProfileId = profileId;
-            return facultyAOSAssoc;
+            FacultyAreasXRef facultyAreasXRef = new FacultyAreasXRef();
+            facultyAreasXRef.AssocId = assocId;
+            facultyAreasXRef.AOSCode = aOSCode;
+            return facultyAreasXRef;
         }
 
         #endregion
@@ -2314,56 +2522,104 @@ namespace FPIMV2.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 AssocAOSId
+        public global::System.Int32 AssocId
         {
             get
             {
-                return _AssocAOSId;
+                return _AssocId;
             }
             set
             {
-                if (_AssocAOSId != value)
+                if (_AssocId != value)
                 {
-                    OnAssocAOSIdChanging(value);
-                    ReportPropertyChanging("AssocAOSId");
-                    _AssocAOSId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("AssocAOSId");
-                    OnAssocAOSIdChanged();
+                    OnAssocIdChanging(value);
+                    ReportPropertyChanging("AssocId");
+                    _AssocId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("AssocId");
+                    OnAssocIdChanged();
                 }
             }
         }
-        private global::System.Int32 _AssocAOSId;
-        partial void OnAssocAOSIdChanging(global::System.Int32 value);
-        partial void OnAssocAOSIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String ProfileId
-        {
-            get
-            {
-                return _ProfileId;
-            }
-            set
-            {
-                OnProfileIdChanging(value);
-                ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("ProfileId");
-                OnProfileIdChanged();
-            }
-        }
-        private global::System.String _ProfileId;
-        partial void OnProfileIdChanging(global::System.String value);
-        partial void OnProfileIdChanged();
+        private global::System.Int32 _AssocId;
+        partial void OnAssocIdChanging(global::System.Int32 value);
+        partial void OnAssocIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.String _UserId;
+        partial void OnUserIdChanging(global::System.String value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ESFAD
+        {
+            get
+            {
+                return _ESFAD;
+            }
+            set
+            {
+                OnESFADChanging(value);
+                ReportPropertyChanging("ESFAD");
+                _ESFAD = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ESFAD");
+                OnESFADChanged();
+            }
+        }
+        private global::System.String _ESFAD;
+        partial void OnESFADChanging(global::System.String value);
+        partial void OnESFADChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SUAD
+        {
+            get
+            {
+                return _SUAD;
+            }
+            set
+            {
+                OnSUADChanging(value);
+                ReportPropertyChanging("SUAD");
+                _SUAD = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("SUAD");
+                OnSUADChanged();
+            }
+        }
+        private global::System.String _SUAD;
+        partial void OnSUADChanging(global::System.String value);
+        partial void OnSUADChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String AOSCode
         {
@@ -2375,7 +2631,7 @@ namespace FPIMV2.Models
             {
                 OnAOSCodeChanging(value);
                 ReportPropertyChanging("AOSCode");
-                _AOSCode = StructuralObject.SetValidValue(value, true);
+                _AOSCode = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("AOSCode");
                 OnAOSCodeChanged();
             }
@@ -2407,54 +2663,6 @@ namespace FPIMV2.Models
         private global::System.String _InterestAreas;
         partial void OnInterestAreasChanging(global::System.String value);
         partial void OnInterestAreasChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String ParticipatingAreas
-        {
-            get
-            {
-                return _ParticipatingAreas;
-            }
-            set
-            {
-                OnParticipatingAreasChanging(value);
-                ReportPropertyChanging("ParticipatingAreas");
-                _ParticipatingAreas = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("ParticipatingAreas");
-                OnParticipatingAreasChanged();
-            }
-        }
-        private global::System.String _ParticipatingAreas;
-        partial void OnParticipatingAreasChanging(global::System.String value);
-        partial void OnParticipatingAreasChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Dept
-        {
-            get
-            {
-                return _Dept;
-            }
-            set
-            {
-                OnDeptChanging(value);
-                ReportPropertyChanging("Dept");
-                _Dept = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Dept");
-                OnDeptChanged();
-            }
-        }
-        private global::System.String _Dept;
-        partial void OnDeptChanging(global::System.String value);
-        partial void OnDeptChanged();
 
         #endregion
 

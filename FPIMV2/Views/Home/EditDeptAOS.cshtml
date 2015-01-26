@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FPIMV2.Models.FacultyAOSAssoc>
+﻿@model FPIMV2.Models.FacultyProfile
 @{
     ViewBag.Title = "EditDeptAOS";
 }
@@ -11,7 +11,7 @@
     <input id="profileID" name="profileID" type="hidden" value="@ViewBag.profileId" />
     <input id="userID" name="userID" type="hidden" value="@ViewBag.userID" />
     
-<div id="primary-association">
+<div id="dept-aos" data-userid=@Model.UserId  data-esfad=@Model.ESFAD data-suad=@Model.SUAD>
 
   <!--<div id="DEPT-FCH"><h3><input name="assoc" type="radio" value="DEPT-FCH" onClick="javascript: animatedcollapse.toggle('DEPT-FCH_PA')"/>&nbsp;Chemistry</h3></div>
   <div id="DEPT-EFB"><h3><input name="assoc" type="radio" value="DEPT-EFB" onClick="javascript: animatedcollapse.toggle('DEPT-EFB_PA')"/>&nbsp;EFB</h3></div>
@@ -24,19 +24,20 @@
   <div id="DEPT-MOON"><h3><input name="assoc" type="radio" value="DEPT-MOON" onClick="javascript: animatedcollapse.toggle('DEPT-MOON_PA')"/>&nbsp;Moon Library</h3></div>
   <div id="DEPT-PBE"><h3><input name="assoc" type="radio" value="DEPT-PBE" onClick="javascript: animatedcollapse.toggle('DEPT-PBE_PA')"/>&nbsp;PBE</h3></div>
   <div id="DEPT-SCME"><h3><input name="assoc" type="radio" value="DEPT-SCME" onClick="javascript: animatedcollapse.toggle('DEPT-SCME_PA')"/>&nbsp;SCME</h3></div> -->
-
-  <div id="DEPT-FCH"><h3><input name="assoc" type="radio" value="DEPT-FCH" />&nbsp;Chemistry</h3></div>
-  <div id="DEPT-EFB"><h3><input name="assoc" type="radio" value="DEPT-EFB" />&nbsp;EFB</h3></div>
-  <div id="DEPT-ERE"><h3><input name="assoc" type="radio" value="DEPT-ERE" />&nbsp;ERE</h3></div>
-  <div id="DEPT-EST"><h3><input name="assoc" type="radio" value="DEPT-EST" />&nbsp;Environmental Studies</h3></div>
-  <div id="DEPT-EWP"><h3><input name="assoc" type="radio" value="DEPT-EWP" />&nbsp;Environmental Writing Program</h3></div>
-  <div id="DEPT-ESC"><h3><input name="assoc" type="radio" value="DEPT-ESC" />&nbsp;Environmental Science</h3></div>
-  <div id="DEPT-FNRM"><h3><input name="assoc" type="radio" value="DEPT-FNRM" />&nbsp;FNRM</h3></div>
-  <div id="DEPT-LA"><h3><input name="assoc" type="radio" value="DEPT-LA" />&nbsp;Landscape Architecture</h3></div>
-  <div id="DEPT-MOON"><h3><input name="assoc" type="radio" value="DEPT-MOON" />&nbsp;Moon Library</h3></div>
-  <div id="DEPT-PBE"><h3><input name="assoc" type="radio" value="DEPT-PBE" />&nbsp;PBE</h3></div>
-  <div id="DEPT-SCME"><h3><input name="assoc" type="radio" value="DEPT-SCME" />&nbsp;SCME</h3></div>
-
+  <div id="DEPT-CERT"><h4>&nbsp;Certificates</h4></div>
+  <div id="DEPT-EFB"><h4>&nbsp;EFB</h4></div>
+  <div id="DEPT-ERE"><h4>&nbsp;ERE</h4></div>
+  <div id="DEPT-ESC"><h4>&nbsp;Environmental Science</h4></div>
+  <div id="DEPT-EST"><h4>&nbsp;Environmental Studies</h4></div>
+  <div id="DEPT-FCH"><h4>&nbsp;Chemistry</h4></div>
+  <div id="DEPT-FNRM"><h4>&nbsp;FNRM</h4></div>
+  <div id="DEPT-LA"><h4>&nbsp;Landscape Architecture</h4></div>
+  <div id="DEPT-MIN"><h4>&nbsp;Minors</h4></div>
+  <div id="DEPT-OTH"><h4>&nbsp;OTH</h4></div>
+  <div id="DEPT-PBE"><h4>&nbsp;PBE</h4></div>
+  <div id="DEPT-RS"><h4>&nbsp;Ranger School</h4></div>
+  <div id="DEPT-SCME"><h4>&nbsp;SCME</h4></div>
+  <div id="DEPT-XD"><h4>&nbsp;Cross Departmental</h4></div>
 
  <!-- <h4 id="DEPT-FCH" >&nbsp;Chemistry</h4>
   <h4 id="DEPT-EFB" >&nbsp;EFB</h4>
@@ -50,10 +51,6 @@
   <h4 id="DEPT-PBE" >&nbsp;PBE</h4>
   <h4 id="DEPT-SCME" >&nbsp;SCME</h4>
       -->
-  <div id="DEPT-CERT"><h4>&nbsp;Certificates</h4></div>
-  <div id="DEPT-MIN"><h4>&nbsp;Minors</h4></div>
-  <div id="DEPT-OTH"><h4>&nbsp;OTH</h4></div>
-  <div id="DEPT-XD"><h4>&nbsp;Cross Departmental</h4></div>
 
   <!--<h3><input id="Chemistry" name="assoc" type="checkbox" value="Chemistry"/>&nbsp;Chemistry</h3>
   <h3><input id="EFB" name="assoc" type="checkbox" value="EFB" />&nbsp;EFB</h3>
@@ -68,12 +65,6 @@
   <h3><input id="SCME" name="assoc" type="checkbox" value="SCME" />&nbsp;SCME</h3> -->
 
 
-    @foreach (var item in Model) {
-      // Create hidden elements with name 'checkMe' and value of department 
-      // to indicate which elements need to be checked
-      <input name="checkMe" type="hidden" value="@item.AOSCode" />
-    }
-
 </div>
 
         <p>
@@ -82,11 +73,10 @@
 }
 
 <div>
-    @Html.ActionLink("Cancel", "AdminIndex", "Home", new { profileId = ViewBag.profileId}, null)
+    @Html.ActionLink("Cancel", "ManageDeptAssocAOS", "Home", new { profileId = @Model.ProfileId}, null)
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/aosassoc")
     @Scripts.Render("~/bundles/animatedcollapse")
 }

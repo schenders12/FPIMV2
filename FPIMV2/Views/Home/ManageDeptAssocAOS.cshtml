@@ -12,7 +12,8 @@
             HtmlString deptList = new HtmlString(FPIMV2.Helpers.fns.GetMyDepts(@Model.UserId, @Model.ESFAD, @Model.SUAD));
                 @deptList
         }
-
+        @Html.ActionLink("Click to Edit","EditDeptAssoc", "Home", new { profileId = @Model.ProfileId}, new {@class="ui-widget-header ui-corner-all"})
+<p></p>
         <strong>@ViewBag.FirstName @ViewBag.LastName is associated with the following Areas of Study:  </strong>
         @{
             HtmlString aosList = new HtmlString(FPIMV2.Helpers.fns.GetMyAOSs(@Model.UserId, @Model.ESFAD, @Model.SUAD));

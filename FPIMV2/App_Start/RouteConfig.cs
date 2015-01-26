@@ -37,7 +37,7 @@ namespace FPIMV2
                 constraints: new { pageId = @"\d+" }
                 );
 
-            routes.MapRoute(
+      /*      routes.MapRoute(
                   name: "FacultyAdmin",
                   url: "faculty/admin/{action}/{profileId}",
                   defaults: new { controller = "Home", action = "AdminIndex", profileId = UrlParameter.Optional, dept = "" });
@@ -46,7 +46,7 @@ namespace FPIMV2
                   name: "FPIMIndex",
                   url: "faculty/admin/{action}/{id}",
                   defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, dept = "" });
-
+            */
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "SubmitPhoto";
 }
-
+@Html.Partial("WelcomeBox", Model) 
 <h2>Submit your new profile Photo</h2>
 
 @using (Html.BeginForm("SubmitPhoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
