@@ -1,0 +1,172 @@
+﻿@model FPIMV2.Models.AddFacStaff
+
+@{
+    ViewBag.Title = "ManuallyAddFaculty";
+}
+
+<h2>Manually Add a Faculty Member</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>AddFacStaff</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserId)
+            @Html.ValidationMessageFor(model => model.UserId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MiddleName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MiddleName)
+            @Html.ValidationMessageFor(model => model.MiddleName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Suffix)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Suffix)
+            @Html.ValidationMessageFor(model => model.Suffix)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OffcBldg)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OffcBldg)
+            @Html.ValidationMessageFor(model => model.OffcBldg)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OffcRoom)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OffcRoom)
+            @Html.ValidationMessageFor(model => model.OffcRoom)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OffcPhone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OffcPhone)
+            @Html.ValidationMessageFor(model => model.OffcPhone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SpeedDialExt)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SpeedDialExt)
+            @Html.ValidationMessageFor(model => model.SpeedDialExt)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MailAddrBldg)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MailAddrBldg)
+            @Html.ValidationMessageFor(model => model.MailAddrBldg)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MailAddrRoom)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MailAddrRoom)
+            @Html.ValidationMessageFor(model => model.MailAddrRoom)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AltOffcPhone)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AltOffcPhone)
+            @Html.ValidationMessageFor(model => model.AltOffcPhone)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EmailId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EmailId)
+            @Html.ValidationMessageFor(model => model.EmailId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CampusTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CampusTitle)
+            @Html.ValidationMessageFor(model => model.CampusTitle)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CivilServiceTitle)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CivilServiceTitle)
+            @Html.ValidationMessageFor(model => model.CivilServiceTitle)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.WorkLoc)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.WorkLoc)
+            @Html.ValidationMessageFor(model => model.WorkLoc)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ESFAD)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ESFAD)
+            @Html.ValidationMessageFor(model => model.ESFAD)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SUAD)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SUAD)
+            @Html.ValidationMessageFor(model => model.SUAD)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Cancel", "ManageNonHRFaculty", "Home", new { profileId = @ViewBag.ProfileId }, new {@class="ui-widget-header ui-corner-all"})
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

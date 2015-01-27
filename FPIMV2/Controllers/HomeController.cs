@@ -924,18 +924,116 @@ namespace FPIMV2.Controllers
 
         }
         [HttpGet]
-        public ActionResult AdministerContent()
+        public ActionResult AdministerContent(string profileId)
         {
             List<spFacultyList_Result> MyList = db.spFacultyList("").ToList();
-            ViewBag.MyList = MyList;
+            ViewBag.ProfileId = profileId;
             return View(MyList);
 
         }
-        [HttpPost]
-        public ActionResult AdministerContent(FacultyProfile modifiedProfile)
+
+        [HttpGet]
+        public ActionResult ManuallyAddFaculty(string profileId)
         {
-            return null;
+            ViewBag.profileID = profileId;
+            return View();
+
         }
+
+        [HttpPost]
+        public ActionResult ManuallyAddFaculty(AddFacStaff facultyMember)
+        {
+            string profileId = Request.Form["profileId"];
+            string fac = "F";
+
+            if (ModelState.IsValid)
+            {
+                AddFacStaff facultyUpdate = new AddFacStaff();
+
+                // Save modified data
+                facultyUpdate.UserId = facultyMember.UserId;
+                facultyUpdate.LastName = facultyMember.LastName;
+                facultyUpdate.FirstName = facultyMember.FirstName;
+                facultyUpdate.MiddleName = (facultyMember.MiddleName != null) ? facultyMember.MiddleName : "";
+                facultyUpdate.Suffix = (facultyMember.Suffix != null) ? facultyMember.Suffix : "";
+                facultyUpdate.OffcBldg = (facultyMember.OffcBldg != null) ? facultyMember.OffcBldg : "";
+                facultyUpdate.OffcRoom = (facultyMember.OffcRoom != null) ? facultyMember.OffcRoom : "";
+                facultyUpdate.OffcPhone = (facultyMember.OffcPhone != null) ? facultyMember.OffcPhone : "";
+                facultyUpdate.SpeedDialExt = (facultyMember.SpeedDialExt != null) ? facultyMember.SpeedDialExt : "";
+                facultyUpdate.MailAddrBldg = (facultyMember.MailAddrBldg != null) ? facultyMember.MailAddrBldg : "";
+                facultyUpdate.MailAddrRoom = (facultyMember.MailAddrRoom != null) ? facultyMember.MailAddrRoom : "";
+                facultyUpdate.AltOffcPhone = (facultyMember.AltOffcPhone != null) ? facultyMember.AltOffcPhone : "";
+                facultyUpdate.EmailId = (facultyMember.EmailId != null) ? facultyMember.EmailId : "";
+                facultyUpdate.CampusTitle = (facultyMember.CampusTitle != null) ? facultyMember.CampusTitle : "";
+                facultyUpdate.WorkLoc = (facultyMember.WorkLoc != null) ? facultyMember.WorkLoc : "";
+                facultyUpdate.FacStaff = fac;
+                facultyUpdate.CivilServiceTitle = (facultyMember.CivilServiceTitle != null) ? facultyMember.CivilServiceTitle : "";
+                facultyUpdate.ESFAD = (facultyMember.ESFAD != null) ? facultyMember.ESFAD : "";
+                facultyUpdate.SUAD = (facultyMember.SUAD != null) ? facultyMember.SUAD : "";
+
+                db.AddFacStaffs.AddObject(facultyUpdate);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("ManageNonHRFaculty", new { profileId = profileId });
+
+        }
+
+        [HttpGet]
+        public ActionResult ManuallyUpdateFaculty(string userId, string profileId)
+        {
+            AddFacStaff facultyMod = db.AddFacStaffs.SingleOrDefault(m => m.UserId == userId);
+            ViewBag.profileID = profileId;
+            return View(facultyMod);
+
+        }
+
+        [HttpPost]
+        public ActionResult ManuallyUpdateFaculty(AddFacStaff facultyMember)
+        {
+            string profileId = Request.Form["profileId"];
+
+            if (ModelState.IsValid)
+            {
+                AddFacStaff facultyUpdate = new AddFacStaff();
+                facultyUpdate = db.AddFacStaffs.Single(m => m.UserId == facultyMember.UserId);
+
+                // Save modified data
+                facultyUpdate.LastName = facultyMember.LastName;
+                facultyUpdate.FirstName = facultyMember.FirstName;
+                facultyUpdate.MiddleName = facultyMember.MiddleName;
+                facultyUpdate.Suffix = facultyMember.Suffix;
+                facultyUpdate.OffcBldg = facultyMember.OffcBldg;
+                facultyUpdate.OffcRoom = facultyMember.OffcRoom;
+                facultyUpdate.OffcPhone = facultyMember.OffcPhone;
+                facultyUpdate.SpeedDialExt = facultyMember.SpeedDialExt;
+                facultyUpdate.MailAddrBldg = facultyMember.MailAddrBldg;
+                facultyUpdate.MailAddrRoom = facultyMember.MailAddrRoom;
+                facultyUpdate.AltOffcPhone = facultyMember.AltOffcPhone;
+                facultyUpdate.EmailId = facultyMember.EmailId;
+                facultyUpdate.CampusTitle = facultyMember.CampusTitle;
+                facultyUpdate.WorkLoc = facultyMember.WorkLoc;
+                facultyUpdate.FacStaff = facultyMember.FacStaff;
+                facultyUpdate.CivilServiceTitle = facultyMember.CivilServiceTitle;
+                facultyUpdate.ESFAD = facultyMember.ESFAD;
+                facultyUpdate.SUAD = facultyMember.SUAD;
+
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("ManageNonHRFaculty", new { profileId = profileId });
+
+        }
+
+        [HttpGet]
+        public ActionResult ManageNonHRFaculty(string profileId)
+        {
+            List<AddFacStaff> MyList = db.AddFacStaffs.ToList();
+            ViewBag.ProfileId = profileId;
+            return View(MyList);
+
+        }
+
     }
 
 }

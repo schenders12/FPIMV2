@@ -361,6 +361,9 @@
     <Content Include="Views\Home\AddGradModule.cshtml" />
     <Content Include="Upload\UploadHandler.ashx" />
     <Content Include="Views\Home\EditDeptAssoc.cshtml" />
+    <Content Include="Views\Home\ManageNonHRFaculty.cshtml" />
+    <Content Include="Views\Home\ManuallyUpdateFaculty.cshtml" />
+    <Content Include="Views\Home\ManuallyAddFaculty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

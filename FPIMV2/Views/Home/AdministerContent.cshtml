@@ -4,11 +4,10 @@
     ViewBag.Title = "Administer Content";
 }
 
-<h2>AdministerContent</h2>
+<h2>Edit a Profile</h2>
 <style>
 th, td { vertical-align: top}
 </style>
-<h2>Edit a Profile</h2>
 <h3>Select the faculty member whose records you would like to edit.</h3>
 <table>
     <tr>
@@ -41,3 +40,7 @@ th, td { vertical-align: top}
     </tr>
 }
 </table>
+
+<div>
+@Html.ActionLink("Done", "AdminIndex", "Home", new { profileId = @ViewBag.ProfileId }, new {@class="ui-widget-header ui-corner-all"})
+</div>
