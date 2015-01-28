@@ -1,9 +1,9 @@
-﻿@model IEnumerable<FPIMV2.Models.AddFacStaff>
-
+﻿
+@model Tuple<IEnumerable<FPIMV2.Models.AddFacStaff>, FPIMV2.Models.FacultyProfile>
 @{
     ViewBag.Title = "ManageNonHRFaculty";
 }
-
+@Html.Partial("WelcomeBox", Model.Item2) 
 <h2>Manage Non-HR based Faculty</h2>
 
 <style>
@@ -15,7 +15,7 @@ th, td { vertical-align: top}
     <tr>
             <th class="twelve bggray"><strong>Faculty Name</strong></th>
     </tr>
-@foreach (var item in Model) {
+@foreach (var item in Model.Item1) {
     string fullName = item.LastName + ',' + item.FirstName;
     <tr>
         <td>

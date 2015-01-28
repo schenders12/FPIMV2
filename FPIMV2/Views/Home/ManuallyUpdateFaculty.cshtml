@@ -1,188 +1,155 @@
-﻿@model FPIMV2.Models.AddFacStaff
+﻿@model Tuple<FPIMV2.Models.AddFacStaff, FPIMV2.Models.FacultyProfile>
 
 @{
     ViewBag.Title = "ManuallyUpdateFaculty";
 }
-
+@Html.Partial("WelcomeBox", Model.Item2)
 <h2>Manually Update a Faculty Member</h2>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
+    <input id="profileId" name="profileId" type="hidden" value="@Model.Item2.ProfileId" />
     <fieldset>
         <legend>AddFacStaff</legend>
 
-        @Html.HiddenFor(model => model.RecId)
+            @Html.HiddenFor(model => model.Item1.UserId)
 
-        @Html.HiddenFor(model => model.UserId)
-
-        @Html.HiddenFor(model => model.LastName)
-
-        @Html.HiddenFor(model => model.FirstName)
-
-        @Html.HiddenFor(model => model.MiddleName)
-
-        @Html.HiddenFor(model => model.Suffix)
-
-        @Html.HiddenFor(model => model.OffcBldg)
-
-        @Html.HiddenFor(model => model.OffcRoom)
-
-        @Html.HiddenFor(model => model.OffcPhone)
-
-        @Html.HiddenFor(model => model.SpeedDialExt)
-
-        @Html.HiddenFor(model => model.MailAddrBldg)
-
-        @Html.HiddenFor(model => model.MailAddrRoom)
-
-        @Html.HiddenFor(model => model.AltOffcPhone)
-
-        @Html.HiddenFor(model => model.EmailId)
-
-        @Html.HiddenFor(model => model.CampusTitle)
-
-        @Html.HiddenFor(model => model.WorkLoc)
-
-        @Html.HiddenFor(model => model.FacStaff)
-
-        @Html.HiddenFor(model => model.CivilServiceTitle)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.FirstName)
+            @Html.LabelFor(model => model.Item1.FirstName)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.FirstName)
-            @Html.ValidationMessageFor(model => model.FirstName)
+            @Html.EditorFor(model => model.Item1.FirstName)
+            @Html.ValidationMessageFor(model => model.Item1.FirstName)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.MiddleName)
+            @Html.LabelFor(model => model.Item1.MiddleName)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.MiddleName)
-            @Html.ValidationMessageFor(model => model.MiddleName)
+            @Html.EditorFor(model => model.Item1.MiddleName)
+            @Html.ValidationMessageFor(model => model.Item1.MiddleName)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.LastName)
+            @Html.LabelFor(model => model.Item1.LastName)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.LastName)
-            @Html.ValidationMessageFor(model => model.LastName)
+            @Html.EditorFor(model => model.Item1.LastName)
+            @Html.ValidationMessageFor(model => model.Item1.LastName)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Suffix)
+            @Html.LabelFor(model => model.Item1.Suffix)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Suffix)
-            @Html.ValidationMessageFor(model => model.Suffix)
+            @Html.EditorFor(model => model.Item1.Suffix)
+            @Html.ValidationMessageFor(model => model.Item1.Suffix)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.OffcBldg)
+            @Html.LabelFor(model => model.Item1.OffcBldg)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.OffcBldg)
-            @Html.ValidationMessageFor(model => model.OffcBldg)
+            @Html.EditorFor(model => model.Item1.OffcBldg)
+            @Html.ValidationMessageFor(model => model.Item1.OffcBldg)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.OffcRoom)
+            @Html.LabelFor(model => model.Item1.OffcRoom)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.OffcRoom)
-            @Html.ValidationMessageFor(model => model.OffcRoom)
+            @Html.EditorFor(model => model.Item1.OffcRoom)
+            @Html.ValidationMessageFor(model => model.Item1.OffcRoom)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.OffcPhone)
+            @Html.LabelFor(model => model.Item1.OffcPhone)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.OffcPhone)
-            @Html.ValidationMessageFor(model => model.OffcPhone)
+            @Html.EditorFor(model => model.Item1.OffcPhone)
+            @Html.ValidationMessageFor(model => model.Item1.OffcPhone)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.SpeedDialExt)
+            @Html.LabelFor(model => model.Item1.SpeedDialExt)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.SpeedDialExt)
-            @Html.ValidationMessageFor(model => model.SpeedDialExt)
+            @Html.EditorFor(model => model.Item1.SpeedDialExt)
+            @Html.ValidationMessageFor(model => model.Item1.SpeedDialExt)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.MailAddrBldg)
+            @Html.LabelFor(model => model.Item1.MailAddrBldg)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.MailAddrBldg)
-            @Html.ValidationMessageFor(model => model.MailAddrBldg)
+            @Html.EditorFor(model => model.Item1.MailAddrBldg)
+            @Html.ValidationMessageFor(model => model.Item1.MailAddrBldg)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.MailAddrRoom)
+            @Html.LabelFor(model => model.Item1.MailAddrRoom)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.MailAddrRoom)
-            @Html.ValidationMessageFor(model => model.MailAddrRoom)
+            @Html.EditorFor(model => model.Item1.MailAddrRoom)
+            @Html.ValidationMessageFor(model => model.Item1.MailAddrRoom)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.AltOffcPhone)
+            @Html.LabelFor(model => model.Item1.AltOffcPhone)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.AltOffcPhone)
-            @Html.ValidationMessageFor(model => model.AltOffcPhone)
+            @Html.EditorFor(model => model.Item1.AltOffcPhone)
+            @Html.ValidationMessageFor(model => model.Item1.AltOffcPhone)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.EmailId)
+            @Html.LabelFor(model => model.Item1.EmailId)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.EmailId)
-            @Html.ValidationMessageFor(model => model.EmailId)
+            @Html.EditorFor(model => model.Item1.EmailId)
+            @Html.ValidationMessageFor(model => model.Item1.EmailId)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.CampusTitle)
+            @Html.LabelFor(model => model.Item1.CampusTitle)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.CampusTitle)
-            @Html.ValidationMessageFor(model => model.CampusTitle)
+            @Html.EditorFor(model => model.Item1.CampusTitle)
+            @Html.ValidationMessageFor(model => model.Item1.CampusTitle)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.CivilServiceTitle)
+            @Html.LabelFor(model => model.Item1.CivilServiceTitle)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.CivilServiceTitle)
-            @Html.ValidationMessageFor(model => model.CivilServiceTitle)
+            @Html.EditorFor(model => model.Item1.CivilServiceTitle)
+            @Html.ValidationMessageFor(model => model.Item1.CivilServiceTitle)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.WorkLoc)
+            @Html.LabelFor(model => model.Item1.WorkLoc)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.WorkLoc)
-            @Html.ValidationMessageFor(model => model.WorkLoc)
+            @Html.EditorFor(model => model.Item1.WorkLoc)
+            @Html.ValidationMessageFor(model => model.Item1.WorkLoc)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ESFAD)
+            @Html.LabelFor(model => model.Item1.ESFAD)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ESFAD)
-            @Html.ValidationMessageFor(model => model.ESFAD)
+            @Html.EditorFor(model => model.Item1.ESFAD)
+            @Html.ValidationMessageFor(model => model.Item1.ESFAD)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.SUAD)
+            @Html.LabelFor(model => model.Item1.SUAD)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.SUAD)
-            @Html.ValidationMessageFor(model => model.SUAD)
+            @Html.EditorFor(model => model.Item1.SUAD)
+            @Html.ValidationMessageFor(model => model.Item1.SUAD)
         </div>
 
         <p>
@@ -192,7 +159,7 @@
 }
 
 <div>
-    @Html.ActionLink("Cancel", "ManageNonHRFaculty", "Home", new { profileId = @ViewBag.ProfileId }, new {@class="ui-widget-header ui-corner-all"})
+    @Html.ActionLink("Cancel", "ManageNonHRFaculty", "Home", new { profileId = @Model.Item2.ProfileId  }, new {@class="ui-widget-header ui-corner-all"})
 </div>
 
 @section Scripts {

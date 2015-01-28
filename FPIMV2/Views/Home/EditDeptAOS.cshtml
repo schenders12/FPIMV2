@@ -3,6 +3,7 @@
     ViewBag.Title = "EditDeptAOS";
 }
 <h2>Departmental Associations and Areas of Study</h2>
+@Html.Partial("WelcomeBox", Model) 
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()

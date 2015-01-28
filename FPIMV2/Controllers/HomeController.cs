@@ -254,6 +254,10 @@ namespace FPIMV2.Controllers
             // ViewBag.LinkURL = fullPath;
             ViewBag.LinkURL = "";
             Console.Write("Adding New Page");
+
+            FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileID);
+            profile.FacultyPages.Add(myPage);
+
             return View(myPage);
         }
         // *** Add an external page ***
@@ -264,6 +268,10 @@ namespace FPIMV2.Controllers
             myPage.FacultyPageId = -1;
             myPage.PageTitle = "";
             Console.Write("Adding New External Page");
+
+            FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileID);
+            profile.FacultyPages.Add(myPage);
+
             return View(myPage);
         }
 
@@ -514,6 +522,7 @@ namespace FPIMV2.Controllers
         {
             string profileID = Request.Form["profileID"];
             string modType = Request.Form["ModuleType"];
+
             switch (modType)
             {
                 case "HTML":
@@ -530,11 +539,14 @@ namespace FPIMV2.Controllers
         [HttpGet]
         public ActionResult AddHTMLModule(string profileID)
         {
+            FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileID);
             FacultyProfileModule htmlMod = new FacultyProfileModule();
             htmlMod.ProfileId = profileID;
             htmlMod.FacultyPageId = -1;
             htmlMod.ModuleType = "HTML";
             htmlMod.DisplayOrder = -1;
+
+            profile.FacultyProfileModules.Add(htmlMod);
             Console.Write("Adding Faculty Module of type HTML");
 
             return View(htmlMod);
@@ -665,33 +677,6 @@ namespace FPIMV2.Controllers
                 }
             }
             return RedirectToAction("ManageModules", new { profileId = module.ProfileId });
-        }
-
-        // Faculty/Staff Department Associations and Areas of Study
-        [HttpGet]
-        public ActionResult EditAssoc(string id)
-        {
-            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.UserId == id);
-            //  List<spFetchFacultyAOSAssocList_Result> depts = db.spFetchFacultyAOSAssocList(myProfile.UserId,myProfile.ESFAD,myProfile.SUAD).ToList();
-            //List<spFetchFacultyAOSList_Result> aos = db.spFetchFacultyAOSList(myProfile.UserId, myProfile.ESFAD, myProfile.SUAD).ToList();
-            // ViewBag.profileId = myProfile.ProfileId;
-            // ViewBag.userID = myProfile.UserId;
-            //return View(depts);
-            return null;
-        }
-        [HttpPost]
-        public ActionResult EditAssoc(spFetchFacultyAOSAssocList_Result updatedAssoc)
-        {
-            string assoc = Request.Form["assoc"];
-            string id = Request.Form["userID"];
-            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.UserId == id);
-            fns.ProcessAssociation(myProfile.UserId, myProfile.ESFAD, myProfile.SUAD, assoc);
-
-            if (ModelState.IsValid)
-            {
-                db.SaveChanges();
-            }
-            return RedirectToAction("AdminIndex", new { profileId = myProfile.ProfileId });
         }
 
         // Faculty/Staff Dept Associations/Areas of Study (AOS)
@@ -935,13 +920,13 @@ namespace FPIMV2.Controllers
         [HttpGet]
         public ActionResult ManuallyAddFaculty(string profileId)
         {
-            ViewBag.profileID = profileId;
-            return View();
-
+            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
+            AddFacStaff facultyAdd = new AddFacStaff();
+            return View(Tuple.Create(facultyAdd, myProfile));
         }
 
         [HttpPost]
-        public ActionResult ManuallyAddFaculty(AddFacStaff facultyMember)
+        public ActionResult ManuallyAddFaculty(Tuple<AddFacStaff, FacultyProfile> tuple)
         {
             string profileId = Request.Form["profileId"];
             string fac = "F";
@@ -950,26 +935,26 @@ namespace FPIMV2.Controllers
             {
                 AddFacStaff facultyUpdate = new AddFacStaff();
 
-                // Save modified data
-                facultyUpdate.UserId = facultyMember.UserId;
-                facultyUpdate.LastName = facultyMember.LastName;
-                facultyUpdate.FirstName = facultyMember.FirstName;
-                facultyUpdate.MiddleName = (facultyMember.MiddleName != null) ? facultyMember.MiddleName : "";
-                facultyUpdate.Suffix = (facultyMember.Suffix != null) ? facultyMember.Suffix : "";
-                facultyUpdate.OffcBldg = (facultyMember.OffcBldg != null) ? facultyMember.OffcBldg : "";
-                facultyUpdate.OffcRoom = (facultyMember.OffcRoom != null) ? facultyMember.OffcRoom : "";
-                facultyUpdate.OffcPhone = (facultyMember.OffcPhone != null) ? facultyMember.OffcPhone : "";
-                facultyUpdate.SpeedDialExt = (facultyMember.SpeedDialExt != null) ? facultyMember.SpeedDialExt : "";
-                facultyUpdate.MailAddrBldg = (facultyMember.MailAddrBldg != null) ? facultyMember.MailAddrBldg : "";
-                facultyUpdate.MailAddrRoom = (facultyMember.MailAddrRoom != null) ? facultyMember.MailAddrRoom : "";
-                facultyUpdate.AltOffcPhone = (facultyMember.AltOffcPhone != null) ? facultyMember.AltOffcPhone : "";
-                facultyUpdate.EmailId = (facultyMember.EmailId != null) ? facultyMember.EmailId : "";
-                facultyUpdate.CampusTitle = (facultyMember.CampusTitle != null) ? facultyMember.CampusTitle : "";
-                facultyUpdate.WorkLoc = (facultyMember.WorkLoc != null) ? facultyMember.WorkLoc : "";
+                // Save data
+                facultyUpdate.UserId = tuple.Item1.UserId;
+                facultyUpdate.LastName = tuple.Item1.LastName;
+                facultyUpdate.FirstName = tuple.Item1.FirstName;
+                facultyUpdate.MiddleName = (tuple.Item1.MiddleName != null) ? tuple.Item1.MiddleName : "";
+                facultyUpdate.Suffix = (tuple.Item1.Suffix != null) ? tuple.Item1.Suffix : "";
+                facultyUpdate.OffcBldg = (tuple.Item1.OffcBldg != null) ? tuple.Item1.OffcBldg : "";
+                facultyUpdate.OffcRoom = (tuple.Item1.OffcRoom != null) ? tuple.Item1.OffcRoom : "";
+                facultyUpdate.OffcPhone = (tuple.Item1.OffcPhone != null) ? tuple.Item1.OffcPhone : "";
+                facultyUpdate.SpeedDialExt = (tuple.Item1.SpeedDialExt != null) ? tuple.Item1.SpeedDialExt : "";
+                facultyUpdate.MailAddrBldg = (tuple.Item1.MailAddrBldg != null) ? tuple.Item1.MailAddrBldg : "";
+                facultyUpdate.MailAddrRoom = (tuple.Item1.MailAddrRoom != null) ? tuple.Item1.MailAddrRoom : "";
+                facultyUpdate.AltOffcPhone = (tuple.Item1.AltOffcPhone != null) ? tuple.Item1.AltOffcPhone : "";
+                facultyUpdate.EmailId = (tuple.Item1.EmailId != null) ? tuple.Item1.EmailId : "";
+                facultyUpdate.CampusTitle = (tuple.Item1.CampusTitle != null) ? tuple.Item1.CampusTitle : "";
+                facultyUpdate.WorkLoc = (tuple.Item1.WorkLoc != null) ? tuple.Item1.WorkLoc : "";
                 facultyUpdate.FacStaff = fac;
-                facultyUpdate.CivilServiceTitle = (facultyMember.CivilServiceTitle != null) ? facultyMember.CivilServiceTitle : "";
-                facultyUpdate.ESFAD = (facultyMember.ESFAD != null) ? facultyMember.ESFAD : "";
-                facultyUpdate.SUAD = (facultyMember.SUAD != null) ? facultyMember.SUAD : "";
+                facultyUpdate.CivilServiceTitle = (tuple.Item1.CivilServiceTitle != null) ? tuple.Item1.CivilServiceTitle : "";
+                facultyUpdate.ESFAD = (tuple.Item1.ESFAD != null) ? tuple.Item1.ESFAD : "";
+                facultyUpdate.SUAD = (tuple.Item1.SUAD != null) ? tuple.Item1.SUAD : "";
 
                 db.AddFacStaffs.AddObject(facultyUpdate);
                 db.SaveChanges();
@@ -983,54 +968,56 @@ namespace FPIMV2.Controllers
         public ActionResult ManuallyUpdateFaculty(string userId, string profileId)
         {
             AddFacStaff facultyMod = db.AddFacStaffs.SingleOrDefault(m => m.UserId == userId);
-            ViewBag.profileID = profileId;
-            return View(facultyMod);
+            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
+            return View(Tuple.Create(facultyMod, myProfile));
 
         }
 
         [HttpPost]
-        public ActionResult ManuallyUpdateFaculty(AddFacStaff facultyMember)
+        public ActionResult ManuallyUpdateFaculty(Tuple<AddFacStaff, FacultyProfile> tuple)
         {
             string profileId = Request.Form["profileId"];
+            string fac = "F";
 
             if (ModelState.IsValid)
             {
-                AddFacStaff facultyUpdate = new AddFacStaff();
-                facultyUpdate = db.AddFacStaffs.Single(m => m.UserId == facultyMember.UserId);
+                //AddFacStaff facultyUpdate = new AddFacStaff();
+                AddFacStaff facultyUpdate = db.AddFacStaffs.Single(m => m.UserId == tuple.Item1.UserId);
 
                 // Save modified data
-                facultyUpdate.LastName = facultyMember.LastName;
-                facultyUpdate.FirstName = facultyMember.FirstName;
-                facultyUpdate.MiddleName = facultyMember.MiddleName;
-                facultyUpdate.Suffix = facultyMember.Suffix;
-                facultyUpdate.OffcBldg = facultyMember.OffcBldg;
-                facultyUpdate.OffcRoom = facultyMember.OffcRoom;
-                facultyUpdate.OffcPhone = facultyMember.OffcPhone;
-                facultyUpdate.SpeedDialExt = facultyMember.SpeedDialExt;
-                facultyUpdate.MailAddrBldg = facultyMember.MailAddrBldg;
-                facultyUpdate.MailAddrRoom = facultyMember.MailAddrRoom;
-                facultyUpdate.AltOffcPhone = facultyMember.AltOffcPhone;
-                facultyUpdate.EmailId = facultyMember.EmailId;
-                facultyUpdate.CampusTitle = facultyMember.CampusTitle;
-                facultyUpdate.WorkLoc = facultyMember.WorkLoc;
-                facultyUpdate.FacStaff = facultyMember.FacStaff;
-                facultyUpdate.CivilServiceTitle = facultyMember.CivilServiceTitle;
-                facultyUpdate.ESFAD = facultyMember.ESFAD;
-                facultyUpdate.SUAD = facultyMember.SUAD;
+                facultyUpdate.LastName = tuple.Item1.LastName;
+                facultyUpdate.FirstName = tuple.Item1.FirstName;
+                facultyUpdate.MiddleName = (tuple.Item1.MiddleName != null) ? tuple.Item1.MiddleName : "";
+                facultyUpdate.Suffix = (tuple.Item1.Suffix != null) ? tuple.Item1.Suffix : "";
+                facultyUpdate.OffcBldg = (tuple.Item1.OffcBldg != null) ? tuple.Item1.OffcBldg : "";
+                facultyUpdate.OffcRoom = (tuple.Item1.OffcRoom != null) ? tuple.Item1.OffcRoom : "";
+                facultyUpdate.OffcPhone = (tuple.Item1.OffcPhone != null) ? tuple.Item1.OffcPhone : "";
+                facultyUpdate.SpeedDialExt = (tuple.Item1.SpeedDialExt != null) ? tuple.Item1.SpeedDialExt : "";
+                facultyUpdate.MailAddrBldg = (tuple.Item1.MailAddrBldg != null) ? tuple.Item1.MailAddrBldg : "";
+                facultyUpdate.MailAddrRoom = (tuple.Item1.MailAddrRoom != null) ? tuple.Item1.MailAddrRoom : "";
+                facultyUpdate.AltOffcPhone = (tuple.Item1.AltOffcPhone != null) ? tuple.Item1.AltOffcPhone : "";
+                facultyUpdate.EmailId = (tuple.Item1.EmailId != null) ? tuple.Item1.EmailId : "";
+                facultyUpdate.CampusTitle = (tuple.Item1.CampusTitle != null) ? tuple.Item1.CampusTitle : "";
+                facultyUpdate.WorkLoc = (tuple.Item1.WorkLoc != null) ? tuple.Item1.WorkLoc : "";
+                facultyUpdate.FacStaff = fac;
+                facultyUpdate.CivilServiceTitle = (tuple.Item1.CivilServiceTitle != null) ? tuple.Item1.CivilServiceTitle : "";
+                facultyUpdate.ESFAD = (tuple.Item1.ESFAD != null) ? tuple.Item1.ESFAD : "";
+                facultyUpdate.SUAD = (tuple.Item1.SUAD != null) ? tuple.Item1.SUAD : "";
 
                 db.SaveChanges();
             }
 
-            return RedirectToAction("ManageNonHRFaculty", new { profileId = profileId });
-
+             return RedirectToAction("ManageNonHRFaculty", new { profileId = profileId });
         }
 
         [HttpGet]
         public ActionResult ManageNonHRFaculty(string profileId)
         {
-            List<AddFacStaff> MyList = db.AddFacStaffs.ToList();
+            IEnumerable<AddFacStaff> myList = db.AddFacStaffs.ToList();
             ViewBag.ProfileId = profileId;
-            return View(MyList);
+            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
+
+            return View(Tuple.Create(myList, myProfile));
 
         }
 

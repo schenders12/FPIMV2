@@ -1,24 +1,17 @@
 ﻿@model Tuple<FPIMV2.Models.AddFacStaff, FPIMV2.Models.FacultyProfile>
+
 @{
-    ViewBag.Title = "ManuallyAddFaculty";
+    ViewBag.Title = "ManuallyUpdateFaculty";
 }
-@Html.Partial("WelcomeBox", Model.Item2) 
-<h2>Manually Add a Faculty Member</h2>
+@Html.Partial("WelcomeBox", Model.Item2)
+<h2>Manually Update a Faculty Member</h2>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    <input id="profileId" name="profileId" type="hidden" value="@Model.Item2.ProfileId" />
+
     <fieldset>
         <legend>AddFacStaff</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Item1.UserId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Item1.UserId)
-            @Html.ValidationMessageFor(model => model.Item1.UserId)
-        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Item1.FirstName)
@@ -163,7 +156,7 @@
 }
 
 <div>
-    @Html.ActionLink("Cancel", "ManageNonHRFaculty", "Home", new { profileId = @Model.Item2.ProfileId }, new {@class="ui-widget-header ui-corner-all"})
+    @Html.ActionLink("Cancel", "ManageNonHRFaculty", "Home", new { profileId = @Model.Item2.ProfileId  }, new {@class="ui-widget-header ui-corner-all"})
 </div>
 
 @section Scripts {

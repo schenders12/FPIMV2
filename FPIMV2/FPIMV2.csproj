@@ -175,6 +175,7 @@
     <Compile Include="Helpers\SSI.cs" />
     <Compile Include="Models\ManageFilesMetaData.cs" />
     <Compile Include="Models\ProfilePhoto.cs" />
+    <Compile Include="Models\TupleModelBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -343,7 +344,6 @@
     <Content Include="Views\Home\ChoosePageTypePartial.cshtml" />
     <Content Include="Views\Home\DeleteModulePartial.cshtml" />
     <Content Include="Views\Home\DeletePagePartial.cshtml" />
-    <Content Include="Views\Home\EditAssoc.cshtml" />
     <Content Include="Views\Home\EditDeptAOS.cshtml" />
     <Content Include="Views\Home\EditFacultyModule.cshtml" />
     <Content Include="Views\Home\EditFacultyPage.cshtml" />

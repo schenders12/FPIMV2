@@ -4,6 +4,7 @@
     ViewBag.Title = "Add a Faculty Page";
     Model.LinkURL = ViewBag.LinkURL;
 }
+@Html.Partial("WelcomeBox", Model.FacultyProfile) 
 <h2>Add a Page:</h2> 
 <h3>Drag modules from the column on the left to the page on the right.  If there are no modules to drag, you have no modules and must create some.</h3>
 @using (Html.BeginForm()) {

@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Module Editor";
 }
-
+@Html.Partial("WelcomeBox", Model.FacultyProfile)
 <h2>You are editing the <strong>@Model.ModuleTitle</strong> module.</h2>
 
 @using (Html.BeginForm())

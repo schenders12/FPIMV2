@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Add an external link to your webpage";
 }
-
+@Html.Partial("WelcomeBox", Model.FacultyProfile) 
 <h2>AddFacultyExternalLink</h2>
 
 @using (Html.BeginForm()) {

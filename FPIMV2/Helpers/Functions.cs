@@ -267,6 +267,7 @@ namespace FPIMV2.Helpers
             }
             return output;
         }
+
         public static string FixTitle(string CampusTitle, string CivilServiceTitle, string lastName)
         {
             string output = "";
@@ -731,6 +732,32 @@ namespace FPIMV2.Helpers
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        // Get an employee record from the DB
+        public static string GetEmployeeWelcomeString(string userId, string suad, string esfad, string firstname = null, string lastname = null)
+        {
+            PeopleEntities db = new PeopleEntities();
+            CommEmployee employee;
+            string output = "";
+            try
+            {
+                // Get the employee record by user id
+                // User has a profile, look up Employee record
+                employee = db.CommEmployees.SingleOrDefault(m => m.UserId == userId || m.EmailId == esfad + "@esf.edu%" || m.EmailId == suad + "@syr.edu%");
+                //employee = db.CommEmployees.SingleOrDefault(m => m.UserId == userId);
+                if (employee == null)
+                {
+                    // User does not have a user id, find the employee by first name/last name
+                    employee = db.CommEmployees.Single(m => m.FirstName == firstname && m.LastName == lastname);
+                }
+                output = employee.FirstName + " " + employee.LastName;
+                return output;
+            }
+            catch (Exception ex)
+            {
+                return output;
             }
         }
 
