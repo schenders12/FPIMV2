@@ -8,7 +8,14 @@
 <style>
 th, td { vertical-align: top}
 </style>
-<h3>Select the faculty member whose records you would like to edit.</h3>
+<h3>Select the faculty member whose pages/modules you would like to edit.</h3>
+<h4>Location, phone and emails must be modified by the faculty member through the <a href="http://www.esf.edu/portals/"> Faculty/Staff portal.</a></h4>
+<h4>Main departments must be modified though HR.</h4>
+
+<div>
+@Html.ActionLink("Done", "AdminIndex", "Home", new { profileId = @ViewBag.ProfileId }, new {@class="ui-widget-header ui-corner-all"})
+</div>
+
 <table>
     <tr>
             <th class="twelve bggray"><strong>Faculty</strong></th>
@@ -41,6 +48,3 @@ th, td { vertical-align: top}
 }
 </table>
 
-<div>
-@Html.ActionLink("Done", "AdminIndex", "Home", new { profileId = @ViewBag.ProfileId }, new {@class="ui-widget-header ui-corner-all"})
-</div>

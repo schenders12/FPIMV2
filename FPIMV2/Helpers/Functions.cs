@@ -720,8 +720,7 @@ namespace FPIMV2.Helpers
             {
                 // Get the employee record by user id
                 // User has a profile, look up Employee record
-                employee = db.CommEmployees.SingleOrDefault(m => m.UserId == userId || m.EmailId == esfad + "@esf.edu%" || m.EmailId == suad + "@syr.edu%");
-                //employee = db.CommEmployees.SingleOrDefault(m => m.UserId == userId);
+                employee = db.CommEmployees.SingleOrDefault(m => m.EmailId == "@esf.edu" || m.EmailId == suad + "@syr.edu" || m.UserId == userId);
                 if (employee == null)
                 {
                     // User does not have a user id, find the employee by first name/last name
@@ -734,7 +733,28 @@ namespace FPIMV2.Helpers
                 return null;
             }
         }
-
+        // Get an employee record from Additional Fac/Staff DB
+        public static AddFacStaff GetAddFacStaff(string userId, string suad, string esfad, string firstname = null, string lastname = null)
+        {
+            PeopleEntities db = new PeopleEntities();
+            AddFacStaff employee;
+            try
+            {
+                // Get the employee record by user id
+                // User has a profile, look up Employee record
+                employee = db.AddFacStaffs.SingleOrDefault(m => m.UserId == userId || m.EmailId == esfad + "@esf.edu%" || m.EmailId == suad + "@syr.edu%");
+                if (employee == null)
+                {
+                    // User does not have a user id, find the employee by first name/last name
+                    employee = db.AddFacStaffs.Single(m => m.FirstName == firstname && m.LastName == lastname);
+                }
+                return employee;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         // Get an employee record from the DB
         public static string GetEmployeeWelcomeString(string userId, string suad, string esfad, string firstname = null, string lastname = null)
         {

@@ -48,15 +48,17 @@ namespace FPIMV2.Controllers
 
             // Get Employee record
             CommEmployee employee = fns.GetEmployee(id, suad, esfad, firstname, lastname);
+            AddFacStaff addFacStaff = null;
             if (employee == null)
             {
-                return null;
+               // return null;
+               addFacStaff = fns.GetAddFacStaff(id, suad, esfad, firstname, lastname);
             }
 
             FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.UserId == id);
             if (profile == null)
             {
-                // User does not have a profile, create one
+                // User does not have a profile, create one from existing data in ProfileErratta table
                 // If a profile already exists with this last name, create firstname.lastname profile
                 FacultyProfile p = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == lastname);
                 string profileID = null;
@@ -73,23 +75,27 @@ namespace FPIMV2.Controllers
                 profile = db.FacultyProfiles.SingleOrDefault(m => m.UserId == id);
 
             }
+            string firstName = (employee != null) ? employee.FirstName : addFacStaff.FirstName;
+            string lastName = (employee != null) ? employee.LastName : addFacStaff.LastName;
+            string middleName = (employee != null) ? employee.MiddleName : addFacStaff.MiddleName;
+            string userId = (employee != null) ? employee.UserId : addFacStaff.UserId;
 
             if (id != User.Identity.Name)
             {
-                ViewBag.WelcomeMsg = "Editing for " + employee.FirstName + " " + employee.LastName;
+                ViewBag.WelcomeMsg = "Editing for " + firstName + " " + lastName;
             }
             else
             {
-                ViewBag.WelcomeMsg = "Welcome, " + employee.FirstName + " " + employee.LastName + "!";
+                ViewBag.WelcomeMsg = "Welcome, " + firstName + " " + lastName + "!";
             }
 
-            ViewBag.fname = employee.FirstName;
-            ViewBag.lname = employee.LastName;
-            ViewBag.userid = employee.UserId;
-            if (employee.MiddleName != "")
-                ViewBag.PTitle = "SUNY-ESF: " + employee.FirstName + " " + employee.MiddleName + " " + employee.LastName + " - " + "Profile";
+            ViewBag.fname = firstName;
+            ViewBag.lname = lastName;
+            ViewBag.userid = userId;
+            if (middleName != "")
+                ViewBag.PTitle = "SUNY-ESF: " + firstName + " " + middleName + " " + lastName + " - " + "Profile";
             else
-                ViewBag.PTitle = "SUNY-ESF: " + employee.FirstName + " " + employee.LastName + " - " + "Profile";
+                ViewBag.PTitle = "SUNY-ESF: " + firstName + " " + lastName + " - " + "Profile";
             ViewBag.PageTitle = "Profile";
 
             ViewBag.profileId = profile.ProfileId;
@@ -107,23 +113,33 @@ namespace FPIMV2.Controllers
             FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
             // Get Employee record
             CommEmployee employee = fns.GetEmployee(profile.UserId, profile.SUAD, profile.ESFAD);
+            AddFacStaff addFacStaff = null;
+            if (employee == null)
+            {
+                // return null;
+                addFacStaff = fns.GetAddFacStaff(profile.UserId, profile.SUAD, profile.ESFAD );
+            }
+            string firstName = (employee != null) ? employee.FirstName : addFacStaff.FirstName;
+            string lastName = (employee != null) ? employee.LastName : addFacStaff.LastName;
+            string middleName = (employee != null) ? employee.MiddleName : addFacStaff.MiddleName;
+            string userId = (employee != null) ? employee.UserId : addFacStaff.UserId;
 
             if (profile.UserId != User.Identity.Name)
             {
-                ViewBag.WelcomeMsg = "Editing for " + employee.FirstName + " " + employee.LastName;
+                ViewBag.WelcomeMsg = "Editing for " + firstName + " " + lastName;
             }
             else
             {
-                ViewBag.WelcomeMsg = "Welcome, " + employee.FirstName + " " + employee.LastName + "!";
+                ViewBag.WelcomeMsg = "Welcome, " + firstName + " " + lastName + "!";
             }
 
-            ViewBag.fname = employee.FirstName;
-            ViewBag.lname = employee.LastName;
-            ViewBag.userid = employee.UserId;
-            if (employee.MiddleName != "")
-                ViewBag.PTitle = "SUNY-ESF: " + employee.FirstName + " " + employee.MiddleName + " " + employee.LastName + " - " + "Profile";
+            ViewBag.fname = firstName;
+            ViewBag.lname = lastName;
+            ViewBag.userid = userId;
+            if (middleName != "")
+                ViewBag.PTitle = "SUNY-ESF: " + firstName + " " + middleName + " " + lastName + " - " + "Profile";
             else
-                ViewBag.PTitle = "SUNY-ESF: " + employee.FirstName + " " + employee.LastName + " - " + "Profile";
+                ViewBag.PTitle = "SUNY-ESF: " + firstName + " " + lastName + " - " + "Profile";
             ViewBag.PageTitle = "Profile";
 
             ViewBag.profileId = profile.ProfileId;
@@ -157,9 +173,19 @@ namespace FPIMV2.Controllers
         public ActionResult SubmitPhoto(string profileId)
         {
             FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
-            CommEmployee employee = db.CommEmployees.Single(m => m.UserId == myProfile.UserId || m.EmailId == myProfile.ESFAD + "@esf.edu%" || m.EmailId == myProfile.ESFAD + "@syr.edu%");
+            // Get Employee record
+            CommEmployee employee = fns.GetEmployee(myProfile.UserId, myProfile.SUAD, myProfile.ESFAD);
+            AddFacStaff addFacStaff = null;
+            if (employee == null)
+            {
+                // return null;
+                addFacStaff = fns.GetAddFacStaff(myProfile.UserId, myProfile.SUAD, myProfile.ESFAD);
+            }
+            string firstName = (employee != null) ? employee.FirstName : addFacStaff.FirstName;
+            string lastName = (employee != null) ? employee.LastName : addFacStaff.LastName;
+            string eMail = (employee != null) ? employee.EmailId : addFacStaff.EmailId;
 
-            ProfilePhoto myPhoto = new ProfilePhoto(profileId, employee.FirstName, employee.LastName, employee.EmailId);
+            ProfilePhoto myPhoto = new ProfilePhoto(profileId, firstName, lastName, eMail);
             return View(myPhoto);
         }
         [HttpPost]
@@ -370,44 +396,7 @@ namespace FPIMV2.Controllers
         [HttpGet]
         public ActionResult ViewMainFacultyPage(string profileId, string fname, string lname)
         {
-            // Redirect to viewer 
-            FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
-            // Get Employee record
-            CommEmployee employee = fns.GetEmployee(profile.UserId, profile.SUAD, profile.ESFAD, fname, lname);
-            if (employee == null)
-            {
-                return null;
-            }
-            else
-            {
-                int pageId = fns.GetMainPage(profileId, "Main");
-                ViewBag.fname = employee.FirstName;
-                ViewBag.lname = employee.LastName;
-                ViewBag.userid = employee.UserId;
-                if (employee.MiddleName != "")
-                    ViewBag.PTitle = "SUNY-ESF: " + employee.FirstName + " " + employee.MiddleName + " " + employee.LastName + " - " + "Profile";
-                else
-                    ViewBag.PTitle = "SUNY-ESF: " + employee.FirstName + " " + employee.LastName + " - " + "Profile";
-                ViewBag.PageTitle = "Main";
-
-                ViewBag.profileId = profile.ProfileId;
-
-                List<FacultyPage> pages = db.FacultyPages.Where(m => m.ProfileId == profileId).ToList();
-                FacultyPage page = pages.Find(m => m.FacultyPageId == pageId);
-                // Set the department to display the correct banner
-                ControllerContext.RouteData.Values["dept"] = profile.Department;
-                ViewBag.PageId = pageId;
-                ViewBag.dept = profile.Department;
-
-                if (page.LinkURL == null || page.LinkURL == "")
-                {
-                    return View("ViewFacultyPage", profile);
-                }
-                else
-                {
-                    return Redirect(page.LinkURL);
-                }
-            }
+            return null;
 
         }
         // *** View a Page ***
@@ -688,16 +677,18 @@ namespace FPIMV2.Controllers
 
             // Get Employee record
             CommEmployee employee = fns.GetEmployee(myProfile.UserId, myProfile.SUAD, myProfile.ESFAD);
-            if (employee != null)
+            AddFacStaff addFacStaff = null;
+            if (employee == null)
             {
-                ViewBag.FirstName = employee.FirstName;
-                ViewBag.LastName = employee.LastName;
+                // return null;
+                addFacStaff = fns.GetAddFacStaff(myProfile.UserId, myProfile.SUAD, myProfile.ESFAD);
             }
-            else
-            {
-                ViewBag.FirstName = myProfile.UserId;
-                ViewBag.LastName = "  ";
-            }
+            string firstName = (employee != null) ? employee.FirstName : addFacStaff.FirstName;
+            string lastName = (employee != null) ? employee.LastName : addFacStaff.LastName;
+
+            ViewBag.FirstName = firstName;
+            ViewBag.LastName = lastName;
+
             List<FacultyDept> myDepts = db.FacultyDepts.Where(m => m.UserId == myProfile.UserId).ToList();
             List<spFetchFacultyAOSAssocList_Result> myAOSs = db.spFetchFacultyAOSAssocList(myProfile.UserId, myProfile.ESFAD, myProfile.SUAD).ToList();
 
@@ -1021,6 +1012,31 @@ namespace FPIMV2.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult ManuallyDeleteFaculty(string userId, string profileId)
+        {
+            AddFacStaff facultyMod = db.AddFacStaffs.SingleOrDefault(m => m.UserId == userId);
+            ViewBag.ProfileId = profileId;
+            return View(facultyMod);
+
+        }
+        [HttpPost]
+        public ActionResult ManuallyDeleteFaculty(AddFacStaff fac)
+        {
+            string profileId = Request.Form["profileId"];
+            string UserId = Request.Form["UserId"];
+
+            if (ModelState.IsValid)
+            {
+                // Retrieve and delete the record
+                AddFacStaff facultyDelete = db.AddFacStaffs.Single(m => m.UserId == UserId);
+                db.DeleteObject(facultyDelete);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("ManageNonHRFaculty", new { profileId = profileId });
+
+        }
     }
 
 }

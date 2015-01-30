@@ -364,6 +364,7 @@
     <Content Include="Views\Home\ManageNonHRFaculty.cshtml" />
     <Content Include="Views\Home\ManuallyUpdateFaculty.cshtml" />
     <Content Include="Views\Home\ManuallyAddFaculty.cshtml" />
+    <Content Include="Views\Home\ManuallyDeleteFaculty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

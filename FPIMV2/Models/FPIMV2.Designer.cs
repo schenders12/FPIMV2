@@ -248,6 +248,22 @@ namespace FPIMV2.Models
             }
         }
         private ObjectSet<FacultyAreasXRef> _FacultyAreasXRefs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ProfileMod> ProfileMods
+        {
+            get
+            {
+                if ((_ProfileMods == null))
+                {
+                    _ProfileMods = base.CreateObjectSet<ProfileMod>("ProfileMods");
+                }
+                return _ProfileMods;
+            }
+        }
+        private ObjectSet<ProfileMod> _ProfileMods;
 
         #endregion
 
@@ -339,6 +355,14 @@ namespace FPIMV2.Models
         public void AddToFacultyAreasXRefs(FacultyAreasXRef facultyAreasXRef)
         {
             base.AddObject("FacultyAreasXRefs", facultyAreasXRef);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ProfileMods EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProfileMods(ProfileMod profileMod)
+        {
+            base.AddObject("ProfileMods", profileMod);
         }
 
         #endregion
@@ -3978,6 +4002,299 @@ namespace FPIMV2.Models
         private global::System.String _ReconciledAreas;
         partial void OnReconciledAreasChanging(global::System.String value);
         partial void OnReconciledAreasChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="PeopleModel", Name="ProfileMod")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ProfileMod : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ProfileMod object.
+        /// </summary>
+        /// <param name="modId">Initial value of the ModId property.</param>
+        /// <param name="recId">Initial value of the RecId property.</param>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="dispOrder">Initial value of the DispOrder property.</param>
+        /// <param name="moduleType">Initial value of the ModuleType property.</param>
+        public static ProfileMod CreateProfileMod(global::System.Int32 modId, global::System.Int32 recId, global::System.String userId, global::System.Int32 dispOrder, global::System.String moduleType)
+        {
+            ProfileMod profileMod = new ProfileMod();
+            profileMod.ModId = modId;
+            profileMod.RecId = recId;
+            profileMod.UserId = userId;
+            profileMod.DispOrder = dispOrder;
+            profileMod.ModuleType = moduleType;
+            return profileMod;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ModId
+        {
+            get
+            {
+                return _ModId;
+            }
+            set
+            {
+                if (_ModId != value)
+                {
+                    OnModIdChanging(value);
+                    ReportPropertyChanging("ModId");
+                    _ModId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ModId");
+                    OnModIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ModId;
+        partial void OnModIdChanging(global::System.Int32 value);
+        partial void OnModIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RecId
+        {
+            get
+            {
+                return _RecId;
+            }
+            set
+            {
+                if (_RecId != value)
+                {
+                    OnRecIdChanging(value);
+                    ReportPropertyChanging("RecId");
+                    _RecId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("RecId");
+                    OnRecIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _RecId;
+        partial void OnRecIdChanging(global::System.Int32 value);
+        partial void OnRecIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.String _UserId;
+        partial void OnUserIdChanging(global::System.String value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DispOrder
+        {
+            get
+            {
+                return _DispOrder;
+            }
+            set
+            {
+                if (_DispOrder != value)
+                {
+                    OnDispOrderChanging(value);
+                    ReportPropertyChanging("DispOrder");
+                    _DispOrder = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("DispOrder");
+                    OnDispOrderChanged();
+                }
+            }
+        }
+        private global::System.Int32 _DispOrder;
+        partial void OnDispOrderChanging(global::System.Int32 value);
+        partial void OnDispOrderChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ModuleType
+        {
+            get
+            {
+                return _ModuleType;
+            }
+            set
+            {
+                if (_ModuleType != value)
+                {
+                    OnModuleTypeChanging(value);
+                    ReportPropertyChanging("ModuleType");
+                    _ModuleType = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("ModuleType");
+                    OnModuleTypeChanged();
+                }
+            }
+        }
+        private global::System.String _ModuleType;
+        partial void OnModuleTypeChanging(global::System.String value);
+        partial void OnModuleTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ModTitle
+        {
+            get
+            {
+                return _ModTitle;
+            }
+            set
+            {
+                OnModTitleChanging(value);
+                ReportPropertyChanging("ModTitle");
+                _ModTitle = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ModTitle");
+                OnModTitleChanged();
+            }
+        }
+        private global::System.String _ModTitle;
+        partial void OnModTitleChanging(global::System.String value);
+        partial void OnModTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ModData
+        {
+            get
+            {
+                return _ModData;
+            }
+            set
+            {
+                OnModDataChanging(value);
+                ReportPropertyChanging("ModData");
+                _ModData = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ModData");
+                OnModDataChanged();
+            }
+        }
+        private global::System.String _ModData;
+        partial void OnModDataChanging(global::System.String value);
+        partial void OnModDataChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SUAD
+        {
+            get
+            {
+                return _SUAD;
+            }
+            set
+            {
+                OnSUADChanging(value);
+                ReportPropertyChanging("SUAD");
+                _SUAD = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("SUAD");
+                OnSUADChanged();
+            }
+        }
+        private global::System.String _SUAD;
+        partial void OnSUADChanging(global::System.String value);
+        partial void OnSUADChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ESFAD
+        {
+            get
+            {
+                return _ESFAD;
+            }
+            set
+            {
+                OnESFADChanging(value);
+                ReportPropertyChanging("ESFAD");
+                _ESFAD = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ESFAD");
+                OnESFADChanged();
+            }
+        }
+        private global::System.String _ESFAD;
+        partial void OnESFADChanging(global::System.String value);
+        partial void OnESFADChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> FacultyPageId
+        {
+            get
+            {
+                return _FacultyPageId;
+            }
+            set
+            {
+                OnFacultyPageIdChanging(value);
+                ReportPropertyChanging("FacultyPageId");
+                _FacultyPageId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FacultyPageId");
+                OnFacultyPageIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _FacultyPageId;
+        partial void OnFacultyPageIdChanging(Nullable<global::System.Int32> value);
+        partial void OnFacultyPageIdChanged();
 
         #endregion
 

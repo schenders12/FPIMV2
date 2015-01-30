@@ -1,0 +1,26 @@
+﻿@model FPIMV2.Models.AddFacStaff
+
+<h3>Are you sure you want to delete this Faculty member?</h3>
+
+<fieldset>
+   <legend></legend>
+
+   <h3><strong>
+@{
+    HtmlString faculty = new HtmlString(@Model.FirstName + " " + @Model.LastName + ", Campus Title: " + @Model.CampusTitle);
+  @faculty
+}
+
+
+   </strong></h3>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.UserId)
+        <input id="profileId" name="profileId" type="hidden" value="@ViewBag.profileId" />
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Cancel", "ManageNonHRFaculty", "Home", new { profileId = @ViewBag.profileId }, new {@class="ui-widget-header ui-corner-all"})
+    </p>
+}
