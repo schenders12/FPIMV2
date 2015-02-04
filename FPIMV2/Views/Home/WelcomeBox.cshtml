@@ -13,7 +13,7 @@
 </strong></p>
                 <ul>
 				<li><a href="/faculty/admin/logout.asp">Logout</a></li>
-				<li><a href="/faculty/admin/default.asp">FPIM Menu</a></li>
+                <li>@Html.ActionLink("FPIM Menu", "AdminIndex", "Home", new { profileId = @Model.ProfileId }, null)</li>
 			</ul>
 			<p><em>Sessions will be logged out after 20 minutes of inactivity.</em></p>
 		</div>

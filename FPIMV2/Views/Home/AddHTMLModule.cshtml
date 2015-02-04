@@ -42,7 +42,10 @@
                 <textarea id="@Model.FacultyProfileModuleId" class="ckeditor" name="ModuleData">@Model.ModuleData</textarea>
                 <script>
                     var profileId = '@(Model.ProfileId)';
-                    var filebrowserBrowseUrl = ROOT + 'faculty/admin/LinkToFile/' + profileId;
+
+                    // var filebrowserBrowseUrl = ROOT + 'faculty/admin/LinkToFile/' + profileId;
+                   // var filebrowserBrowseUrl = ROOT + 'Home/LinkToFile/' + profileId;
+                    var filebrowserBrowseUrl = ROOT + 'Home/LinkToFile?profileId=' + profileId;
                     CKEDITOR.replace('ModuleData',
                     {
                         customConfig: 'http://www.esf.edu/js/ckeditor/fpim_config.js',
