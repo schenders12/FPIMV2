@@ -150,22 +150,25 @@ namespace FPIMV2.Controllers
             ViewBag.MainPageID = page.FacultyPageId;
             return View("Index", profile);
         }
-        // *** Manage Modules ***
+
+
+        // *** Manage File functions ***
+        // *** Add and delete documents ***
         [HttpGet]
-        public ActionResult ManageModules(string profileId)
+        public ActionResult ManageFiles(string profileId)
         {
-            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
-            ViewBag.profileId = profileId;
-            return View(myProfile);
+            Console.Write("Managing files...");
+            ViewBag.profileID = profileId;
+            return View();
         }
 
-        // *** Manage Pages ***
+        // *** Link to a file ***
         [HttpGet]
-        public ActionResult ManagePages(string profileId)
+        public ActionResult LinkToFile(string profileId)
         {
-            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
-            ViewBag.profileId = profileId;
-            return View(myProfile);
+            ViewBag.profileID = profileId;
+            //return View();
+            return PartialView();
         }
 
         // *** Submit a photo ***
@@ -264,6 +267,16 @@ namespace FPIMV2.Controllers
                    }
                }*/
 
+        }
+
+
+        // *** Manage Page functions ***
+        [HttpGet]
+        public ActionResult ManagePages(string profileId)
+        {
+            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
+            ViewBag.profileId = profileId;
+            return View(myProfile);
         }
 
         // *** Add a page ***
@@ -392,53 +405,7 @@ namespace FPIMV2.Controllers
             return Json(new { Url = redirectUrl });
         }
 
-        // *** View a Page ***
-        [HttpGet]
-        public ActionResult ViewMainFacultyPage(string profileId, string fname, string lname)
-        {
-            return null;
 
-        }
-        // *** View a Page ***
-        [HttpGet]
-        public ActionResult ViewFacultyPage(int pageId, string profileId, string fname, string lname)
-        {
-            // Redirect to viewer 
-            FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
-            // Get Employee record
-            CommEmployee employee = fns.GetEmployee(profile.UserId, profile.SUAD, profile.ESFAD, fname, lname);
-            if (employee == null)
-            {
-                return null;
-            }
-
-            ViewBag.fname = employee.FirstName;
-            ViewBag.lname = employee.LastName;
-            ViewBag.userid = employee.UserId;
-            if (employee.MiddleName != "")
-                ViewBag.PTitle = "SUNY-ESF: " + employee.FirstName + " " + employee.MiddleName + " " + employee.LastName + " - " + "Profile";
-            else
-                ViewBag.PTitle = "SUNY-ESF: " + employee.FirstName + " " + employee.LastName + " - " + "Profile";
-            ViewBag.PageTitle = "Main";
-
-            ViewBag.profileId = profile.ProfileId;
-
-            List<FacultyPage> pages = db.FacultyPages.Where(m => m.ProfileId == profileId).ToList();
-            FacultyPage page = pages.Find(m => m.FacultyPageId == pageId);
-            // Set the department to display the correct banner
-            ControllerContext.RouteData.Values["dept"] = profile.Department;
-            ViewBag.PageId = pageId;
-            ViewBag.dept = profile.Department;
-
-            if (page.LinkURL == null || page.LinkURL == "")
-            {
-                return View(profile);
-            }
-            else
-            {
-                return Redirect(page.LinkURL);
-            }
-        }
 
         // *** Delete a Page ***
         [HttpGet]
@@ -499,6 +466,15 @@ namespace FPIMV2.Controllers
             }
         }
 
+
+        // *** Manage Module functions***
+        [HttpGet]
+        public ActionResult ManageModules(string profileId)
+        {
+            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
+            ViewBag.profileId = profileId;
+            return View(myProfile);
+        }
         // *** Choose a Module Type ***
         [HttpGet]
         public ActionResult ChooseModuleTypePartial(string profileID)
@@ -550,24 +526,6 @@ namespace FPIMV2.Controllers
                 db.SaveChanges();
             }
             return RedirectToAction("ManageModules", new { profileId = module.ProfileId });
-        }
-
-        // *** Add and delete documents ***
-        [HttpGet]
-        public ActionResult ManageFiles(string profileId)
-        {
-            Console.Write("Managing files...");
-            ViewBag.profileID = profileId;
-            return View();
-        }
-
-        // *** Link to a file ***
-        [HttpGet]
-        public ActionResult LinkToFile(string profileId)
-        {
-            ViewBag.profileID = profileId;
-            //return View();
-            return PartialView();
         }
 
         // *** Add Grad Module ***
@@ -666,6 +624,95 @@ namespace FPIMV2.Controllers
                 }
             }
             return RedirectToAction("ManageModules", new { profileId = module.ProfileId });
+        }
+        [HttpGet]
+        public JsonResult GetModules(string myId)
+        {
+            // Get all distinct modules based on title
+            //var myModules = db.FacultyProfileModules.Select(m => m.ModuleTitle).Distinct().ToList();
+
+            // Return all modules for this profile ID that have no page assignment
+            var allMyModules = db.FacultyProfileModules.Select(m => new
+            {
+                m.FacultyProfileModuleId,
+                m.FacultyPageId,
+                m.ProfileId,
+                m.ModuleType,
+                m.ModuleTitle,
+                m.ModuleData
+            }).Where(m => m.ProfileId == myId).Where(m => m.FacultyPageId == -1).ToList();
+
+            //var results = (from ta in allMyModules
+            //                select ta.ModuleTitle).Distinct();
+            return Json(allMyModules, JsonRequestBehavior.AllowGet);
+        }
+
+        // View/Preview pages
+        // *** View a Page ***
+        [HttpGet]
+        public ActionResult ViewMainFacultyPage(string profileId, string fname, string lname)
+        {
+            return null;
+
+        }
+        // *** View a Page ***
+        [HttpGet]
+        public ActionResult ViewFacultyPage(int pageId, string profileId, string fname, string lname)
+        {
+            // Redirect to viewer 
+            FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
+            // Get Employee record
+            CommEmployee employee = fns.GetEmployee(profile.UserId, profile.SUAD, profile.ESFAD, fname, lname);
+            if (employee == null)
+            {
+                return null;
+            }
+
+            ViewBag.fname = employee.FirstName;
+            ViewBag.lname = employee.LastName;
+            ViewBag.userid = employee.UserId;
+            if (employee.MiddleName != "")
+                ViewBag.PTitle = "SUNY-ESF: " + employee.FirstName + " " + employee.MiddleName + " " + employee.LastName + " - " + "Profile";
+            else
+                ViewBag.PTitle = "SUNY-ESF: " + employee.FirstName + " " + employee.LastName + " - " + "Profile";
+            ViewBag.PageTitle = "Main";
+
+            ViewBag.profileId = profile.ProfileId;
+
+            List<FacultyPage> pages = db.FacultyPages.Where(m => m.ProfileId == profileId).ToList();
+            FacultyPage page = pages.Find(m => m.FacultyPageId == pageId);
+            // Set the department to display the correct banner
+            ControllerContext.RouteData.Values["dept"] = profile.Department;
+            ViewBag.PageId = pageId;
+            ViewBag.dept = profile.Department;
+
+            if (page.LinkURL == null || page.LinkURL == "")
+            {
+                return View(profile);
+            }
+            else
+            {
+                return Redirect(page.LinkURL);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetMainPage(string profileId, string pageTitle)
+        {
+            // Get all distinct modules based on title
+            //var myModules = db.FacultyProfileModules.Select(m => m.ModuleTitle).Distinct().ToList();
+
+            // Return all modules for this profile ID that have no page assignment
+            var myMainPage = db.FacultyPages.Select(m => new
+            {
+                m.FacultyPageId,
+                m.ProfileId,
+                m.PageTitle
+            }).Where(m => m.ProfileId == profileId).Where(m => m.PageTitle == pageTitle).ToList();
+
+            //var results = (from ta in allMyModules
+            //                select ta.ModuleTitle).Distinct();
+            return Json(myMainPage, JsonRequestBehavior.AllowGet);
         }
 
         // Faculty/Staff Dept Associations/Areas of Study (AOS)
@@ -808,50 +855,12 @@ namespace FPIMV2.Controllers
             return RedirectToAction("AdminIndex", new { profileId = profileId });
 
         }
-        [HttpGet]
-        public JsonResult GetMainPage(string profileId, string pageTitle)
-        {
-            // Get all distinct modules based on title
-            //var myModules = db.FacultyProfileModules.Select(m => m.ModuleTitle).Distinct().ToList();
 
-            // Return all modules for this profile ID that have no page assignment
-            var myMainPage = db.FacultyPages.Select(m => new
-            {
-                m.FacultyPageId,
-                m.ProfileId,
-                m.PageTitle
-            }).Where(m => m.ProfileId == profileId).Where(m => m.PageTitle == pageTitle).ToList();
-
-            //var results = (from ta in allMyModules
-            //                select ta.ModuleTitle).Distinct();
-            return Json(myMainPage, JsonRequestBehavior.AllowGet);
-        }
         [HttpGet]
         public JsonResult GetAOSCodes()
         {
             var myAOSCodes = db.CodesAOS.ToList();
             return Json(myAOSCodes, JsonRequestBehavior.AllowGet);
-        }
-        [HttpGet]
-        public JsonResult GetModules(string myId)
-        {
-            // Get all distinct modules based on title
-            //var myModules = db.FacultyProfileModules.Select(m => m.ModuleTitle).Distinct().ToList();
-
-            // Return all modules for this profile ID that have no page assignment
-            var allMyModules = db.FacultyProfileModules.Select(m => new
-            {
-                m.FacultyProfileModuleId,
-                m.FacultyPageId,
-                m.ProfileId,
-                m.ModuleType,
-                m.ModuleTitle,
-                m.ModuleData
-            }).Where(m => m.ProfileId == myId).Where(m => m.FacultyPageId == -1).ToList();
-
-            //var results = (from ta in allMyModules
-            //                select ta.ModuleTitle).Distinct();
-            return Json(allMyModules, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -908,24 +917,30 @@ namespace FPIMV2.Controllers
 
         }
 
+        // Add/Delete/Update Non-HR faculty
+        [HttpGet]
+        public ActionResult ManageNonHRFaculty(string profileId)
+        {
+            IEnumerable<AddFacStaff> myList = db.AddFacStaffs.ToList();
+            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
+            return View(Tuple.Create(myList, myProfile));
+        }
+
         [HttpGet]
         public ActionResult ManuallyAddFaculty(string profileId)
         {
-            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
             AddFacStaff facultyAdd = new AddFacStaff();
+            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
             return View(Tuple.Create(facultyAdd, myProfile));
         }
 
         [HttpPost]
         public ActionResult ManuallyAddFaculty(Tuple<AddFacStaff, FacultyProfile> tuple)
         {
-            string profileId = Request.Form["profileId"];
             string fac = "F";
-
             if (ModelState.IsValid)
             {
                 AddFacStaff facultyUpdate = new AddFacStaff();
-
                 // Save data
                 facultyUpdate.UserId = tuple.Item1.UserId;
                 facultyUpdate.LastName = tuple.Item1.LastName;
@@ -950,8 +965,7 @@ namespace FPIMV2.Controllers
                 db.AddFacStaffs.AddObject(facultyUpdate);
                 db.SaveChanges();
             }
-
-            return RedirectToAction("ManageNonHRFaculty", new { profileId = profileId });
+            return RedirectToAction("ManageNonHRFaculty", new { profileId = tuple.Item2.ProfileId });
 
         }
 
@@ -961,20 +975,15 @@ namespace FPIMV2.Controllers
             AddFacStaff facultyMod = db.AddFacStaffs.SingleOrDefault(m => m.UserId == userId);
             FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
             return View(Tuple.Create(facultyMod, myProfile));
-
         }
 
         [HttpPost]
         public ActionResult ManuallyUpdateFaculty(Tuple<AddFacStaff, FacultyProfile> tuple)
         {
-            string profileId = Request.Form["profileId"];
             string fac = "F";
-
             if (ModelState.IsValid)
             {
-                //AddFacStaff facultyUpdate = new AddFacStaff();
                 AddFacStaff facultyUpdate = db.AddFacStaffs.Single(m => m.UserId == tuple.Item1.UserId);
-
                 // Save modified data
                 facultyUpdate.LastName = tuple.Item1.LastName;
                 facultyUpdate.FirstName = tuple.Item1.FirstName;
@@ -997,44 +1006,27 @@ namespace FPIMV2.Controllers
 
                 db.SaveChanges();
             }
-
-             return RedirectToAction("ManageNonHRFaculty", new { profileId = profileId });
-        }
-
-        [HttpGet]
-        public ActionResult ManageNonHRFaculty(string profileId)
-        {
-            IEnumerable<AddFacStaff> myList = db.AddFacStaffs.ToList();
-            ViewBag.ProfileId = profileId;
-            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
-
-            return View(Tuple.Create(myList, myProfile));
-
+             return RedirectToAction("ManageNonHRFaculty", new { profileId = tuple.Item2.ProfileId });
         }
 
         [HttpGet]
         public ActionResult ManuallyDeleteFaculty(string userId, string profileId)
         {
             AddFacStaff facultyMod = db.AddFacStaffs.SingleOrDefault(m => m.UserId == userId);
-            ViewBag.ProfileId = profileId;
-            return View(facultyMod);
+            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
+            return View(Tuple.Create(facultyMod, myProfile));
 
         }
         [HttpPost]
-        public ActionResult ManuallyDeleteFaculty(AddFacStaff fac)
+        public ActionResult ManuallyDeleteFaculty(Tuple<AddFacStaff, FacultyProfile> tuple)
         {
-            string profileId = Request.Form["profileId"];
-            string UserId = Request.Form["UserId"];
-
             if (ModelState.IsValid)
             {
-                // Retrieve and delete the record
-                AddFacStaff facultyDelete = db.AddFacStaffs.Single(m => m.UserId == UserId);
-                db.DeleteObject(facultyDelete);
+                AddFacStaff fac = db.AddFacStaffs.Single(m => m.UserId == tuple.Item1.UserId);
+                db.AddFacStaffs.DeleteObject(fac);
                 db.SaveChanges();
             }
-
-            return RedirectToAction("ManageNonHRFaculty", new { profileId = profileId });
+            return RedirectToAction("ManageNonHRFaculty", new { profileId = tuple.Item2.ProfileId });
 
         }
     }

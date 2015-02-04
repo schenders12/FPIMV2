@@ -9,7 +9,7 @@
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-    <input id="profileId" name="profileId" type="hidden" value="@Model.Item2.ProfileId" />
+    <input id="profileId" name="Item2.profileId" type="hidden" value="@Model.Item2.ProfileId" />
     <fieldset>
         <legend>AddFacStaff</legend>
 

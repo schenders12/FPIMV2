@@ -76,22 +76,6 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<AddFacStaff> AddFacStaffs
-        {
-            get
-            {
-                if ((_AddFacStaffs == null))
-                {
-                    _AddFacStaffs = base.CreateObjectSet<AddFacStaff>("AddFacStaffs");
-                }
-                return _AddFacStaffs;
-            }
-        }
-        private ObjectSet<AddFacStaff> _AddFacStaffs;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<CodesAO> CodesAOS
         {
             get
@@ -264,18 +248,26 @@ namespace FPIMV2.Models
             }
         }
         private ObjectSet<ProfileMod> _ProfileMods;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AddFacStaff> AddFacStaffs
+        {
+            get
+            {
+                if ((_AddFacStaffs == null))
+                {
+                    _AddFacStaffs = base.CreateObjectSet<AddFacStaff>("AddFacStaffs");
+                }
+                return _AddFacStaffs;
+            }
+        }
+        private ObjectSet<AddFacStaff> _AddFacStaffs;
 
         #endregion
 
         #region AddTo Methods
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the AddFacStaffs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToAddFacStaffs(AddFacStaff addFacStaff)
-        {
-            base.AddObject("AddFacStaffs", addFacStaff);
-        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the CodesAOS EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -363,6 +355,14 @@ namespace FPIMV2.Models
         public void AddToProfileMods(ProfileMod profileMod)
         {
             base.AddObject("ProfileMods", profileMod);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AddFacStaffs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAddFacStaffs(AddFacStaff addFacStaff)
+        {
+            base.AddObject("AddFacStaffs", addFacStaff);
         }
 
         #endregion
@@ -942,7 +942,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 RecId
         {
@@ -952,14 +952,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_RecId != value)
-                {
-                    OnRecIdChanging(value);
-                    ReportPropertyChanging("RecId");
-                    _RecId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("RecId");
-                    OnRecIdChanged();
-                }
+                OnRecIdChanging(value);
+                ReportPropertyChanging("RecId");
+                _RecId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RecId");
+                OnRecIdChanged();
             }
         }
         private global::System.Int32 _RecId;
@@ -996,7 +993,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String LastName
         {
@@ -1006,14 +1003,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_LastName != value)
-                {
-                    OnLastNameChanging(value);
-                    ReportPropertyChanging("LastName");
-                    _LastName = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("LastName");
-                    OnLastNameChanged();
-                }
+                OnLastNameChanging(value);
+                ReportPropertyChanging("LastName");
+                _LastName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("LastName");
+                OnLastNameChanged();
             }
         }
         private global::System.String _LastName;
@@ -1023,7 +1017,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String FirstName
         {
@@ -1033,14 +1027,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_FirstName != value)
-                {
-                    OnFirstNameChanging(value);
-                    ReportPropertyChanging("FirstName");
-                    _FirstName = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("FirstName");
-                    OnFirstNameChanged();
-                }
+                OnFirstNameChanging(value);
+                ReportPropertyChanging("FirstName");
+                _FirstName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FirstName");
+                OnFirstNameChanged();
             }
         }
         private global::System.String _FirstName;
@@ -1050,7 +1041,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String MiddleName
         {
@@ -1060,14 +1051,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_MiddleName != value)
-                {
-                    OnMiddleNameChanging(value);
-                    ReportPropertyChanging("MiddleName");
-                    _MiddleName = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("MiddleName");
-                    OnMiddleNameChanged();
-                }
+                OnMiddleNameChanging(value);
+                ReportPropertyChanging("MiddleName");
+                _MiddleName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MiddleName");
+                OnMiddleNameChanged();
             }
         }
         private global::System.String _MiddleName;
@@ -1077,7 +1065,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Suffix
         {
@@ -1087,14 +1075,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_Suffix != value)
-                {
-                    OnSuffixChanging(value);
-                    ReportPropertyChanging("Suffix");
-                    _Suffix = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("Suffix");
-                    OnSuffixChanged();
-                }
+                OnSuffixChanging(value);
+                ReportPropertyChanging("Suffix");
+                _Suffix = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Suffix");
+                OnSuffixChanged();
             }
         }
         private global::System.String _Suffix;
@@ -1104,7 +1089,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String OffcBldg
         {
@@ -1114,14 +1099,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_OffcBldg != value)
-                {
-                    OnOffcBldgChanging(value);
-                    ReportPropertyChanging("OffcBldg");
-                    _OffcBldg = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("OffcBldg");
-                    OnOffcBldgChanged();
-                }
+                OnOffcBldgChanging(value);
+                ReportPropertyChanging("OffcBldg");
+                _OffcBldg = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("OffcBldg");
+                OnOffcBldgChanged();
             }
         }
         private global::System.String _OffcBldg;
@@ -1131,7 +1113,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String OffcRoom
         {
@@ -1141,14 +1123,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_OffcRoom != value)
-                {
-                    OnOffcRoomChanging(value);
-                    ReportPropertyChanging("OffcRoom");
-                    _OffcRoom = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("OffcRoom");
-                    OnOffcRoomChanged();
-                }
+                OnOffcRoomChanging(value);
+                ReportPropertyChanging("OffcRoom");
+                _OffcRoom = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("OffcRoom");
+                OnOffcRoomChanged();
             }
         }
         private global::System.String _OffcRoom;
@@ -1158,7 +1137,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String OffcPhone
         {
@@ -1168,14 +1147,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_OffcPhone != value)
-                {
-                    OnOffcPhoneChanging(value);
-                    ReportPropertyChanging("OffcPhone");
-                    _OffcPhone = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("OffcPhone");
-                    OnOffcPhoneChanged();
-                }
+                OnOffcPhoneChanging(value);
+                ReportPropertyChanging("OffcPhone");
+                _OffcPhone = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("OffcPhone");
+                OnOffcPhoneChanged();
             }
         }
         private global::System.String _OffcPhone;
@@ -1185,7 +1161,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String SpeedDialExt
         {
@@ -1195,14 +1171,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_SpeedDialExt != value)
-                {
-                    OnSpeedDialExtChanging(value);
-                    ReportPropertyChanging("SpeedDialExt");
-                    _SpeedDialExt = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("SpeedDialExt");
-                    OnSpeedDialExtChanged();
-                }
+                OnSpeedDialExtChanging(value);
+                ReportPropertyChanging("SpeedDialExt");
+                _SpeedDialExt = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("SpeedDialExt");
+                OnSpeedDialExtChanged();
             }
         }
         private global::System.String _SpeedDialExt;
@@ -1212,7 +1185,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String MailAddrBldg
         {
@@ -1222,14 +1195,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_MailAddrBldg != value)
-                {
-                    OnMailAddrBldgChanging(value);
-                    ReportPropertyChanging("MailAddrBldg");
-                    _MailAddrBldg = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("MailAddrBldg");
-                    OnMailAddrBldgChanged();
-                }
+                OnMailAddrBldgChanging(value);
+                ReportPropertyChanging("MailAddrBldg");
+                _MailAddrBldg = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MailAddrBldg");
+                OnMailAddrBldgChanged();
             }
         }
         private global::System.String _MailAddrBldg;
@@ -1239,7 +1209,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String MailAddrRoom
         {
@@ -1249,14 +1219,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_MailAddrRoom != value)
-                {
-                    OnMailAddrRoomChanging(value);
-                    ReportPropertyChanging("MailAddrRoom");
-                    _MailAddrRoom = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("MailAddrRoom");
-                    OnMailAddrRoomChanged();
-                }
+                OnMailAddrRoomChanging(value);
+                ReportPropertyChanging("MailAddrRoom");
+                _MailAddrRoom = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("MailAddrRoom");
+                OnMailAddrRoomChanged();
             }
         }
         private global::System.String _MailAddrRoom;
@@ -1266,7 +1233,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String AltOffcPhone
         {
@@ -1276,14 +1243,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_AltOffcPhone != value)
-                {
-                    OnAltOffcPhoneChanging(value);
-                    ReportPropertyChanging("AltOffcPhone");
-                    _AltOffcPhone = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("AltOffcPhone");
-                    OnAltOffcPhoneChanged();
-                }
+                OnAltOffcPhoneChanging(value);
+                ReportPropertyChanging("AltOffcPhone");
+                _AltOffcPhone = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("AltOffcPhone");
+                OnAltOffcPhoneChanged();
             }
         }
         private global::System.String _AltOffcPhone;
@@ -1293,7 +1257,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String EmailId
         {
@@ -1303,14 +1267,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_EmailId != value)
-                {
-                    OnEmailIdChanging(value);
-                    ReportPropertyChanging("EmailId");
-                    _EmailId = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("EmailId");
-                    OnEmailIdChanged();
-                }
+                OnEmailIdChanging(value);
+                ReportPropertyChanging("EmailId");
+                _EmailId = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("EmailId");
+                OnEmailIdChanged();
             }
         }
         private global::System.String _EmailId;
@@ -1320,7 +1281,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String CampusTitle
         {
@@ -1330,14 +1291,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_CampusTitle != value)
-                {
-                    OnCampusTitleChanging(value);
-                    ReportPropertyChanging("CampusTitle");
-                    _CampusTitle = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("CampusTitle");
-                    OnCampusTitleChanged();
-                }
+                OnCampusTitleChanging(value);
+                ReportPropertyChanging("CampusTitle");
+                _CampusTitle = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CampusTitle");
+                OnCampusTitleChanged();
             }
         }
         private global::System.String _CampusTitle;
@@ -1347,7 +1305,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String WorkLoc
         {
@@ -1357,14 +1315,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_WorkLoc != value)
-                {
-                    OnWorkLocChanging(value);
-                    ReportPropertyChanging("WorkLoc");
-                    _WorkLoc = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("WorkLoc");
-                    OnWorkLocChanged();
-                }
+                OnWorkLocChanging(value);
+                ReportPropertyChanging("WorkLoc");
+                _WorkLoc = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("WorkLoc");
+                OnWorkLocChanged();
             }
         }
         private global::System.String _WorkLoc;
@@ -1374,7 +1329,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String FacStaff
         {
@@ -1384,14 +1339,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_FacStaff != value)
-                {
-                    OnFacStaffChanging(value);
-                    ReportPropertyChanging("FacStaff");
-                    _FacStaff = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("FacStaff");
-                    OnFacStaffChanged();
-                }
+                OnFacStaffChanging(value);
+                ReportPropertyChanging("FacStaff");
+                _FacStaff = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FacStaff");
+                OnFacStaffChanged();
             }
         }
         private global::System.String _FacStaff;
@@ -1401,7 +1353,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String CivilServiceTitle
         {
@@ -1411,14 +1363,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_CivilServiceTitle != value)
-                {
-                    OnCivilServiceTitleChanging(value);
-                    ReportPropertyChanging("CivilServiceTitle");
-                    _CivilServiceTitle = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("CivilServiceTitle");
-                    OnCivilServiceTitleChanged();
-                }
+                OnCivilServiceTitleChanging(value);
+                ReportPropertyChanging("CivilServiceTitle");
+                _CivilServiceTitle = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CivilServiceTitle");
+                OnCivilServiceTitleChanged();
             }
         }
         private global::System.String _CivilServiceTitle;

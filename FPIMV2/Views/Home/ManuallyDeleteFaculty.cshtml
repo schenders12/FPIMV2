@@ -1,26 +1,50 @@
-﻿@model FPIMV2.Models.AddFacStaff
+﻿@model Tuple<FPIMV2.Models.AddFacStaff, FPIMV2.Models.FacultyProfile>
+
+@{
+    ViewBag.Title = "ManuallyDeleteFaculty";
+}
+
+<h2>ManuallyDeleteFaculty</h2>
 
 <h3>Are you sure you want to delete this Faculty member?</h3>
 
-<fieldset>
-   <legend></legend>
-
-   <h3><strong>
-@{
-    HtmlString faculty = new HtmlString(@Model.FirstName + " " + @Model.LastName + ", Campus Title: " + @Model.CampusTitle);
-  @faculty
-}
-
-
-   </strong></h3>
-</fieldset>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
+    <input id="profileId" name="Item2.profileId" type="hidden" value="@Model.Item2.ProfileId" />
+<fieldset>
+    <legend>AddFacStaff</legend>
+       <h3><strong>
+@{
+    HtmlString faculty = new HtmlString(@Model.Item1.FirstName + " " + @Model.Item1.LastName + ", Campus Title: " + @Model.Item1.CampusTitle);
+  @faculty
+}
+   </strong></h3>
+         @Html.HiddenFor(model => model.Item1.UserId)
 
-        @Html.HiddenFor(model => model.UserId)
-        <input id="profileId" name="profileId" type="hidden" value="@ViewBag.profileId" />
+         @Html.HiddenFor(model => model.Item1.RecId)
+         @Html.HiddenFor(model => model.Item1.LastName)
+         @Html.HiddenFor(model => model.Item1.FirstName)
+         @Html.HiddenFor(model => model.Item1.MiddleName)
+         @Html.HiddenFor(model => model.Item1.Suffix)
+         @Html.HiddenFor(model => model.Item1.OffcBldg)
+         @Html.HiddenFor(model => model.Item1.OffcRoom)
+         @Html.HiddenFor(model => model.Item1.OffcPhone)
+         @Html.HiddenFor(model => model.Item1.SpeedDialExt)
+         @Html.HiddenFor(model => model.Item1.MailAddrBldg)
+         @Html.HiddenFor(model => model.Item1.MailAddrRoom)
+         @Html.HiddenFor(model => model.Item1.AltOffcPhone)
+         @Html.HiddenFor(model => model.Item1.EmailId)
+         @Html.HiddenFor(model => model.Item1.CampusTitle)
+         @Html.HiddenFor(model => model.Item1.WorkLoc)
+         @Html.HiddenFor(model => model.Item1.FacStaff)
+         @Html.HiddenFor(model => model.Item1.CivilServiceTitle)
+         @Html.HiddenFor(model => model.Item1.ESFAD)
+         @Html.HiddenFor(model => model.Item1.SUAD)
+
+</fieldset>
+
     <p>
         <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Cancel", "ManageNonHRFaculty", "Home", new { profileId = @ViewBag.profileId }, new {@class="ui-widget-header ui-corner-all"})
+        @Html.ActionLink("Cancel", "ManageNonHRFaculty", "Home", new { profileId = @Model.Item2.ProfileId }, null)
     </p>
 }
