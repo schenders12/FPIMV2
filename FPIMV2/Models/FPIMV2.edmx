@@ -6,30 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="PeopleModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="PeopleModelStoreContainer">
-          <EntitySet Name="AddFacStaff" EntityType="PeopleModel.Store.AddFacStaff" store:Type="Tables" store:Schema="dbo" store:Name="AddFacStaff">
-            <DefiningQuery>SELECT 
-      [AddFacStaff].[RecId] AS [RecId], 
-      [AddFacStaff].[UserId] AS [UserId], 
-      [AddFacStaff].[LastName] AS [LastName], 
-      [AddFacStaff].[FirstName] AS [FirstName], 
-      [AddFacStaff].[MiddleName] AS [MiddleName], 
-      [AddFacStaff].[Suffix] AS [Suffix], 
-      [AddFacStaff].[OffcBldg] AS [OffcBldg], 
-      [AddFacStaff].[OffcRoom] AS [OffcRoom], 
-      [AddFacStaff].[OffcPhone] AS [OffcPhone], 
-      [AddFacStaff].[SpeedDialExt] AS [SpeedDialExt], 
-      [AddFacStaff].[MailAddrBldg] AS [MailAddrBldg], 
-      [AddFacStaff].[MailAddrRoom] AS [MailAddrRoom], 
-      [AddFacStaff].[AltOffcPhone] AS [AltOffcPhone], 
-      [AddFacStaff].[EmailId] AS [EmailId], 
-      [AddFacStaff].[CampusTitle] AS [CampusTitle], 
-      [AddFacStaff].[WorkLoc] AS [WorkLoc], 
-      [AddFacStaff].[FacStaff] AS [FacStaff], 
-      [AddFacStaff].[CivilServiceTitle] AS [CivilServiceTitle], 
-      [AddFacStaff].[ESFAD] AS [ESFAD], 
-      [AddFacStaff].[SUAD] AS [SUAD]
-      FROM [dbo].[AddFacStaff] AS [AddFacStaff]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="AddFacStaff" EntityType="PeopleModel.Store.AddFacStaff" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CodesAOS" EntityType="PeopleModel.Store.CodesAOS" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CommEmpDegrees" EntityType="PeopleModel.Store.CommEmpDegrees" store:Type="Tables" store:Schema="dbo" store:Name="CommEmpDegrees">
             <DefiningQuery>SELECT 
@@ -65,12 +42,26 @@
       FROM [dbo].[CommEmployees] AS [CommEmployees]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="DeptHeading" EntityType="PeopleModel.Store.DeptHeading" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="FacultyAOSAssoc" EntityType="PeopleModel.Store.FacultyAOSAssoc" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FacultyAreasXRef" EntityType="PeopleModel.Store.FacultyAreasXRef" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FacultyDepts" EntityType="PeopleModel.Store.FacultyDepts" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FacultyPage" EntityType="PeopleModel.Store.FacultyPage" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FacultyProfile" EntityType="PeopleModel.Store.FacultyProfile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FacultyProfileModule" EntityType="PeopleModel.Store.FacultyProfileModule" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ProfileErrata" EntityType="PeopleModel.Store.ProfileErrata" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProfileMods" EntityType="PeopleModel.Store.ProfileMods" store:Type="Tables" store:Schema="dbo" store:Name="ProfileMods">
+            <DefiningQuery>SELECT 
+      [ProfileMods].[ModId] AS [ModId], 
+      [ProfileMods].[RecId] AS [RecId], 
+      [ProfileMods].[UserId] AS [UserId], 
+      [ProfileMods].[DispOrder] AS [DispOrder], 
+      [ProfileMods].[ModuleType] AS [ModuleType], 
+      [ProfileMods].[ModTitle] AS [ModTitle], 
+      [ProfileMods].[ModData] AS [ModData], 
+      [ProfileMods].[SUAD] AS [SUAD], 
+      [ProfileMods].[ESFAD] AS [ESFAD], 
+      [ProfileMods].[FacultyPageId] AS [FacultyPageId]
+      FROM [dbo].[ProfileMods] AS [ProfileMods]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_FacultyPage_FacultyProfile" Association="PeopleModel.Store.FK_FacultyPage_FacultyProfile">
             <End Role="FacultyProfile" EntitySet="FacultyProfile" />
             <End Role="FacultyPage" EntitySet="FacultyPage" />
@@ -80,29 +71,9 @@
             <End Role="FacultyProfileModule" EntitySet="FacultyProfileModule" />
           </AssociationSet>
         </EntityContainer>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'People.dbo.AddFacStaff' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="AddFacStaff">
           <Key>
-            <PropertyRef Name="RecId" />
             <PropertyRef Name="UserId" />
-            <PropertyRef Name="LastName" />
-            <PropertyRef Name="FirstName" />
-            <PropertyRef Name="MiddleName" />
-            <PropertyRef Name="Suffix" />
-            <PropertyRef Name="OffcBldg" />
-            <PropertyRef Name="OffcRoom" />
-            <PropertyRef Name="OffcPhone" />
-            <PropertyRef Name="SpeedDialExt" />
-            <PropertyRef Name="MailAddrBldg" />
-            <PropertyRef Name="MailAddrRoom" />
-            <PropertyRef Name="AltOffcPhone" />
-            <PropertyRef Name="EmailId" />
-            <PropertyRef Name="CampusTitle" />
-            <PropertyRef Name="WorkLoc" />
-            <PropertyRef Name="FacStaff" />
-            <PropertyRef Name="CivilServiceTitle" />
           </Key>
           <Property Name="RecId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="varchar" Nullable="false" MaxLength="20" />
@@ -206,16 +177,16 @@
           <Property Name="DeptHeading" Type="varchar" MaxLength="40" />
           <Property Name="Short" Type="varchar" MaxLength="10" />
         </EntityType>
-        <EntityType Name="FacultyAOSAssoc">
+        <EntityType Name="FacultyAreasXRef">
           <Key>
-            <PropertyRef Name="AssocAOSId" />
+            <PropertyRef Name="AssocId" />
           </Key>
-          <Property Name="AssocAOSId" Type="int" Nullable="false" />
-          <Property Name="ProfileId" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="AOSCode" Type="varchar" MaxLength="10" />
+          <Property Name="AssocId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="varchar" MaxLength="15" />
+          <Property Name="ESFAD" Type="varchar" MaxLength="15" />
+          <Property Name="SUAD" Type="varchar" MaxLength="15" />
+          <Property Name="AOSCode" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="InterestAreas" Type="varchar" MaxLength="600" />
-          <Property Name="ParticipatingAreas" Type="varchar" MaxLength="600" />
-          <Property Name="Dept" Type="varchar" MaxLength="40" />
         </EntityType>
         <EntityType Name="FacultyDepts">
           <Key>
@@ -281,6 +252,28 @@
           <Property Name="ParticipatingAreas" Type="varchar" MaxLength="600" />
           <Property Name="ReconciledAreas" Type="varchar" MaxLength="600" />
         </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'People.dbo.ProfileMods' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="ProfileMods">
+          <Key>
+            <PropertyRef Name="ModId" />
+            <PropertyRef Name="RecId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="DispOrder" />
+            <PropertyRef Name="ModuleType" />
+          </Key>
+          <Property Name="ModId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RecId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="DispOrder" Type="int" Nullable="false" />
+          <Property Name="ModuleType" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ModTitle" Type="varchar" MaxLength="50" />
+          <Property Name="ModData" Type="text" />
+          <Property Name="SUAD" Type="varchar" MaxLength="15" />
+          <Property Name="ESFAD" Type="varchar" MaxLength="15" />
+          <Property Name="FacultyPageId" Type="int" />
+        </EntityType>
         <Association Name="FK_FacultyPage_FacultyProfile">
           <End Role="FacultyProfile" Type="PeopleModel.Store.FacultyProfile" Multiplicity="1" />
           <End Role="FacultyPage" Type="PeopleModel.Store.FacultyPage" Multiplicity="*" />
@@ -307,6 +300,12 @@
         </Association>
         <Function Name="spAdviseesPublic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Prof" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spAssocFac" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="varchar" Mode="In" />
+          <Parameter Name="ESFAD" Type="varchar" Mode="In" />
+          <Parameter Name="SUAD" Type="varchar" Mode="In" />
+          <Parameter Name="Dept" Type="varchar" Mode="In" />
         </Function>
         <Function Name="spCreateFacultyProfile" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProfileId" Type="varchar" Mode="In" />
@@ -337,6 +336,24 @@
           <Parameter Name="ESFAD" Type="varchar" Mode="In" />
           <Parameter Name="SUAD" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="spFPIMAOSXrefAddESC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="varchar" Mode="In" />
+          <Parameter Name="ESFAD" Type="varchar" Mode="In" />
+          <Parameter Name="SUAD" Type="varchar" Mode="In" />
+          <Parameter Name="AOSCode" Type="varchar" Mode="In" />
+          <Parameter Name="InterestAreas" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spFPIMAOSXrefDelESC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="varchar" Mode="In" />
+          <Parameter Name="ESFAD" Type="varchar" Mode="In" />
+          <Parameter Name="SUAD" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spFPIMUpdatePariticpatingArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NetID" Type="varchar" Mode="In" />
+          <Parameter Name="ESFAD" Type="varchar" Mode="In" />
+          <Parameter Name="SUAD" Type="varchar" Mode="In" />
+          <Parameter Name="ParticipatingAreas" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="spRemoveFDs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="varchar" Mode="In" />
           <Parameter Name="ESFAD" Type="varchar" Mode="In" />
@@ -347,7 +364,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="PeopleModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="PeopleEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AddFacStaffs" EntityType="PeopleModel.AddFacStaff" />
           <EntitySet Name="CodesAOS" EntityType="PeopleModel.CodesAO" />
           <EntitySet Name="CommEmpDegrees" EntityType="PeopleModel.CommEmpDegree" />
           <EntitySet Name="CommEmployees" EntityType="PeopleModel.CommEmployee" />
@@ -394,7 +410,6 @@
             <Parameter Name="ESFAD" Mode="In" Type="String" />
             <Parameter Name="SUAD" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="FacultyAOSAssocs" EntityType="PeopleModel.FacultyAOSAssoc" />
           <AssociationSet Name="FacultyProfileFacultyProfileModule" Association="PeopleModel.FacultyProfileFacultyProfileModule">
             <End Role="FacultyProfile" EntitySet="FacultyProfiles" />
             <End Role="FacultyProfileModule" EntitySet="FacultyProfileModules" />
@@ -407,49 +422,34 @@
             <End Role="FacultyPage" EntitySet="FacultyPages" />
             <End Role="FacultyProfileModule" EntitySet="FacultyProfileModules" />
           </AssociationSet>
+          <FunctionImport Name="spAssocFac">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="ESFAD" Mode="In" Type="String" />
+            <Parameter Name="SUAD" Mode="In" Type="String" />
+            <Parameter Name="Dept" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spFPIMAOSXrefAddESC">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="ESFAD" Mode="In" Type="String" />
+            <Parameter Name="SUAD" Mode="In" Type="String" />
+            <Parameter Name="AOSCode" Mode="In" Type="String" />
+            <Parameter Name="InterestAreas" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spFPIMAOSXrefDelESC">
+            <Parameter Name="UserId" Mode="In" Type="String" />
+            <Parameter Name="ESFAD" Mode="In" Type="String" />
+            <Parameter Name="SUAD" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spFPIMUpdatePariticpatingArea">
+            <Parameter Name="NetID" Mode="In" Type="String" />
+            <Parameter Name="ESFAD" Mode="In" Type="String" />
+            <Parameter Name="SUAD" Mode="In" Type="String" />
+            <Parameter Name="ParticipatingAreas" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="FacultyAreasXRefs" EntityType="PeopleModel.FacultyAreasXRef" />
+          <EntitySet Name="ProfileMods" EntityType="PeopleModel.ProfileMod" />
+          <EntitySet Name="AddFacStaffs" EntityType="PeopleModel.AddFacStaff" />
         </EntityContainer>
-        <EntityType Name="AddFacStaff">
-          <Key>
-            <PropertyRef Name="RecId" />
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="LastName" />
-            <PropertyRef Name="FirstName" />
-            <PropertyRef Name="MiddleName" />
-            <PropertyRef Name="Suffix" />
-            <PropertyRef Name="OffcBldg" />
-            <PropertyRef Name="OffcRoom" />
-            <PropertyRef Name="OffcPhone" />
-            <PropertyRef Name="SpeedDialExt" />
-            <PropertyRef Name="MailAddrBldg" />
-            <PropertyRef Name="MailAddrRoom" />
-            <PropertyRef Name="AltOffcPhone" />
-            <PropertyRef Name="EmailId" />
-            <PropertyRef Name="CampusTitle" />
-            <PropertyRef Name="WorkLoc" />
-            <PropertyRef Name="FacStaff" />
-            <PropertyRef Name="CivilServiceTitle" />
-          </Key>
-          <Property Name="RecId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
-          <Property Name="MiddleName" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
-          <Property Name="Suffix" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="false" />
-          <Property Name="OffcBldg" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
-          <Property Name="OffcRoom" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
-          <Property Name="OffcPhone" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
-          <Property Name="SpeedDialExt" Type="String" Nullable="false" MaxLength="4" Unicode="false" FixedLength="false" />
-          <Property Name="MailAddrBldg" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
-          <Property Name="MailAddrRoom" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
-          <Property Name="AltOffcPhone" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
-          <Property Name="EmailId" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
-          <Property Name="CampusTitle" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="WorkLoc" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="FacStaff" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="false" />
-          <Property Name="CivilServiceTitle" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="ESFAD" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
-          <Property Name="SUAD" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
-        </EntityType>
         <EntityType Name="CodesAO">
           <Key>
             <PropertyRef Name="Short" />
@@ -721,17 +721,6 @@
           <Property Type="Boolean" Name="ForceTop" Nullable="true" />
           <Property Type="String" Name="ProfileId" Nullable="true" MaxLength="50" />
         </ComplexType>
-        <EntityType Name="FacultyAOSAssoc">
-          <Key>
-            <PropertyRef Name="AssocAOSId" />
-          </Key>
-          <Property Type="Int32" Name="AssocAOSId" Nullable="false" />
-          <Property Type="String" Name="ProfileId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="AOSCode" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="InterestAreas" MaxLength="600" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ParticipatingAreas" MaxLength="600" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="Dept" MaxLength="40" FixedLength="false" Unicode="false" />
-        </EntityType>
         <Association Name="FacultyProfileFacultyProfileModule">
           <End Type="PeopleModel.FacultyProfile" Role="FacultyProfile" Multiplicity="1" />
           <End Type="PeopleModel.FacultyProfileModule" Role="FacultyProfileModule" Multiplicity="*" />
@@ -768,38 +757,67 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FacultyAreasXRef">
+          <Key>
+            <PropertyRef Name="AssocId" />
+          </Key>
+          <Property Type="Int32" Name="AssocId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserId" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESFAD" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SUAD" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AOSCode" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="InterestAreas" MaxLength="600" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ProfileMod">
+          <Key>
+            <PropertyRef Name="ModId" />
+            <PropertyRef Name="RecId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="DispOrder" />
+            <PropertyRef Name="ModuleType" />
+          </Key>
+          <Property Type="Int32" Name="ModId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="RecId" Nullable="false" />
+          <Property Type="String" Name="UserId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="DispOrder" Nullable="false" />
+          <Property Type="String" Name="ModuleType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ModTitle" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ModData" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SUAD" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESFAD" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="FacultyPageId" />
+        </EntityType>
+        <EntityType Name="AddFacStaff">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="RecId" Nullable="false" />
+          <Property Type="String" Name="UserId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MiddleName" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Suffix" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OffcBldg" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OffcRoom" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OffcPhone" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SpeedDialExt" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MailAddrBldg" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MailAddrRoom" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AltOffcPhone" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="EmailId" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CampusTitle" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="WorkLoc" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FacStaff" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CivilServiceTitle" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESFAD" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SUAD" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PeopleModelStoreContainer" CdmEntityContainer="PeopleEntities">
-          <EntitySetMapping Name="AddFacStaffs">
-            <EntityTypeMapping TypeName="PeopleModel.AddFacStaff">
-              <MappingFragment StoreEntitySet="AddFacStaff">
-                <ScalarProperty Name="RecId" ColumnName="RecId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="Suffix" ColumnName="Suffix" />
-                <ScalarProperty Name="OffcBldg" ColumnName="OffcBldg" />
-                <ScalarProperty Name="OffcRoom" ColumnName="OffcRoom" />
-                <ScalarProperty Name="OffcPhone" ColumnName="OffcPhone" />
-                <ScalarProperty Name="SpeedDialExt" ColumnName="SpeedDialExt" />
-                <ScalarProperty Name="MailAddrBldg" ColumnName="MailAddrBldg" />
-                <ScalarProperty Name="MailAddrRoom" ColumnName="MailAddrRoom" />
-                <ScalarProperty Name="AltOffcPhone" ColumnName="AltOffcPhone" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="CampusTitle" ColumnName="CampusTitle" />
-                <ScalarProperty Name="WorkLoc" ColumnName="WorkLoc" />
-                <ScalarProperty Name="FacStaff" ColumnName="FacStaff" />
-                <ScalarProperty Name="CivilServiceTitle" ColumnName="CivilServiceTitle" />
-                <ScalarProperty Name="ESFAD" ColumnName="ESFAD" />
-                <ScalarProperty Name="SUAD" ColumnName="SUAD" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CodesAOS">
             <EntityTypeMapping TypeName="PeopleModel.CodesAO">
               <MappingFragment StoreEntitySet="CodesAOS">
@@ -1078,15 +1096,61 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spRemoveFDs" FunctionName="PeopleModel.Store.spRemoveFDs" />
-          <EntitySetMapping Name="FacultyAOSAssocs">
-            <EntityTypeMapping TypeName="PeopleModel.FacultyAOSAssoc">
-              <MappingFragment StoreEntitySet="FacultyAOSAssoc">
-                <ScalarProperty Name="Dept" ColumnName="Dept" />
-                <ScalarProperty Name="ParticipatingAreas" ColumnName="ParticipatingAreas" />
+          <FunctionImportMapping FunctionImportName="spAssocFac" FunctionName="PeopleModel.Store.spAssocFac" />
+          <FunctionImportMapping FunctionImportName="spFPIMAOSXrefAddESC" FunctionName="PeopleModel.Store.spFPIMAOSXrefAddESC" />
+          <FunctionImportMapping FunctionImportName="spFPIMAOSXrefDelESC" FunctionName="PeopleModel.Store.spFPIMAOSXrefDelESC" />
+          <FunctionImportMapping FunctionImportName="spFPIMUpdatePariticpatingArea" FunctionName="PeopleModel.Store.spFPIMUpdatePariticpatingArea" />
+          <EntitySetMapping Name="FacultyAreasXRefs">
+            <EntityTypeMapping TypeName="PeopleModel.FacultyAreasXRef">
+              <MappingFragment StoreEntitySet="FacultyAreasXRef">
                 <ScalarProperty Name="InterestAreas" ColumnName="InterestAreas" />
                 <ScalarProperty Name="AOSCode" ColumnName="AOSCode" />
-                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
-                <ScalarProperty Name="AssocAOSId" ColumnName="AssocAOSId" />
+                <ScalarProperty Name="SUAD" ColumnName="SUAD" />
+                <ScalarProperty Name="ESFAD" ColumnName="ESFAD" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AssocId" ColumnName="AssocId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfileMods">
+            <EntityTypeMapping TypeName="PeopleModel.ProfileMod">
+              <MappingFragment StoreEntitySet="ProfileMods">
+                <ScalarProperty Name="FacultyPageId" ColumnName="FacultyPageId" />
+                <ScalarProperty Name="ESFAD" ColumnName="ESFAD" />
+                <ScalarProperty Name="SUAD" ColumnName="SUAD" />
+                <ScalarProperty Name="ModData" ColumnName="ModData" />
+                <ScalarProperty Name="ModTitle" ColumnName="ModTitle" />
+                <ScalarProperty Name="ModuleType" ColumnName="ModuleType" />
+                <ScalarProperty Name="DispOrder" ColumnName="DispOrder" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RecId" ColumnName="RecId" />
+                <ScalarProperty Name="ModId" ColumnName="ModId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddFacStaffs">
+            <EntityTypeMapping TypeName="PeopleModel.AddFacStaff">
+              <MappingFragment StoreEntitySet="AddFacStaff">
+                <ScalarProperty Name="SUAD" ColumnName="SUAD" />
+                <ScalarProperty Name="ESFAD" ColumnName="ESFAD" />
+                <ScalarProperty Name="CivilServiceTitle" ColumnName="CivilServiceTitle" />
+                <ScalarProperty Name="FacStaff" ColumnName="FacStaff" />
+                <ScalarProperty Name="WorkLoc" ColumnName="WorkLoc" />
+                <ScalarProperty Name="CampusTitle" ColumnName="CampusTitle" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="AltOffcPhone" ColumnName="AltOffcPhone" />
+                <ScalarProperty Name="MailAddrRoom" ColumnName="MailAddrRoom" />
+                <ScalarProperty Name="MailAddrBldg" ColumnName="MailAddrBldg" />
+                <ScalarProperty Name="SpeedDialExt" ColumnName="SpeedDialExt" />
+                <ScalarProperty Name="OffcPhone" ColumnName="OffcPhone" />
+                <ScalarProperty Name="OffcRoom" ColumnName="OffcRoom" />
+                <ScalarProperty Name="OffcBldg" ColumnName="OffcBldg" />
+                <ScalarProperty Name="Suffix" ColumnName="Suffix" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RecId" ColumnName="RecId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
