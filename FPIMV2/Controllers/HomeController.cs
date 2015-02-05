@@ -220,6 +220,7 @@ namespace FPIMV2.Controllers
             var name = myPhoto.profileFirstName + " " + myPhoto.profileLastName;
             mail.From = new MailAddress("annonymous@esf.edu", name);
             mail.To.Add(new MailAddress("schender@esf.edu"));
+            mail.To.Add(new MailAddress("web@esf.edu"));
             mail.CC.Add(new MailAddress(myPhoto.profileEMail));
             // mail.Bcc.Add(new MailAddress("schender@esf.edu"));
             mail.Subject = "New Profile Photo from " + name;
