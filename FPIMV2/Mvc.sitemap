@@ -1,10 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
-            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
-
-  <mvcSiteMapNode title="Home" controller="Home" action="Index">
-    <mvcSiteMapNode title="About" controller="Home" action="About"/>
+<mvcSiteMap xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0" enableLocalization="true">
+  <mvcSiteMapNode title="Home" controller="Home" action="AdminIndex"  preservedRouteParameters="profileId" key="Admin">
+      <mvcSiteMapNode title="Manage Files" controller="Home" action="ManageFiles" preservedRouteParameters="profileId"/>
+      <mvcSiteMapNode title="Manage Modules" controller="Home" action="ManageModules" preservedRouteParameters="profileId"/>
+      <mvcSiteMapNode title="Manage Pages" controller="Home" action="ManagePages" preservedRouteParameters="profileId"/>
+      <mvcSiteMapNode title="Preview Pages" controller="Home" action="ViewFacultyPage" preservedRouteParameters="profileId, pageId"/>
+      <mvcSiteMapNode title="Main Page" controller="Home" action="ViewMainFacultyPage" preservedRouteParameters="profileId"/>
+      <mvcSiteMapNode title="Adminster Content" controller="Home" action="AdministerContent" preservedRouteParameters="profileId" />
+      <mvcSiteMapNode title="Add, Update, Delete Faculty" controller="Home" action="ManageNonHRFaculty" preservedRouteParameters="profileId">
+        <mvcSiteMapNode title="Update Faculty" controller="Home" action="ManuallyUpdateFaculty" preservedRouteParameters="profileId, userId"/>
+        <mvcSiteMapNode title="Add Faculty" controller="Home" action="ManuallyAddFaculty" preservedRouteParameters="profileId"/>
+     </mvcSiteMapNode>
   </mvcSiteMapNode>
-
 </mvcSiteMap>
+
+
+
+

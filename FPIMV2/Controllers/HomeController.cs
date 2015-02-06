@@ -64,7 +64,7 @@ namespace FPIMV2.Controllers
                 string profileID = null;
                 if (p != null)
                 {
-                    profileID = firstname + '.' + lastname;
+                    profileID = firstname.ToLower() + '.' + lastname.ToLower() + '/';
                 }
                 else
                 {

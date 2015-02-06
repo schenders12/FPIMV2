@@ -646,71 +646,6 @@ namespace FPIMV2.Helpers
             //return mp;
         }
 
-        // Process Associations
-        public static string ProcessAssociation(string id, string SUAD, string ESFAD, string assoc)
-        {
-            // Open database context
-            PeopleEntities db = new PeopleEntities();
-            // Execute SP to remove all associations
-            // TBD var result = db.spRemoveFDs(id, ESFAD, SUAD);
-
-            // Execute SP to add associations
-            // Split assoc into string
-            if (assoc != null)
-            {
-               var parts = assoc.Split(',');
-               foreach (var part in parts)
-               {
-                  //result = db.spAssocFac(id, ESFAD, SUAD, part);
-                  // FacultyAssocAOS myAssocAOS = new (db.FacultyAssocAOSs);
-                  // myAssocAOS.ProfileId = id;
-                 //  myAssocAOS.AOSCode = part;
-                  //TBD  myAssocAOS.InterestAreas = intAreas;
-                   // TBD myAssocAOS.ParticipatingAreas = partAreas;
-               }
-            }
-
-            return "";
-        }
-
-        // Submit a profile photo
-        public static bool SubmitPhoto(string to, string from, string cc, string subject, string body, string photoFile)
-        {
-            MailMessage message = new MailMessage();
-            try
-            {
-                // email to list is comma separated. 
-                message.To.Add(to + "," + cc);
-                message.From = new MailAddress(from);
-                //message.CC = new MailAddress(cc);
-                message.Subject = subject;
-                message.Body = body;
-                message.BodyEncoding = System.Text.Encoding.UTF8;
-                message.SubjectEncoding = System.Text.Encoding.UTF8;
-
-                // Get the attachment
-                //string strFileName = System.IO.Path.GetFileName(FileUpload1.PostedFile.FileName);
-                // string attachmentPath = Environment.CurrentDirectory + @"\test.txt";
-              //  if (photoFile != "")
-              //  {
-             //       Attachment item = new Attachment(FileUpload1.PostedFile.InputStream, strFileName);
-             //       // item.Name = ("C\\Users\\schender\\test.txt");
-             //       mail.Attachments.Add(item);
-             //   }
-
-                SmtpClient client = new SmtpClient();
-                client.Host = "149.119.140.44";
-                client.Port = 25;
-                client.UseDefaultCredentials = false;
-                client.Send(message);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
-
         // Get an employee record from the DB
         public static CommEmployee GetEmployee(string userId, string suad, string esfad, string firstname = null, string lastname = null)
         {
@@ -758,27 +693,24 @@ namespace FPIMV2.Helpers
         // Get an employee record from the DB
         public static string GetEmployeeWelcomeString(string userId, string suad, string esfad, string firstname = null, string lastname = null)
         {
-            PeopleEntities db = new PeopleEntities();
-            CommEmployee employee;
             string output = "";
-            try
+            // Get Employee record
+            CommEmployee employee = GetEmployee(userId, suad, esfad);
+            AddFacStaff addFacStaff = null;
+            if (employee == null)
             {
-                // Get the employee record by user id
-                // User has a profile, look up Employee record
-                employee = db.CommEmployees.SingleOrDefault(m => m.UserId == userId || m.EmailId == esfad + "@esf.edu%" || m.EmailId == suad + "@syr.edu%");
-                //employee = db.CommEmployees.SingleOrDefault(m => m.UserId == userId);
-                if (employee == null)
-                {
-                    // User does not have a user id, find the employee by first name/last name
-                    employee = db.CommEmployees.Single(m => m.FirstName == firstname && m.LastName == lastname);
-                }
-                output = employee.FirstName + " " + employee.LastName;
-                return output;
+                // return null;
+                addFacStaff = fns.GetAddFacStaff(userId, suad, esfad);
             }
-            catch (Exception ex)
+            if ((addFacStaff != null) || (employee != null))
             {
-                return output;
+                string firstName = (employee != null) ? employee.FirstName : addFacStaff.FirstName;
+                string lastName = (employee != null) ? employee.LastName : addFacStaff.LastName;
+
+
+                output = firstName + " " + lastName;
             }
+            return output;
         }
 
         // 
