@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
+using System.Security.AccessControl;
 
 namespace systems.Upload
 {
@@ -144,7 +145,10 @@ namespace systems.Upload
                 var directoryPath = StorageRoot + myProfileId + "\\documents\\";
                 if (!System.IO.Directory.Exists(directoryPath))//if path does not exist
                 {
-                    System.IO.Directory.CreateDirectory(directoryPath);
+                    DirectorySecurity securityRules = new DirectorySecurity();
+                    securityRules.AddAccessRule(new FileSystemAccessRule(@"Domain\account2", FileSystemRights.FullControl, AccessControlType.Allow));
+
+                    System.IO.Directory.CreateDirectory(directoryPath, securityRules);
                 }
                 var fullPath = StorageRoot + myProfileId + "\\documents\\" + Path.GetFileName(file.FileName);
                 file.SaveAs(fullPath);

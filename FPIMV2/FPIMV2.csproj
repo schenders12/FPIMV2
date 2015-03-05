@@ -278,6 +278,8 @@
     <Content Include="Scripts\FileUpload\jquery.fileupload-ui.js" />
     <Content Include="Scripts\FileUpload\jquery.fileupload.js" />
     <Content Include="Scripts\FileUpload\jquery.iframe-transport.js" />
+    <Content Include="Scripts\FileUpload\cors\jquery.postmessage-transport.js" />
+    <Content Include="Scripts\FileUpload\cors\jquery.xdr-transport.js" />
     <Content Include="Scripts\FileUpload\load-image.min.js" />
     <Content Include="Scripts\FileUpload\locale.js" />
     <Content Include="Scripts\FileUpload\main.js" />

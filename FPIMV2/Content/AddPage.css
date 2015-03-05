@@ -13,7 +13,7 @@
   .gallery2 li img { width: 100%; cursor: move; }
   .gallery ul { list-style: none;  list-style-type: none;} */
  
-  #new-page-droppable { float: right; width: 50%; min-height: 18em; padding: 1%; }
+  #new-page-droppable { float: right; width: 45%; min-height: 18em; padding: 1%; overflow:  auto }
   #new-page-droppable h4 { line-height: 16px; margin: 0 0 0.4em; }
   #new-page-droppable h4 .ui-icon { float: left; }
   #new-page-droppable ul { list-style: none;  }

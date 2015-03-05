@@ -32,9 +32,9 @@ namespace systems.Upload
             size = fileLength;
             progress = "1.0";
            // url = HandlerPath + "UploadHandler.ashx?f=" + fileName + "&profileId="+ profileId;
-           // delete_url = HandlerPath + "UploadHandler.ashx?f=" + fileName + "&profileId=" + profileId;
+            delete_url = HandlerPath + "UploadHandler.ashx?f=" + fileName + "&profileId=" + profileId;
             url = HandlerPath + "UploadHandler.ashx?f=" + fileName;
-            delete_url = HandlerPath + "UploadHandler.ashx?f=" + fileName;
+            //delete_url = HandlerPath + "UploadHandler.ashx?f=" + fileName;
             link_url = HandlerPath + "UploadHandler.ashx?f=" + fileName;
             delete_type = "DELETE";
 

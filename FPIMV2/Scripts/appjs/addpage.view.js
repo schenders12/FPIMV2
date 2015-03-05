@@ -46,7 +46,8 @@ $(document).ready(function () {
     $(".gallery").sortable({
         placeholder: "ui-state-highlight",
         connectWith: '.gallery',
-        revert:  150,
+        revert: 150,
+        cursorAt:  {left: 5},
         receive: function(event, ui) {
            // ui.item.fadein();
         }

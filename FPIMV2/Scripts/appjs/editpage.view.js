@@ -33,7 +33,7 @@ $(document).ready(function () {
 
     var profileId = $('#ProfileId').attr('value');
     var pageTitle = $('#PageTitle').attr('value');
-    var pageId = $('#PageId').attr('value');
+    var pageId = $('#FacultyPageId').attr('value');
 
     // Create sortables for the modules
     $(".gallery").sortable({
@@ -47,11 +47,11 @@ $(document).ready(function () {
     }).disableSelection();
 
     // Get the available modules and add them to the available module list
-    var url = ROOT + 'Home/GetModules/';
+    var url = ROOT + 'Home/GetAvailableModules/';
     $.ajax({
         url: url,
         type: 'Get',
-        data: { myId: profileId},
+        data: { myId: profileId, pageId: pageId },
         success: function (data) {
             $.each(data, function (i, value) {
                 // Create a draggable item for each module and add to the list

@@ -12,7 +12,7 @@
   </style>
 
 
-<h2>@Model.PageTitle</h2>
+<h2>You are editing:  @Model.PageTitle</h2>
 
 
     @Html.AntiForgeryToken()
@@ -21,9 +21,9 @@
     @Html.HiddenFor(model => model.ProfileId)
     @Html.HiddenFor(model => model.FacultyPageId)
 
-<h2>Edit a Page:</h2> 
 <h3>To add modules to your page, drag them from the left to the page on the right.</h3>
 <h3>To remove modules from your page, drag them from the page on the right to the left.</h3>
+<h3>To reorder modules, drag the boxes on the right up and down.</h3>
 <h3>If there are no modules to drag, you have no modules and must create some.</h3>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
@@ -33,21 +33,24 @@
     @Html.HiddenFor(model => model.LinkURL)
     <fieldset>
         <legend></legend>
-     <h3>Page Title</h3>
+     <h3>Modify the Page Title here:</h3>
      <div class="editor-field">
          @Html.TextBoxFor(m=>m.PageTitle)
          @Html.ValidationMessageFor(model => model.PageTitle)
      </div>
-
+    </fieldset>
+    <fieldset>
+        <legend></legend>
     <!-- Display Page modules on the left of the page, page on right -->
-    <div id="select-modules" class="ui-widget ui-helper-clearfix">
+    <div id="select-modules" class="ui-widget ui-helper-clearfix" style="overflow: auto";>
       <!--   <ul id="available-modules" class="gallery  ui-helper-reset ui-helper-clearfix"></ul> -->
+      <h4>Modules not contained on your page:</h4>
       <ul id="available-modules" class="gallery"></ul>
         <div id="new-page-droppable" class="ui-widget-content ui-state-default">
-          <h4 class="ui-widget-header"><span class="ui-icon ui-icon-document"> Drag Modules here:</span> Drag Modules here:</h4>
+         <h4 class="ui-widget-header"><span class="ui-icon ui-icon-document"></span>Modules contained in your page:</h4>
            <!-- <ul id="sortable-modules" class="gallery ui-helper-reset ui-helper-clearfix gallery" width: 143px;> -->
            <ul id="sortable-modules" class="gallery">
-            @foreach (var item in Model.FacultyProfileModules)
+            @foreach (var item in ViewBag.FacultyProfileModules)
             {
                  <li  class="ui-state-default ui-sortable-handle"  id="@Html.Raw(@item.FacultyProfileModuleId)" data-modid="@Html.Raw(@item.FacultyProfileModuleId)" value="@Html.Raw(@item.FacultyProfileModuleId)">@Html.Raw(@item.ModuleTitle)</li>
             }

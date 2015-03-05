@@ -276,6 +276,7 @@ namespace FPIMV2.Controllers
         public ActionResult ManagePages(string profileId)
         {
             FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
+            ViewBag.FacultyProfileModules = myProfile.FacultyProfileModules.OrderBy(s => s.DisplayOrder);
             ViewBag.profileId = profileId;
             return View(myProfile);
         }
@@ -323,18 +324,16 @@ namespace FPIMV2.Controllers
             FacultyPage myPage = new FacultyPage();
             myPage.PageTitle = title;
             myPage.ProfileId = profileID;
-
-            // Set the link URL
-            // myPage.LinkURL = myPage.LinkURL + myPage.PageTitle;
+            myPage.LinkURL = "none";
 
             // Loop over all added modules
-            // string modules = Request.Form["addMe"];
             myPage.FacultyProfileModules = new EntityCollection<FacultyProfileModule>();
+            int itemCount = 0;
             if (items != null)
             {
-                //  var parts = modules.Split(',');
                 foreach (var item in items)
                 {
+                    itemCount++;
                     int selectedModuleId = Convert.ToInt32(item);
                     // Retrieve the data from the existing module and create a new module
                     FacultyProfileModule oldMod = db.FacultyProfileModules.First(m => m.FacultyProfileModuleId == selectedModuleId);
@@ -345,7 +344,7 @@ namespace FPIMV2.Controllers
                     newMod.ModuleType = oldMod.ModuleType;
                     newMod.ModuleTitle = oldMod.ModuleTitle;
                     newMod.ModuleData = oldMod.ModuleData;
-                    newMod.DisplayOrder = oldMod.DisplayOrder;
+                    newMod.DisplayOrder = itemCount;
 
                     // Add the module dta to the page
                     myPage.FacultyProfileModules.Add(newMod);
@@ -380,23 +379,79 @@ namespace FPIMV2.Controllers
         public ActionResult EditFacultyPage(string profileId, int pageId)
         {
             FacultyPage page = db.FacultyPages.First(m => m.FacultyPageId == pageId);
+            ViewBag.FacultyProfileModules = page.FacultyProfileModules.OrderBy(s => s.DisplayOrder);
             return View(page);
         }
 
         [HttpPost]
         public ActionResult EditFacultyPage(List<string> items, string title, int id)
         {
-            FacultyPage page = new FacultyPage();
-            page = db.FacultyPages.First(m => m.FacultyPageId == id);
+            //FacultyPage page = new FacultyPage();
+            //page = db.FacultyPages.First(m => m.FacultyPageId == id);
+            FacultyPage page = db.FacultyPages.First(m => m.FacultyPageId == id);
             page.PageTitle = title;
 
-            // for each profile, save the display order
-            List<FacultyProfileModule> modules = db.FacultyProfileModules.Where(m => m.FacultyPageId == id).ToList();
-            foreach (FacultyProfileModule module in modules)
+
+            // Add/Update the modules that have been added to this page
+
+            // Loop over all added modules
+            //page.FacultyProfileModules = new EntityCollection<FacultyProfileModule>();
+            List<int> modifiedModules = new List<int>();
+            int itemCount = 0;
+            if (items != null)
             {
-                int index = items.IndexOf(module.FacultyProfileModuleId.ToString());
-                module.DisplayOrder = index;
+                //  var parts = modules.Split(',');
+                foreach (var item in items)
+                {
+                    itemCount ++;
+                    int selectedModuleId = Convert.ToInt32(item);
+                    // Retrieve the data from the existing module and create a new module
+                    modifiedModules.Add(selectedModuleId);
+                    FacultyProfileModule oldMod = db.FacultyProfileModules.First(m => m.FacultyProfileModuleId == selectedModuleId);
+                    if (oldMod.FacultyPageId == -1)
+                    {
+                        // this Module was added, create a new module
+                        FacultyProfileModule newMod = new FacultyProfileModule();
+
+                        newMod.ProfileId = page.ProfileId;
+                        newMod.FacultyPageId = oldMod.FacultyPageId;
+                        newMod.ModuleType = oldMod.ModuleType;
+                        newMod.ModuleTitle = oldMod.ModuleTitle;
+                        newMod.ModuleData = oldMod.ModuleData;
+                        newMod.DisplayOrder = itemCount;
+
+                        // Add the module data to the page
+                        page.FacultyProfileModules.Add(newMod);
+                    }
+                    else // Update DisplayOrder
+                    {
+                        // this Module was added, create a new module
+                        oldMod.DisplayOrder = itemCount;
+
+                    }
+
+                }
             }
+
+
+            // Delete the modules that have been deleted from this page
+
+            // Retrieve the modules that are already on this page (before changes)
+            List<FacultyProfileModule> currentModules = db.FacultyProfileModules.Where(m => m.FacultyPageId == id).ToList();
+
+            // Create lookup from Id to the associated User1 object
+            var allCurrentModulesByTitle = currentModules.ToDictionary(m => m.FacultyProfileModuleId);
+
+            // Find Ids from the lookup that are not present for User2s from list2
+            // and then retrieve their associated User1s from the lookup
+            var allMyModuleDeletedFromPage = allCurrentModulesByTitle.Keys
+                                             .Except(modifiedModules.Select(modID => modID))
+                                             .Select(key => allCurrentModulesByTitle[key]);
+            foreach (FacultyProfileModule module in allMyModuleDeletedFromPage)
+            {
+                 db.DeleteObject(module);
+            }
+
             if (ModelState.IsValid)
             {
                 db.SaveChanges();
@@ -438,6 +493,13 @@ namespace FPIMV2.Controllers
                 pageUpdate = db.FacultyPages.Single(m => m.FacultyPageId == myPage.FacultyPageId);
                 db.DeleteObject(pageUpdate);
                 db.SaveChanges();
+            }
+            else
+            {
+                var errors = ModelState
+                    .Where(x => x.Value.Errors.Count > 0)
+                    .Select(x => new { x.Key, x.Value.Errors })
+                    .ToArray();
             }
             return RedirectToAction("ManagePages", new { profileId = myPage.ProfileId });
            // var redirectUrl = new UrlHelper(Request.RequestContext).Action("ManagePages", new { profileId = myPage.ProfileId });
@@ -646,6 +708,58 @@ namespace FPIMV2.Controllers
             //var results = (from ta in allMyModules
             //                select ta.ModuleTitle).Distinct();
             return Json(allMyModules, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetPageModules(string myId, int pageId)
+        {
+            var allPageModules = db.FacultyProfileModules.Select(m => new
+            {
+                m.FacultyProfileModuleId,
+                m.FacultyPageId,
+                m.ProfileId,
+                m.ModuleType,
+                m.ModuleTitle,
+                m.ModuleData,
+                m.DisplayOrder
+            }).Where(m => m.ProfileId == myId).Where(m => m.FacultyPageId == pageId).OrderBy(m => m.DisplayOrder).ToList();
+
+            return Json(allPageModules, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetAvailableModules(string myId, int pageId)
+        {
+            var allPageModules = db.FacultyProfileModules.Select(m => new
+            {
+                m.FacultyProfileModuleId,
+                m.FacultyPageId,
+                m.ProfileId,
+                m.ModuleType,
+                m.ModuleTitle,
+                m.ModuleData
+            }).Where(m => m.ProfileId == myId).Where(m => m.FacultyPageId == pageId).ToList();
+
+            // Return all modules for this profile ID that have no page assignment
+            var allMyModules = db.FacultyProfileModules.Select(m => new
+            {
+                m.FacultyProfileModuleId,
+                m.FacultyPageId,
+                m.ProfileId,
+                m.ModuleType,
+                m.ModuleTitle,
+                m.ModuleData
+               //  }).Where(m => m.ProfileId == myId).Where(m => m.FacultyPageId == -1).Except(allPageModules.Select(m => m.ModuleTitle)).ToList();
+            }).Where(m => m.ProfileId == myId).Where(m => m.FacultyPageId == -1).ToList();
+
+            // Create lookup from Id to the associated User1 object
+            var allMyModulesByTitle = allMyModules.ToDictionary(m => m.ModuleTitle);
+
+            // Find Ids from the lookup that are not present for User2s from list2
+            // and then retrieve their associated User1s from the lookup
+            var allMyModuleNotOnpage = allMyModulesByTitle.Keys
+                                             .Except(allPageModules.Select(user2 => user2.ModuleTitle))
+                                             .Select(key => allMyModulesByTitle[key]);
+
+            return Json(allMyModuleNotOnpage, JsonRequestBehavior.AllowGet);
         }
 
         // View/Preview pages

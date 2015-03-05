@@ -42,11 +42,11 @@
               }
           </td>
           <td>
-          @foreach (var module in Model.FacultyProfileModules)
+          @foreach (var module in ViewBag.FacultyProfileModules)
           {
               if (module.FacultyPageId == page.FacultyPageId)
               {
-                 <p>@Html.DisplayFor(m => module.ModuleTitle)</p>
+                 <p>@module.ModuleTitle</p>
              };
           }
           </td>

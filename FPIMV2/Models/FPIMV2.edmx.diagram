@@ -19,7 +19,7 @@
         <AssociationConnector Association="PeopleModel.FacultyPageFacultyProfileModule" />
         <EntityTypeShape EntityType="PeopleModel.FacultyAreasXRef" Width="1.5" PointX="0.5" PointY="3.875" />
         <EntityTypeShape EntityType="PeopleModel.ProfileMod" Width="1.5" PointX="6.375" PointY="0.625" />
-        <EntityTypeShape EntityType="PeopleModel.AddFacStaff" Width="1.5" PointX="13.125" PointY="0.5" />
+        <EntityTypeShape EntityType="PeopleModel.AddFacStaff" Width="1.5" PointX="12.125" PointY="0.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
