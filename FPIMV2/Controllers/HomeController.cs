@@ -595,14 +595,16 @@ namespace FPIMV2.Controllers
         [HttpGet]
         public ActionResult AddGradModule(string profileID)
         {
-            FacultyProfileModule fileMod = new FacultyProfileModule();
-            fileMod.ProfileId = profileID;
-            fileMod.FacultyPageId = -1;
-            fileMod.ModuleType = "Grad";
-            fileMod.DisplayOrder = -1;
+            FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileID);
+            FacultyProfileModule gradMod = new FacultyProfileModule();
+            gradMod.ProfileId = profileID;
+            gradMod.FacultyPageId = -1;
+            gradMod.ModuleType = "Grad";
+            gradMod.DisplayOrder = -1;
             Console.Write("Adding Grad Faculty Module...");
 
-            return View(fileMod);
+            profile.FacultyProfileModules.Add(gradMod);
+            return View(gradMod);
             // return null;
         }
         [HttpPost]
@@ -801,7 +803,7 @@ namespace FPIMV2.Controllers
             ViewBag.PageId = pageId;
             ViewBag.dept = profile.Department;
 
-            if (page.LinkURL == null || page.LinkURL == "")
+            if (page.LinkURL == null || page.LinkURL == "" || page.LinkURL == "none")
             {
                 return View(profile);
             }

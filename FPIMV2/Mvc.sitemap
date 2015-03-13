@@ -2,8 +2,16 @@
 <mvcSiteMap xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-3.0" enableLocalization="true">
   <mvcSiteMapNode title="Home" controller="Home" action="AdminIndex"  preservedRouteParameters="profileId" key="Admin">
       <mvcSiteMapNode title="Manage Files" controller="Home" action="ManageFiles" preservedRouteParameters="profileId"/>
-      <mvcSiteMapNode title="Manage Modules" controller="Home" action="ManageModules" preservedRouteParameters="profileId"/>
-      <mvcSiteMapNode title="Manage Pages" controller="Home" action="ManagePages" preservedRouteParameters="profileId"/>
+      <mvcSiteMapNode title="Manage Modules" controller="Home" action="ManageModules" preservedRouteParameters="profileId">
+         <mvcSiteMapNode title="Add HTML Module" controller="Home" action="AddHTMLModule" preservedRouteParameters="profileID"/>
+         <mvcSiteMapNode title="Add Grad Module" controller="Home" action="AddGradModule" preservedRouteParameters="profileID"/>
+         <mvcSiteMapNode title="Edit Module" controller="Home" action="EditFacultyModule" preservedRouteParameters="profileId, moduleId"/>
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Manage Pages" controller="Home" action="ManagePages" preservedRouteParameters="profileId">
+         <mvcSiteMapNode title="Add Page" controller="Home" action="AddFacultyPage" preservedRouteParameters="profileID"/>
+         <mvcSiteMapNode title="Edit Page" controller="Home" action="EditFacultyPage" preservedRouteParameters="profileId, pageId"/>
+        <mvcSiteMapNode title="Add External Link" controller="Home" action="AddFacultyExternalLink" preservedRouteParameters="profileID"/>
+      </mvcSiteMapNode>
       <mvcSiteMapNode title="Preview Pages" controller="Home" action="ViewFacultyPage" preservedRouteParameters="profileId, pageId"/>
       <mvcSiteMapNode title="Main Page" controller="Home" action="ViewMainFacultyPage" preservedRouteParameters="profileId"/>
       <mvcSiteMapNode title="Adminster Content" controller="Home" action="AdministerContent" preservedRouteParameters="profileId" />

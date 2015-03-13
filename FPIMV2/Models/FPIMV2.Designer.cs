@@ -4020,7 +4020,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 RecId
         {
@@ -4030,14 +4030,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_RecId != value)
-                {
-                    OnRecIdChanging(value);
-                    ReportPropertyChanging("RecId");
-                    _RecId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("RecId");
-                    OnRecIdChanged();
-                }
+                OnRecIdChanging(value);
+                ReportPropertyChanging("RecId");
+                _RecId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RecId");
+                OnRecIdChanged();
             }
         }
         private global::System.Int32 _RecId;
@@ -4047,7 +4044,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String UserId
         {
@@ -4057,14 +4054,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_UserId != value)
-                {
-                    OnUserIdChanging(value);
-                    ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("UserId");
-                    OnUserIdChanged();
-                }
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
             }
         }
         private global::System.String _UserId;
@@ -4074,7 +4068,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 DispOrder
         {
@@ -4084,14 +4078,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_DispOrder != value)
-                {
-                    OnDispOrderChanging(value);
-                    ReportPropertyChanging("DispOrder");
-                    _DispOrder = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("DispOrder");
-                    OnDispOrderChanged();
-                }
+                OnDispOrderChanging(value);
+                ReportPropertyChanging("DispOrder");
+                _DispOrder = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DispOrder");
+                OnDispOrderChanged();
             }
         }
         private global::System.Int32 _DispOrder;
@@ -4101,7 +4092,7 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String ModuleType
         {
@@ -4111,14 +4102,11 @@ namespace FPIMV2.Models
             }
             set
             {
-                if (_ModuleType != value)
-                {
-                    OnModuleTypeChanging(value);
-                    ReportPropertyChanging("ModuleType");
-                    _ModuleType = StructuralObject.SetValidValue(value, false);
-                    ReportPropertyChanged("ModuleType");
-                    OnModuleTypeChanged();
-                }
+                OnModuleTypeChanging(value);
+                ReportPropertyChanging("ModuleType");
+                _ModuleType = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("ModuleType");
+                OnModuleTypeChanged();
             }
         }
         private global::System.String _ModuleType;
@@ -4244,6 +4232,30 @@ namespace FPIMV2.Models
         private Nullable<global::System.Int32> _FacultyPageId;
         partial void OnFacultyPageIdChanging(Nullable<global::System.Int32> value);
         partial void OnFacultyPageIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ProfileId
+        {
+            get
+            {
+                return _ProfileId;
+            }
+            set
+            {
+                OnProfileIdChanging(value);
+                ReportPropertyChanging("ProfileId");
+                _ProfileId = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ProfileId");
+                OnProfileIdChanged();
+            }
+        }
+        private global::System.String _ProfileId;
+        partial void OnProfileIdChanging(global::System.String value);
+        partial void OnProfileIdChanged();
 
         #endregion
 

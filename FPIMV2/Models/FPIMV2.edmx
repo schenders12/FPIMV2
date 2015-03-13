@@ -48,20 +48,7 @@
           <EntitySet Name="FacultyProfile" EntityType="PeopleModel.Store.FacultyProfile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FacultyProfileModule" EntityType="PeopleModel.Store.FacultyProfileModule" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ProfileErrata" EntityType="PeopleModel.Store.ProfileErrata" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ProfileMods" EntityType="PeopleModel.Store.ProfileMods" store:Type="Tables" store:Schema="dbo" store:Name="ProfileMods">
-            <DefiningQuery>SELECT 
-      [ProfileMods].[ModId] AS [ModId], 
-      [ProfileMods].[RecId] AS [RecId], 
-      [ProfileMods].[UserId] AS [UserId], 
-      [ProfileMods].[DispOrder] AS [DispOrder], 
-      [ProfileMods].[ModuleType] AS [ModuleType], 
-      [ProfileMods].[ModTitle] AS [ModTitle], 
-      [ProfileMods].[ModData] AS [ModData], 
-      [ProfileMods].[SUAD] AS [SUAD], 
-      [ProfileMods].[ESFAD] AS [ESFAD], 
-      [ProfileMods].[FacultyPageId] AS [FacultyPageId]
-      FROM [dbo].[ProfileMods] AS [ProfileMods]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="ProfileMods" EntityType="PeopleModel.Store.ProfileMods" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_FacultyPage_FacultyProfile" Association="PeopleModel.Store.FK_FacultyPage_FacultyProfile">
             <End Role="FacultyProfile" EntitySet="FacultyProfile" />
             <End Role="FacultyPage" EntitySet="FacultyPage" />
@@ -252,18 +239,12 @@
           <Property Name="ParticipatingAreas" Type="varchar" MaxLength="600" />
           <Property Name="ReconciledAreas" Type="varchar" MaxLength="600" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'People.dbo.ProfileMods' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="ProfileMods">
           <Key>
             <PropertyRef Name="ModId" />
-            <PropertyRef Name="RecId" />
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="DispOrder" />
-            <PropertyRef Name="ModuleType" />
           </Key>
           <Property Name="ModId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProfileId" Type="varchar" MaxLength="50" />
           <Property Name="RecId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="varchar" Nullable="false" MaxLength="20" />
           <Property Name="DispOrder" Type="int" Nullable="false" />
@@ -771,10 +752,6 @@
         <EntityType Name="ProfileMod">
           <Key>
             <PropertyRef Name="ModId" />
-            <PropertyRef Name="RecId" />
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="DispOrder" />
-            <PropertyRef Name="ModuleType" />
           </Key>
           <Property Type="Int32" Name="ModId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="RecId" Nullable="false" />
@@ -786,6 +763,7 @@
           <Property Type="String" Name="SUAD" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ESFAD" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="FacultyPageId" />
+          <Property Type="String" Name="ProfileId" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="AddFacStaff">
           <Key>
@@ -1115,6 +1093,7 @@
           <EntitySetMapping Name="ProfileMods">
             <EntityTypeMapping TypeName="PeopleModel.ProfileMod">
               <MappingFragment StoreEntitySet="ProfileMods">
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
                 <ScalarProperty Name="FacultyPageId" ColumnName="FacultyPageId" />
                 <ScalarProperty Name="ESFAD" ColumnName="ESFAD" />
                 <ScalarProperty Name="SUAD" ColumnName="SUAD" />
