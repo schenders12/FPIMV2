@@ -57,6 +57,14 @@
             <End Role="FacultyProfile" EntitySet="FacultyProfile" />
             <End Role="FacultyProfileModule" EntitySet="FacultyProfileModule" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProfileMods_FacultyPage" Association="PeopleModel.Store.FK_ProfileMods_FacultyPage">
+            <End Role="FacultyPage" EntitySet="FacultyPage" />
+            <End Role="ProfileMods" EntitySet="ProfileMods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfileMods_FacultyProfile" Association="PeopleModel.Store.FK_ProfileMods_FacultyProfile">
+            <End Role="FacultyProfile" EntitySet="FacultyProfile" />
+            <End Role="ProfileMods" EntitySet="ProfileMods" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="AddFacStaff">
           <Key>
@@ -279,6 +287,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProfileMods_FacultyPage">
+          <End Role="FacultyPage" Type="PeopleModel.Store.FacultyPage" Multiplicity="0..1" />
+          <End Role="ProfileMods" Type="PeopleModel.Store.ProfileMods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FacultyPage">
+              <PropertyRef Name="FacultyPageId" />
+            </Principal>
+            <Dependent Role="ProfileMods">
+              <PropertyRef Name="FacultyPageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProfileMods_FacultyProfile">
+          <End Role="FacultyProfile" Type="PeopleModel.Store.FacultyProfile" Multiplicity="0..1" />
+          <End Role="ProfileMods" Type="PeopleModel.Store.ProfileMods" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FacultyProfile">
+              <PropertyRef Name="ProfileId" />
+            </Principal>
+            <Dependent Role="ProfileMods">
+              <PropertyRef Name="ProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="spAdviseesPublic" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Prof" Type="varchar" Mode="In" />
         </Function>
@@ -428,8 +460,16 @@
             <Parameter Name="ParticipatingAreas" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="FacultyAreasXRefs" EntityType="PeopleModel.FacultyAreasXRef" />
-          <EntitySet Name="ProfileMods" EntityType="PeopleModel.ProfileMod" />
           <EntitySet Name="AddFacStaffs" EntityType="PeopleModel.AddFacStaff" />
+          <EntitySet Name="ProfileMods" EntityType="PeopleModel.ProfileMod" />
+          <AssociationSet Name="FK_ProfileMods_FacultyPage" Association="PeopleModel.FK_ProfileMods_FacultyPage">
+            <End Role="FacultyPage" EntitySet="FacultyPages" />
+            <End Role="ProfileMod" EntitySet="ProfileMods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfileMods_FacultyProfile" Association="PeopleModel.FK_ProfileMods_FacultyProfile">
+            <End Role="FacultyProfile" EntitySet="FacultyProfiles" />
+            <End Role="ProfileMod" EntitySet="ProfileMods" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CodesAO">
           <Key>
@@ -528,6 +568,7 @@
           <Property Name="LinkURL" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="FacultyProfile" Relationship="PeopleModel.FacultyProfileFacultyPage" FromRole="FacultyPage" ToRole="FacultyProfile" />
           <NavigationProperty Name="FacultyProfileModules" Relationship="PeopleModel.FacultyPageFacultyProfileModule" FromRole="FacultyPage" ToRole="FacultyProfileModule" />
+          <NavigationProperty Name="ProfileMods" Relationship="PeopleModel.FK_ProfileMods_FacultyPage" FromRole="FacultyPage" ToRole="ProfileMod" />
         </EntityType>
         <EntityType Name="FacultyProfile">
           <Key>
@@ -544,6 +585,7 @@
           <Property Name="ReconciledAreas" Type="String" MaxLength="600" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="FacultyProfileModules" Relationship="PeopleModel.FacultyProfileFacultyProfileModule" FromRole="FacultyProfile" ToRole="FacultyProfileModule" />
           <NavigationProperty Name="FacultyPages" Relationship="PeopleModel.FacultyProfileFacultyPage" FromRole="FacultyProfile" ToRole="FacultyPage" />
+          <NavigationProperty Name="ProfileMods" Relationship="PeopleModel.FK_ProfileMods_FacultyProfile" FromRole="FacultyProfile" ToRole="ProfileMod" />
         </EntityType>
         <EntityType Name="FacultyProfileModule">
           <Key>
@@ -749,22 +791,6 @@
           <Property Type="String" Name="AOSCode" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="InterestAreas" MaxLength="600" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="ProfileMod">
-          <Key>
-            <PropertyRef Name="ModId" />
-          </Key>
-          <Property Type="Int32" Name="ModId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="RecId" Nullable="false" />
-          <Property Type="String" Name="UserId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="DispOrder" Nullable="false" />
-          <Property Type="String" Name="ModuleType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ModTitle" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ModData" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="SUAD" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ESFAD" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="FacultyPageId" />
-          <Property Type="String" Name="ProfileId" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="AddFacStaff">
           <Key>
             <PropertyRef Name="UserId" />
@@ -790,6 +816,48 @@
           <Property Type="String" Name="ESFAD" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="SUAD" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="ProfileMod">
+          <Key>
+            <PropertyRef Name="ModId" />
+          </Key>
+          <Property Type="Int32" Name="ModId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ProfileId" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="RecId" Nullable="false" />
+          <Property Type="String" Name="UserId" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="DispOrder" Nullable="false" />
+          <Property Type="String" Name="ModuleType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ModTitle" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ModData" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="SUAD" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ESFAD" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="FacultyPageId" />
+          <NavigationProperty Name="FacultyPage" Relationship="PeopleModel.FK_ProfileMods_FacultyPage" FromRole="ProfileMod" ToRole="FacultyPage" />
+          <NavigationProperty Name="FacultyProfile" Relationship="PeopleModel.FK_ProfileMods_FacultyProfile" FromRole="ProfileMod" ToRole="FacultyProfile" />
+        </EntityType>
+        <Association Name="FK_ProfileMods_FacultyPage">
+          <End Type="PeopleModel.FacultyPage" Role="FacultyPage" Multiplicity="0..1" />
+          <End Type="PeopleModel.ProfileMod" Role="ProfileMod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FacultyPage">
+              <PropertyRef Name="FacultyPageId" />
+            </Principal>
+            <Dependent Role="ProfileMod">
+              <PropertyRef Name="FacultyPageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProfileMods_FacultyProfile">
+          <End Type="PeopleModel.FacultyProfile" Role="FacultyProfile" Multiplicity="0..1" />
+          <End Type="PeopleModel.ProfileMod" Role="ProfileMod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FacultyProfile">
+              <PropertyRef Name="ProfileId" />
+            </Principal>
+            <Dependent Role="ProfileMod">
+              <PropertyRef Name="ProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1090,23 +1158,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProfileMods">
-            <EntityTypeMapping TypeName="PeopleModel.ProfileMod">
-              <MappingFragment StoreEntitySet="ProfileMods">
-                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
-                <ScalarProperty Name="FacultyPageId" ColumnName="FacultyPageId" />
-                <ScalarProperty Name="ESFAD" ColumnName="ESFAD" />
-                <ScalarProperty Name="SUAD" ColumnName="SUAD" />
-                <ScalarProperty Name="ModData" ColumnName="ModData" />
-                <ScalarProperty Name="ModTitle" ColumnName="ModTitle" />
-                <ScalarProperty Name="ModuleType" ColumnName="ModuleType" />
-                <ScalarProperty Name="DispOrder" ColumnName="DispOrder" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="RecId" ColumnName="RecId" />
-                <ScalarProperty Name="ModId" ColumnName="ModId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="AddFacStaffs">
             <EntityTypeMapping TypeName="PeopleModel.AddFacStaff">
               <MappingFragment StoreEntitySet="AddFacStaff">
@@ -1130,6 +1181,23 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="RecId" ColumnName="RecId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfileMods">
+            <EntityTypeMapping TypeName="PeopleModel.ProfileMod">
+              <MappingFragment StoreEntitySet="ProfileMods">
+                <ScalarProperty Name="FacultyPageId" ColumnName="FacultyPageId" />
+                <ScalarProperty Name="ESFAD" ColumnName="ESFAD" />
+                <ScalarProperty Name="SUAD" ColumnName="SUAD" />
+                <ScalarProperty Name="ModData" ColumnName="ModData" />
+                <ScalarProperty Name="ModTitle" ColumnName="ModTitle" />
+                <ScalarProperty Name="ModuleType" ColumnName="ModuleType" />
+                <ScalarProperty Name="DispOrder" ColumnName="DispOrder" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RecId" ColumnName="RecId" />
+                <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+                <ScalarProperty Name="ModId" ColumnName="ModId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

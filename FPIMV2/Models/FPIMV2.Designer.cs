@@ -22,6 +22,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("PeopleModel", "FacultyProfileFacultyProfileModule", "FacultyProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FPIMV2.Models.FacultyProfile), "FacultyProfileModule", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FPIMV2.Models.FacultyProfileModule), true)]
 [assembly: EdmRelationshipAttribute("PeopleModel", "FacultyProfileFacultyPage", "FacultyProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FPIMV2.Models.FacultyProfile), "FacultyPage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FPIMV2.Models.FacultyPage), true)]
 [assembly: EdmRelationshipAttribute("PeopleModel", "FacultyPageFacultyProfileModule", "FacultyPage", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(FPIMV2.Models.FacultyPage), "FacultyProfileModule", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FPIMV2.Models.FacultyProfileModule), true)]
+[assembly: EdmRelationshipAttribute("PeopleModel", "FK_ProfileMods_FacultyPage", "FacultyPage", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FPIMV2.Models.FacultyPage), "ProfileMod", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FPIMV2.Models.ProfileMod), true)]
+[assembly: EdmRelationshipAttribute("PeopleModel", "FK_ProfileMods_FacultyProfile", "FacultyProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(FPIMV2.Models.FacultyProfile), "ProfileMod", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(FPIMV2.Models.ProfileMod), true)]
 
 #endregion
 
@@ -236,22 +238,6 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<ProfileMod> ProfileMods
-        {
-            get
-            {
-                if ((_ProfileMods == null))
-                {
-                    _ProfileMods = base.CreateObjectSet<ProfileMod>("ProfileMods");
-                }
-                return _ProfileMods;
-            }
-        }
-        private ObjectSet<ProfileMod> _ProfileMods;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<AddFacStaff> AddFacStaffs
         {
             get
@@ -264,6 +250,22 @@ namespace FPIMV2.Models
             }
         }
         private ObjectSet<AddFacStaff> _AddFacStaffs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ProfileMod> ProfileMods
+        {
+            get
+            {
+                if ((_ProfileMods == null))
+                {
+                    _ProfileMods = base.CreateObjectSet<ProfileMod>("ProfileMods");
+                }
+                return _ProfileMods;
+            }
+        }
+        private ObjectSet<ProfileMod> _ProfileMods;
 
         #endregion
 
@@ -350,19 +352,19 @@ namespace FPIMV2.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the ProfileMods EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToProfileMods(ProfileMod profileMod)
-        {
-            base.AddObject("ProfileMods", profileMod);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the AddFacStaffs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToAddFacStaffs(AddFacStaff addFacStaff)
         {
             base.AddObject("AddFacStaffs", addFacStaff);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ProfileMods EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToProfileMods(ProfileMod profileMod)
+        {
+            base.AddObject("ProfileMods", profileMod);
         }
 
         #endregion
@@ -3045,6 +3047,28 @@ namespace FPIMV2.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PeopleModel", "FK_ProfileMods_FacultyPage", "ProfileMod")]
+        public EntityCollection<ProfileMod> ProfileMods
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProfileMod>("PeopleModel.FK_ProfileMods_FacultyPage", "ProfileMod");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfileMod>("PeopleModel.FK_ProfileMods_FacultyPage", "ProfileMod", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -3341,6 +3365,28 @@ namespace FPIMV2.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<FacultyPage>("PeopleModel.FacultyProfileFacultyPage", "FacultyPage", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PeopleModel", "FK_ProfileMods_FacultyProfile", "ProfileMod")]
+        public EntityCollection<ProfileMod> ProfileMods
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ProfileMod>("PeopleModel.FK_ProfileMods_FacultyProfile", "ProfileMod");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ProfileMod>("PeopleModel.FK_ProfileMods_FacultyProfile", "ProfileMod", value);
                 }
             }
         }
@@ -4020,6 +4066,30 @@ namespace FPIMV2.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ProfileId
+        {
+            get
+            {
+                return _ProfileId;
+            }
+            set
+            {
+                OnProfileIdChanging(value);
+                ReportPropertyChanging("ProfileId");
+                _ProfileId = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ProfileId");
+                OnProfileIdChanged();
+            }
+        }
+        private global::System.String _ProfileId;
+        partial void OnProfileIdChanging(global::System.String value);
+        partial void OnProfileIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 RecId
@@ -4232,34 +4302,90 @@ namespace FPIMV2.Models
         private Nullable<global::System.Int32> _FacultyPageId;
         partial void OnFacultyPageIdChanging(Nullable<global::System.Int32> value);
         partial void OnFacultyPageIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String ProfileId
-        {
-            get
-            {
-                return _ProfileId;
-            }
-            set
-            {
-                OnProfileIdChanging(value);
-                ReportPropertyChanging("ProfileId");
-                _ProfileId = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("ProfileId");
-                OnProfileIdChanged();
-            }
-        }
-        private global::System.String _ProfileId;
-        partial void OnProfileIdChanging(global::System.String value);
-        partial void OnProfileIdChanged();
 
         #endregion
 
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PeopleModel", "FK_ProfileMods_FacultyPage", "FacultyPage")]
+        public FacultyPage FacultyPage
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FacultyPage>("PeopleModel.FK_ProfileMods_FacultyPage", "FacultyPage").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FacultyPage>("PeopleModel.FK_ProfileMods_FacultyPage", "FacultyPage").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<FacultyPage> FacultyPageReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FacultyPage>("PeopleModel.FK_ProfileMods_FacultyPage", "FacultyPage");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FacultyPage>("PeopleModel.FK_ProfileMods_FacultyPage", "FacultyPage", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("PeopleModel", "FK_ProfileMods_FacultyProfile", "FacultyProfile")]
+        public FacultyProfile FacultyProfile
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FacultyProfile>("PeopleModel.FK_ProfileMods_FacultyProfile", "FacultyProfile").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FacultyProfile>("PeopleModel.FK_ProfileMods_FacultyProfile", "FacultyProfile").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<FacultyProfile> FacultyProfileReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<FacultyProfile>("PeopleModel.FK_ProfileMods_FacultyProfile", "FacultyProfile");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FacultyProfile>("PeopleModel.FK_ProfileMods_FacultyProfile", "FacultyProfile", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
 
     #endregion

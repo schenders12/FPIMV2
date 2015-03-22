@@ -8,6 +8,9 @@
 </style>
 
 <h2>Manage Files and Documents</h2>
+<h4>To upload files to the server, select the 'Add Files...' button.  Multiple file selection is allowed.</h4>
+<h4>After the files are selected, select 'Upload all files' to upload all the files at once, or select the 'Upload' button next to the file.</h4>
+<h4>To de-select a file for uploading, select 'Cancel'.</h4>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { @action=@Url.Content("~/Upload/UploadHandler.ashx"), id = "fileupload" }))
 {
@@ -26,17 +29,17 @@
                 </span>
                 <button type="submit" class="btn btn-primary start">
                     <i class="icon-upload icon-white"></i>
-                    <span>Start upload</span>
+                    <span>Upload all files</span>
                 </button>
                 <button type="reset" class="btn btn-warning cancel">
                     <i class="icon-ban-circle icon-white"></i>
                     <span>Cancel upload</span>
                 </button>
-                <button type="button" class="btn btn-danger delete">
+            <!--    <button type="button" class="btn btn-danger delete">
                     <i class="icon-trash icon-white"></i>
                     <span>Delete</span>
-                </button>
-                <input type="checkbox" class="toggle">
+                </button> -->
+               <!-- <input type="checkbox" class="toggle"> -->
             </div>
             <div class="span5">
                 <!-- The global progress bar -->
@@ -179,13 +182,13 @@
             <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
             <td colspan="2"></td>
         {% } %}
-        <td class="delete">
+       <!-- <td class="delete">
             <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
                 <i class="icon-trash icon-white"></i>
                 <span>{%=locale.fileupload.destroy%}</span>
             </button>
             <input type="checkbox" name="delete" value="1">
-        </td>
+        </td> -->
     </tr>
 {% } %}
 </script>

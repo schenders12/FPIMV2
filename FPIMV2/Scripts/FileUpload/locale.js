@@ -20,7 +20,7 @@ window.locale = {
             "emptyResult": "Empty file upload result"
         },
         "error": "Error",
-        "start": "Start",
+        "start": "Upload",
         "cancel": "Cancel",
         "destroy": "Delete",
         "link":  "Link"

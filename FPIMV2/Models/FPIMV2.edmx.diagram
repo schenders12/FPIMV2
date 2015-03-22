@@ -6,10 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="d1d922cac44943c993b9aea23ba7fa02" Name="FPIMV2_PeopleModel">
         <EntityTypeShape EntityType="PeopleModel.CodesAO" Width="1.5" PointX="2.875" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="PeopleModel.CommEmpDegree" Width="1.5" PointX="9.875" PointY="0.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="PeopleModel.CommEmployee" Width="1.5" PointX="8.125" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PeopleModel.CommEmpDegree" Width="1.5" PointX="10.25" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PeopleModel.CommEmployee" Width="1.5" PointX="8.375" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PeopleModel.DeptHeading" Width="1.5" PointX="0.625" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="PeopleModel.FacultyDept" Width="1.5" PointX="10" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PeopleModel.FacultyDept" Width="1.5" PointX="10.25" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="PeopleModel.FacultyPage" Width="1.5" PointX="2.625" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="PeopleModel.FacultyProfile" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="PeopleModel.FacultyProfileModule" Width="1.5" PointX="4.625" PointY="0.625" IsExpanded="true" />
@@ -18,8 +18,10 @@
         <AssociationConnector Association="PeopleModel.FacultyProfileFacultyPage" />
         <AssociationConnector Association="PeopleModel.FacultyPageFacultyProfileModule" />
         <EntityTypeShape EntityType="PeopleModel.FacultyAreasXRef" Width="1.5" PointX="0.5" PointY="3.875" />
-        <EntityTypeShape EntityType="PeopleModel.ProfileMod" Width="1.5" PointX="6.375" PointY="0.625" />
         <EntityTypeShape EntityType="PeopleModel.AddFacStaff" Width="1.5" PointX="12.125" PointY="0.625" />
+        <EntityTypeShape EntityType="PeopleModel.ProfileMod" Width="1.5" PointX="6.625" PointY="0.5" />
+        <AssociationConnector Association="PeopleModel.FK_ProfileMods_FacultyPage" />
+        <AssociationConnector Association="PeopleModel.FK_ProfileMods_FacultyProfile" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
