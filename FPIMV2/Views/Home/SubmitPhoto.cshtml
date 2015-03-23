@@ -1,19 +1,19 @@
 ﻿@using FPIMV2.Models;
-@model ProfilePhoto
+@model Tuple<FPIMV2.Models.ProfilePhoto, FPIMV2.Models.FacultyProfile>
 
 @{
     ViewBag.Title = "SubmitPhoto";
 }
-
+@Html.Partial("WelcomeBox", Model.Item2)
 <h2>Submit your new profile Photo</h2>
 
 @using (Html.BeginForm("SubmitPhoto", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.profileId)
-        @Html.HiddenFor(model => model.profileFirstName)
-        @Html.HiddenFor(model => model.profileLastName)
-        @Html.HiddenFor(model => model.profileEMail)
+        @Html.HiddenFor(model => model.Item1.profileId)
+        @Html.HiddenFor(model => model.Item1.profileFirstName)
+        @Html.HiddenFor(model => model.Item1.profileLastName)
+        @Html.HiddenFor(model => model.Item1.profileEMail)
 
          <h3>Select a photo to be used as your new profile photo.</h3><h3>  It will be emailed to the ESF Webmaster for approval.  </h3>
         <div>
@@ -21,7 +21,7 @@
             <input type="file" name="attachment" id="attachment"/> 
         </div>
         <input type="submit" value="Send" class = "ui-widget-header ui-corner-all"/>
-        @Html.ActionLink("Cancel", "AdminIndex", "Home", new { profileId = @Model.profileId }, new { @class = "ui-widget-header ui-corner-all" })
+        @Html.ActionLink("Cancel", "AdminIndex", "Home", new { profileId = @Model.Item1.profileId }, new { @class = "ui-widget-header ui-corner-all" })
 }
 
 

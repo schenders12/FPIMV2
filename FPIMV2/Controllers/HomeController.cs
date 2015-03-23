@@ -157,9 +157,10 @@ namespace FPIMV2.Controllers
         [HttpGet]
         public ActionResult ManageFiles(string profileId)
         {
+            FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
             Console.Write("Managing files...");
             ViewBag.profileID = profileId;
-            return View();
+            return View(profile);
         }
 
         // *** Link to a file ***
@@ -189,7 +190,7 @@ namespace FPIMV2.Controllers
             string eMail = (employee != null) ? employee.EmailId : addFacStaff.EmailId;
 
             ProfilePhoto myPhoto = new ProfilePhoto(profileId, firstName, lastName, eMail);
-            return View(myPhoto);
+            return View(Tuple.Create(myPhoto, myProfile));
         }
         [HttpPost]
         public ActionResult SubmitPhoto(ProfilePhoto myPhoto)
@@ -1028,9 +1029,10 @@ namespace FPIMV2.Controllers
         [HttpGet]
         public ActionResult AdministerContent(string profileId)
         {
-            List<spFacultyList_Result> MyList = db.spFacultyList("").ToList();
+            IEnumerable<spFacultyList_Result> MyList = db.spFacultyList("").ToList();
+            FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
             ViewBag.ProfileId = profileId;
-            return View(MyList);
+            return View(Tuple.Create(MyList, myProfile));
 
         }
 

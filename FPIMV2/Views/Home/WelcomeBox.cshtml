@@ -1,19 +1,17 @@
 ﻿@model FPIMV2.Models.FacultyProfile
 @using FPIMV2.Helpers;
-<style>
-#sideright  { margin: 4px 0 4px 10px; float: right; padding: 8px; width: 180px; border: 1px solid #ccc; font: 11px/1.3em verdana, Helvetica, Arial, sans-serif; font-weight: normal; -moz-border-radius: 6px; -webkit-border-radius: 6px; box-shadow: 0 0 7px #aaa }
-</style>
-		<div id="sideright" class="bggreen" style="width:200px;">
-        <strong>Welcome, @Html.DisplayFor(m => m.UserId)</strong>
-<p><strong>
+
+		<div id="box" class="bgmenublue maxw300 w30 right border martop">
+<h4>
 @{
     HtmlString header = new HtmlString(fns.GetEmployeeWelcomeString(@Model.UserId, @Model.ESFAD, @Model.SUAD));
   @header
 }
-</strong></p>
+<br><span class="ten fontnorm">User ID: <strong>@Html.DisplayFor(m => m.UserId)</strong>
+</span></h4>
                 <ul>
+                <li>@Html.ActionLink("Your Home Menu", "AdminIndex", "Home", new { profileId = @Model.ProfileId }, null)</li>
 				<li><a href="/faculty/admin/logout.asp">Logout</a></li>
-                <li>@Html.ActionLink("FPIM Menu", "AdminIndex", "Home", new { profileId = @Model.ProfileId }, null)</li>
 			</ul>
 			<p><em>Sessions will be logged out after 20 minutes of inactivity.</em></p>
 		</div>

@@ -1,9 +1,9 @@
-﻿@model IEnumerable<FPIMV2.Models.spFacultyList_Result>
+﻿@model Tuple<IEnumerable<FPIMV2.Models.spFacultyList_Result>, FPIMV2.Models.FacultyProfile>
 
 @{
     ViewBag.Title = "Administer Content";
 }
-
+@Html.Partial("WelcomeBox", Model.Item2)
 <h2>Edit a Profile</h2>
 <style>
 th, td { vertical-align: top}
@@ -25,7 +25,8 @@ th, td { vertical-align: top}
               (315&nbsp;Area&nbsp;code)</span></th>
             <th  class="twelve bggray"><strong>Email</strong></th>
     </tr>
-@foreach (var item in Model) {
+@foreach (var item in Model.Item1)
+{
     <tr>
         <td>
             <strong>@Html.ActionLink(item.FullName + ", ", "Index", "Home", new { id=item.UserId, profileID=item.UserId, suad=item.SUAD, esfad=item.ESFAD, lastname = item.LastName, firstname = item.FirstName }, null)</strong>

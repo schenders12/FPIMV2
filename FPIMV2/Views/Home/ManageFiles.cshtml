@@ -1,7 +1,8 @@
-﻿@{
+﻿@model FPIMV2.Models.FacultyProfile
+@{
     ViewBag.Title = "Manage Files and Documents";
 }
-
+@Html.Partial("WelcomeBox", Model) 
 <style>
     #fileListDiv ul { list-style-type: none; }
     #fileListDiv li a { float: left; }

@@ -1,10 +1,11 @@
-﻿@model FPIMV2.Models.FacultyProfile
+@model FPIMV2.Models.FacultyProfile
 @using FPIMV2.Helpers;
 
 @{
     ViewBag.Title = "Index";
 }
-<div id="box" class="w100 border bggreen">
+@Html.Partial("WelcomeBox", Model)
+<div id="box" class="w50 border bggreen">
     <h2>@ViewBag.WelcomeMsg</h2>
     <p>To make changes to your directory information, use the Human Resources Self-Service in the Faculty and Staff Portal. </p>
     <p>To make changes to your pages, modules, department associations, files, or change your cover photo, select the lnks below.</p>
@@ -15,9 +16,12 @@
 }
 
   <p></p>  
-  <h4>@Html.ActionLink("Manage Files and Documents on the server", "ManageFiles", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
-  <h4>@Html.ActionLink("Manage Modules", "ManageModules", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
-  <h4>@Html.ActionLink("Manage Pages", "ManagePages", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
+  <h4>@Html.ActionLink("Manage Files and Documents on the server", "ManageFiles", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})<br>
+<span class="twelve fontnorm">Upload documents, PDF's, images, etc. You can then link to those files from any of your content 'modules'.</span></h4>
+  <h4>@Html.ActionLink("Manage Modules", "ManageModules", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})<br>
+<span class="twelve fontnorm">Edit text, and arrange sections on a page.</span></h4>
+  <h4>@Html.ActionLink("Manage Pages", "ManagePages", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})<br>
+<span class="twelve fontnorm">Name and set up second, third, etc., pages for your personal site.</span></h4>
   <h4>@Html.ActionLink("Submit a new profile photo", "SubmitPhoto", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
   <h4>@Html.ActionLink("Manage Department Associations and Areas of Study", "ManageDeptAssocAOS", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4>
   <!--<h4>@Html.ActionLink("Manage Department Associations and Areas of Study", "EditDeptAOS", "Home", new { profileId = @Model.ProfileId}, new { profileId = @Model.ProfileId})</h4> -->
