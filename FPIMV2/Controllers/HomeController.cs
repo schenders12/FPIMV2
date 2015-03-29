@@ -277,7 +277,7 @@ namespace FPIMV2.Controllers
         public ActionResult ManagePages(string profileId)
         {
             FacultyProfile myProfile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileId);
-            ViewBag.FacultyProfileModules = myProfile.FacultyProfileModules.OrderBy(s => s.DisplayOrder);
+            ViewBag.ProfileModules = myProfile.ProfileMods.OrderBy(s => s.DispOrder);
             ViewBag.profileId = profileId;
             return View(myProfile);
         }
@@ -328,7 +328,7 @@ namespace FPIMV2.Controllers
             myPage.LinkURL = "none";
 
             // Loop over all added modules
-            myPage.FacultyProfileModules = new EntityCollection<FacultyProfileModule>();
+            myPage.ProfileMods = new EntityCollection<ProfileMod>();
             int itemCount = 0;
             if (items != null)
             {
@@ -337,18 +337,22 @@ namespace FPIMV2.Controllers
                     itemCount++;
                     int selectedModuleId = Convert.ToInt32(item);
                     // Retrieve the data from the existing module and create a new module
-                    FacultyProfileModule oldMod = db.FacultyProfileModules.First(m => m.FacultyProfileModuleId == selectedModuleId);
-                    FacultyProfileModule newMod = new FacultyProfileModule();
+                    ProfileMod oldMod = db.ProfileMods.First(m => m.ModId == selectedModuleId);
+                    ProfileMod newMod = new ProfileMod();
 
                     newMod.ProfileId = myPage.ProfileId;
+                    newMod.UserId = oldMod.UserId;
+                    newMod.ESFAD = oldMod.ESFAD;
+                    newMod.SUAD = oldMod.SUAD;
+                    newMod.ESFAD = oldMod.ESFAD;
                     newMod.FacultyPageId = oldMod.FacultyPageId;
                     newMod.ModuleType = oldMod.ModuleType;
-                    newMod.ModuleTitle = oldMod.ModuleTitle;
-                    newMod.ModuleData = oldMod.ModuleData;
-                    newMod.DisplayOrder = itemCount;
+                    newMod.ModTitle = oldMod.ModTitle;
+                    newMod.ModData = oldMod.ModData;
+                    newMod.DispOrder = itemCount;
 
                     // Add the module dta to the page
-                    myPage.FacultyProfileModules.Add(newMod);
+                    myPage.ProfileMods.Add(newMod);
 
                 }
             }
@@ -380,7 +384,7 @@ namespace FPIMV2.Controllers
         public ActionResult EditFacultyPage(string profileId, int pageId)
         {
             FacultyPage page = db.FacultyPages.First(m => m.FacultyPageId == pageId);
-            ViewBag.FacultyProfileModules = page.FacultyProfileModules.OrderBy(s => s.DisplayOrder);
+            ViewBag.ProfileModules = page.ProfileMods.OrderBy(s => s.DispOrder);
             return View(page);
         }
 
@@ -396,7 +400,6 @@ namespace FPIMV2.Controllers
             // Add/Update the modules that have been added to this page
 
             // Loop over all added modules
-            //page.FacultyProfileModules = new EntityCollection<FacultyProfileModule>();
             List<int> modifiedModules = new List<int>();
             int itemCount = 0;
             if (items != null)
@@ -408,26 +411,29 @@ namespace FPIMV2.Controllers
                     int selectedModuleId = Convert.ToInt32(item);
                     // Retrieve the data from the existing module and create a new module
                     modifiedModules.Add(selectedModuleId);
-                    FacultyProfileModule oldMod = db.FacultyProfileModules.First(m => m.FacultyProfileModuleId == selectedModuleId);
+                    ProfileMod oldMod = db.ProfileMods.First(m => m.ModId == selectedModuleId);
                     if (oldMod.FacultyPageId == -1)
                     {
                         // this Module was added, create a new module
-                        FacultyProfileModule newMod = new FacultyProfileModule();
+                        ProfileMod newMod = new ProfileMod();
 
                         newMod.ProfileId = page.ProfileId;
+                        newMod.UserId = oldMod.UserId;
+                        newMod.SUAD = oldMod.SUAD;
+                        newMod.ESFAD = oldMod.ESFAD;
                         newMod.FacultyPageId = oldMod.FacultyPageId;
                         newMod.ModuleType = oldMod.ModuleType;
-                        newMod.ModuleTitle = oldMod.ModuleTitle;
-                        newMod.ModuleData = oldMod.ModuleData;
-                        newMod.DisplayOrder = itemCount;
+                        newMod.ModTitle = oldMod.ModTitle;
+                        newMod.ModData = oldMod.ModData;
+                        newMod.DispOrder = itemCount;
 
                         // Add the module data to the page
-                        page.FacultyProfileModules.Add(newMod);
+                        page.ProfileMods.Add(newMod);
                     }
                     else // Update DisplayOrder
                     {
                         // this Module was added, create a new module
-                        oldMod.DisplayOrder = itemCount;
+                        oldMod.DispOrder = itemCount;
 
                     }
 
@@ -438,17 +444,17 @@ namespace FPIMV2.Controllers
             // Delete the modules that have been deleted from this page
 
             // Retrieve the modules that are already on this page (before changes)
-            List<FacultyProfileModule> currentModules = db.FacultyProfileModules.Where(m => m.FacultyPageId == id).ToList();
+            List<ProfileMod> currentModules = db.ProfileMods.Where(m => m.FacultyPageId == id).ToList();
 
             // Create lookup from Id to the associated User1 object
-            var allCurrentModulesByTitle = currentModules.ToDictionary(m => m.FacultyProfileModuleId);
+            var allCurrentModulesByTitle = currentModules.ToDictionary(m => m.ModId);
 
             // Find Ids from the lookup that are not present for User2s from list2
             // and then retrieve their associated User1s from the lookup
             var allMyModuleDeletedFromPage = allCurrentModulesByTitle.Keys
                                              .Except(modifiedModules.Select(modID => modID))
                                              .Select(key => allCurrentModulesByTitle[key]);
-            foreach (FacultyProfileModule module in allMyModuleDeletedFromPage)
+            foreach (ProfileMod module in allMyModuleDeletedFromPage)
             {
                  db.DeleteObject(module);
             }
@@ -480,8 +486,8 @@ namespace FPIMV2.Controllers
             if (ModelState.IsValid)
             {
                 // Get all the modules contained in this page and delete
-                List<FacultyProfileModule> modules = db.FacultyProfileModules.Where(m => m.FacultyPageId == myPage.FacultyPageId).ToList();
-                foreach (FacultyProfileModule module in modules)
+                List<ProfileMod> modules = db.ProfileMods.Where(m => m.FacultyPageId == myPage.FacultyPageId).ToList();
+                foreach (ProfileMod module in modules)
                 {
                     db.DeleteObject(module);
                     if (ModelState.IsValid)
@@ -569,24 +575,27 @@ namespace FPIMV2.Controllers
         public ActionResult AddHTMLModule(string profileID)
         {
             FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileID);
-            FacultyProfileModule htmlMod = new FacultyProfileModule();
+            ProfileMod htmlMod = new ProfileMod();
+            htmlMod.UserId = profile.UserId;
+            htmlMod.SUAD = profile.SUAD;
+            htmlMod.ESFAD = profile.ESFAD;
             htmlMod.ProfileId = profileID;
             htmlMod.FacultyPageId = -1;
             htmlMod.ModuleType = "HTML";
-            htmlMod.DisplayOrder = -1;
+            htmlMod.DispOrder = -1;
 
-            profile.FacultyProfileModules.Add(htmlMod);
+            profile.ProfileMods.Add(htmlMod);
             Console.Write("Adding Faculty Module of type HTML");
 
             return View(htmlMod);
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult AddHTMLModule(FacultyProfileModule module)
+        public ActionResult AddHTMLModule(ProfileMod module)
         {
             if (ModelState.IsValid)
             {
-                db.FacultyProfileModules.AddObject(module);
+                db.ProfileMods.AddObject(module);
                 db.SaveChanges();
             }
             return RedirectToAction("ManageModules", new { profileId = module.ProfileId });
@@ -597,24 +606,24 @@ namespace FPIMV2.Controllers
         public ActionResult AddGradModule(string profileID)
         {
             FacultyProfile profile = db.FacultyProfiles.SingleOrDefault(m => m.ProfileId == profileID);
-            FacultyProfileModule gradMod = new FacultyProfileModule();
+            ProfileMod gradMod = new ProfileMod();
             gradMod.ProfileId = profileID;
             gradMod.FacultyPageId = -1;
             gradMod.ModuleType = "Grad";
-            gradMod.DisplayOrder = -1;
+            gradMod.DispOrder = -1;
             Console.Write("Adding Grad Faculty Module...");
 
-            profile.FacultyProfileModules.Add(gradMod);
+            profile.ProfileMods.Add(gradMod);
             return View(gradMod);
             // return null;
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult AddGradModule(FacultyProfileModule module)
+        public ActionResult AddGradModule(ProfileMod module)
         {
             if (ModelState.IsValid)
             {
-                db.FacultyProfileModules.AddObject(module);
+                db.ProfileMods.AddObject(module);
                 db.SaveChanges();
             }
             return RedirectToAction("ManageModules", new { profileId = module.ProfileId });
@@ -625,34 +634,39 @@ namespace FPIMV2.Controllers
         public ActionResult EditFacultyModule(string profileId, int moduleId)
         {
             //int selectedModuleId = Convert.ToInt32(id);
-            FacultyProfileModule module = db.FacultyProfileModules.First(m => m.FacultyProfileModuleId == moduleId);
+            ProfileMod module = db.ProfileMods.First(m => m.ModId == moduleId);
             return View("EditFacultyModule", module);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult EditFacultyModule(FacultyProfileModule module)
+        public ActionResult EditFacultyModule(ProfileMod module)
         {
             if (ModelState.IsValid)
             {
-                FacultyProfileModule modUpdate = new FacultyProfileModule();
-                modUpdate = db.FacultyProfileModules.Single(m => m.FacultyProfileModuleId == module.FacultyProfileModuleId);
+                //ProfileMod modUpdate = new ProfileMod();
+                ProfileMod modUpdate = db.ProfileMods.Single(m => m.ModId == module.ModId);
 
                 // Save original title
-                var originalTitle = modUpdate.ModuleTitle;
-
-                modUpdate.ModuleData = module.ModuleData;
-                modUpdate.ModuleTitle = module.ModuleTitle;
+                var originalTitle = modUpdate.ModTitle;
+                modUpdate.UserId = module.UserId;
+                modUpdate.SUAD = module.SUAD;
+                modUpdate.ESFAD = module.ESFAD;
+                modUpdate.ModData = module.ModData;
+                modUpdate.ModTitle = module.ModTitle;
                 modUpdate.ModuleType = module.ModuleType;
 
                 // Update all modules with identical titles
-                List<FacultyProfileModule> modules = db.FacultyProfileModules.Where(m => m.ModuleTitle == originalTitle).ToList();
-                foreach (FacultyProfileModule mod in modules)
+                List<ProfileMod> modules = db.ProfileMods.Where(m => m.ModTitle == originalTitle).ToList();
+                foreach (ProfileMod mod in modules)
                 {
                     if (mod.ModuleType == module.ModuleType)
                     {
-                        mod.ModuleData = module.ModuleData;
-                        mod.ModuleTitle = module.ModuleTitle;
+                        mod.UserId = module.UserId;
+                        mod.SUAD = module.SUAD;
+                        mod.ESFAD = module.ESFAD;
+                        mod.ModData = module.ModData;
+                        mod.ModTitle = module.ModTitle;
                         mod.ModuleType = module.ModuleType;
                     }
                 }
@@ -667,20 +681,20 @@ namespace FPIMV2.Controllers
         public ActionResult DeleteModulePartial(string id)
         {
             int selectedModuleId = Convert.ToInt32(id);
-            FacultyProfileModule module = db.FacultyProfileModules.First(m => m.FacultyProfileModuleId == selectedModuleId);
+            ProfileMod module = db.ProfileMods.First(m => m.ModId == selectedModuleId);
             return PartialView("DeleteModulePartial", module);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult DeleteModulePartial(FacultyProfileModule module)
+        public ActionResult DeleteModulePartial(ProfileMod module)
         {
             if (ModelState.IsValid)
             {
                 // Get a list of all the modules with this Title for this user
-                List<FacultyProfileModule> modules = db.FacultyProfileModules.Where(m => m.ProfileId == module.ProfileId).Where(m => m.ModuleTitle == module.ModuleTitle).ToList();
+                List<ProfileMod> modules = db.ProfileMods.Where(m => m.ProfileId == module.ProfileId).Where(m => m.ModTitle == module.ModTitle).ToList();
                 // Delete the module
-                foreach (FacultyProfileModule pageModule in modules)
+                foreach (ProfileMod pageModule in modules)
                 {
                     db.DeleteObject(pageModule);
                     if (ModelState.IsValid)
@@ -694,18 +708,18 @@ namespace FPIMV2.Controllers
         [HttpGet]
         public JsonResult GetModules(string myId)
         {
-            // Get all distinct modules based on title
-            //var myModules = db.FacultyProfileModules.Select(m => m.ModuleTitle).Distinct().ToList();
-
             // Return all modules for this profile ID that have no page assignment
-            var allMyModules = db.FacultyProfileModules.Select(m => new
+            var allMyModules = db.ProfileMods.Select(m => new
             {
-                m.FacultyProfileModuleId,
+                m.ModId,
+                m.UserId,
+                m.SUAD,
+                m.ESFAD,
                 m.FacultyPageId,
                 m.ProfileId,
                 m.ModuleType,
-                m.ModuleTitle,
-                m.ModuleData
+                m.ModTitle,
+                m.ModData
             }).Where(m => m.ProfileId == myId).Where(m => m.FacultyPageId == -1).ToList();
 
             //var results = (from ta in allMyModules
@@ -715,51 +729,60 @@ namespace FPIMV2.Controllers
         [HttpGet]
         public JsonResult GetPageModules(string myId, int pageId)
         {
-            var allPageModules = db.FacultyProfileModules.Select(m => new
+            var allPageModules = db.ProfileMods.Select(m => new
             {
-                m.FacultyProfileModuleId,
+                m.ModId,
+                m.UserId,
+                m.SUAD,
+                m.ESFAD,
                 m.FacultyPageId,
                 m.ProfileId,
                 m.ModuleType,
-                m.ModuleTitle,
-                m.ModuleData,
-                m.DisplayOrder
-            }).Where(m => m.ProfileId == myId).Where(m => m.FacultyPageId == pageId).OrderBy(m => m.DisplayOrder).ToList();
+                m.ModTitle,
+                m.ModData,
+                m.DispOrder
+            }).Where(m => m.ProfileId == myId).Where(m => m.FacultyPageId == pageId).OrderBy(m => m.DispOrder).ToList();
 
             return Json(allPageModules, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public JsonResult GetAvailableModules(string myId, int pageId)
         {
-            var allPageModules = db.FacultyProfileModules.Select(m => new
+            var allPageModules = db.ProfileMods.Select(m => new
             {
-                m.FacultyProfileModuleId,
+                m.ModId,
+                m.UserId,
+                m.SUAD,
+                m.ESFAD,
                 m.FacultyPageId,
                 m.ProfileId,
                 m.ModuleType,
-                m.ModuleTitle,
-                m.ModuleData
+                m.ModTitle,
+                m.ModData
             }).Where(m => m.ProfileId == myId).Where(m => m.FacultyPageId == pageId).ToList();
 
             // Return all modules for this profile ID that have no page assignment
-            var allMyModules = db.FacultyProfileModules.Select(m => new
+            var allMyModules = db.ProfileMods.Select(m => new
             {
-                m.FacultyProfileModuleId,
+                m.ModId,
+                m.UserId,
+                m.SUAD,
+                m.ESFAD,
                 m.FacultyPageId,
                 m.ProfileId,
                 m.ModuleType,
-                m.ModuleTitle,
-                m.ModuleData
+                m.ModTitle,
+                m.ModData
                //  }).Where(m => m.ProfileId == myId).Where(m => m.FacultyPageId == -1).Except(allPageModules.Select(m => m.ModuleTitle)).ToList();
             }).Where(m => m.ProfileId == myId).Where(m => m.FacultyPageId == -1).ToList();
 
             // Create lookup from Id to the associated User1 object
-            var allMyModulesByTitle = allMyModules.ToDictionary(m => m.ModuleTitle);
+            var allMyModulesByTitle = allMyModules.ToDictionary(m => m.ModTitle);
 
             // Find Ids from the lookup that are not present for User2s from list2
             // and then retrieve their associated User1s from the lookup
             var allMyModuleNotOnpage = allMyModulesByTitle.Keys
-                                             .Except(allPageModules.Select(user2 => user2.ModuleTitle))
+                                             .Except(allPageModules.Select(user2 => user2.ModTitle))
                                              .Select(key => allMyModulesByTitle[key]);
 
             return Json(allMyModuleNotOnpage, JsonRequestBehavior.AllowGet);
@@ -817,10 +840,7 @@ namespace FPIMV2.Controllers
         [HttpGet]
         public JsonResult GetMainPage(string profileId, string pageTitle)
         {
-            // Get all distinct modules based on title
-            //var myModules = db.FacultyProfileModules.Select(m => m.ModuleTitle).Distinct().ToList();
-
-            // Return all modules for this profile ID that have no page assignment
+            // Return all modules for this profile ID for this page
             var myMainPage = db.FacultyPages.Select(m => new
             {
                 m.FacultyPageId,

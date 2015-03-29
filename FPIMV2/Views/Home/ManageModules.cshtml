@@ -26,18 +26,18 @@
             <th>Module Type</th>
             <th>Module Data</th>
         </tr>
-        @foreach (var item in Model.FacultyProfileModules.Where(m => m.FacultyPageId == -1))
+        @foreach (var item in Model.ProfileMods.Where(m => m.FacultyPageId == -1))
         {
           //var html = new HtmlString("");
 
-          string modData = item.ModuleData;
+          string modData = item.ModData;
           <tr>
           <td> 
-             @Html.ActionLink("Edit","EditFacultyModule", "Home", new { profileId = @Model.ProfileId, moduleId = @item.FacultyProfileModuleId}, new {@class="edit-module-button btnStyleOne", data_moduleid=@item.FacultyProfileModuleId})
-             @Html.ActionLink("Del","DeleteModulePartial", "Home", new { profileId = @Model.ProfileId, moduleId = @item.FacultyProfileModuleId}, new {@class="delete-module-button btnStyleOne", data_moduleid=@item.FacultyProfileModuleId})
+             @Html.ActionLink("Edit","EditFacultyModule", "Home", new { profileId = @Model.ProfileId, moduleId = @item.ModId}, new {@class="edit-module-button btnStyleOne", data_moduleid=@item.ModId})
+             @Html.ActionLink("Del","DeleteModulePartial", "Home", new { profileId = @Model.ProfileId, moduleId = @item.ModId}, new {@class="delete-module-button btnStyleOne", data_moduleid=@item.ModId})
           </td>
           <td id="modTitle">
-             <strong>@Html.DisplayFor(m => item.ModuleTitle)</strong>
+             <strong>@Html.DisplayFor(m => item.ModTitle)</strong>
           </td>
           <td id="modType">
               @Html.DisplayFor(m => item.ModuleType)

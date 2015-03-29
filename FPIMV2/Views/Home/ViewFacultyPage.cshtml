@@ -50,7 +50,7 @@
         @{
          foreach (var page in Model.FacultyPages.Where(m => m.FacultyPageId == ViewBag.PageId))
          {
-            foreach (var item in Model.FacultyProfileModules.Where(m => m.FacultyPageId == ViewBag.PageId).OrderBy(m => m.DisplayOrder))
+            foreach (var item in Model.ProfileMods.Where(m => m.FacultyPageId == ViewBag.PageId).OrderBy(m => m.DispOrder))
             {
 
                 var html = new HtmlString("");
@@ -59,20 +59,20 @@
                 switch (@item.ModuleType)
                 {
                     case "HTML":
-                        if (item.ModuleTitle != "" && item.ModuleTitle != null)
+                        if (item.ModTitle != "" && item.ModTitle != null)
                         {
-                            content = "<h4>" + item.ModuleTitle + "</h4>" + item.ModuleData;
+                            content = "<h4>" + item.ModTitle + "</h4>" + item.ModData;
                         }
                         else
                         {
-                            content = item.ModuleData;
+                            content = item.ModData;
                         }
                         //html = new HtmlString("<hr class=clearer />" + @content);
                         html = new HtmlString(@content);
                         break;
                     case "GradModule":
                         // TODO: Graduate module.
-                        content = fns.AdviseesModule(item.FacultyProfile.UserId, item.ModuleTitle);
+                        content = fns.AdviseesModule(item.FacultyProfile.UserId, item.ModTitle);
                         //html = new HtmlString("<hr class=clearer />" + @content);
                         html = new HtmlString(@content);
                         break;

@@ -50,9 +50,9 @@
          <h4 class="ui-widget-header"><span class="ui-icon ui-icon-document"></span>Modules contained in your page:</h4>
            <!-- <ul id="sortable-modules" class="gallery ui-helper-reset ui-helper-clearfix gallery" width: 143px;> -->
            <ul id="sortable-modules" class="gallery">
-            @foreach (var item in ViewBag.FacultyProfileModules)
+            @foreach (var item in ViewBag.ProfileModules)
             {
-                 <li  class="ui-state-default ui-sortable-handle"  id="@Html.Raw(@item.FacultyProfileModuleId)" data-modid="@Html.Raw(@item.FacultyProfileModuleId)" value="@Html.Raw(@item.FacultyProfileModuleId)">@Html.Raw(@item.ModuleTitle)</li>
+                 <li  class="ui-state-default ui-sortable-handle"  id="@Html.Raw(@item.ModId)" data-modid="@Html.Raw(@item.ModId)" value="@Html.Raw(@item.ModId)">@Html.Raw(@item.ModTitle)</li>
             }
            </ul>
                 <!--<li class="placeholder">Drop your modules here</li> -->

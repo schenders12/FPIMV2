@@ -1,25 +1,26 @@
-﻿@model FPIMV2.Models.FacultyProfileModule
+﻿@model FPIMV2.Models.ProfileMod
 
 @{
     ViewBag.Title = "Module Editor";
 }
 @Html.Partial("WelcomeBox", Model.FacultyProfile)
-<h2>You are editing the <strong>@Model.ModuleTitle</strong> module.</h2>
+<h2>You are editing the <strong>@Model.ModTitle</strong> module.</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    @Html.HiddenFor(model => model.FacultyProfileModuleId)
+    @Html.HiddenFor(model => model.UserId)
+    @Html.HiddenFor(model => model.ModId)
     @Html.HiddenFor(model => model.ProfileId)
     @Html.HiddenFor(model => model.FacultyPageId)
     @Html.HiddenFor(model => model.ModuleType)
-    @Html.HiddenFor(model => model.DisplayOrder)
+    @Html.HiddenFor(model => model.DispOrder)
     <fieldset>
     <h5>Your module currently looks like:</h5>
     <div id="sideleft" style="width:900px;">
-       <h4>@Model.ModuleTitle</h4>@Html.Raw(@Model.ModuleData)<hr class=clearer />
+       <h4>@Model.ModTitle</h4>@Html.Raw(@Model.ModData)<hr class=clearer />
     </div>
 
 <p><strong>HTML Modules</strong></p>
@@ -32,7 +33,7 @@
                  <p class="ten">This heading will appear above your HTML block of content.</p>
               </th>
               <td>
-                 <input name="ModuleTitle" id="ModuleTitle" type="text" maxlength="150" size="50" class="twelve" value="@Model.ModuleTitle" />
+                 <input name="ModuleTitle" id="ModuleTitle" type="text" maxlength="150" size="50" class="twelve" value="@Model.ModTitle" />
               </td>
            </tr>
            <tr>
@@ -44,7 +45,7 @@
            </tr>
            <tr>
               <td colspan="2">
-                 <textarea name="ModuleData" id="ModuleData" cols="125" rows="10">@Model.ModuleData</textarea>
+                 <textarea name="ModuleData" id="ModuleData" cols="125" rows="10">@Model.ModData</textarea>
                  <script>
                      var profileId = '@(Model.ProfileId)';
                      //var filebrowserBrowseUrl = ROOT + 'faculty/admin/LinkToFile/' + profileId;

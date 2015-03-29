@@ -40,7 +40,7 @@
             <th class="tblModuleCell">Module Data
             </th>
         </tr>
-        @foreach (var item in Model.FacultyProfileModules.Where(m => m.FacultyPageId == -1))
+        @foreach (var item in Model.ProfileMods.Where(m => m.FacultyPageId == -1))
         {
 
           var html = new HtmlString("");
@@ -49,19 +49,19 @@
           switch (@item.ModuleType)
           {
               case "HTML":
-                  if (item.ModuleTitle != "" && item.ModuleTitle != null)
+                  if (item.ModTitle != "" && item.ModTitle != null)
                   {
-                      content = "<h4>" + item.ModuleTitle + "</h4>" + item.ModuleData;
+                      content = "<h4>" + item.ModTitle + "</h4>" + item.ModData;
                   }
                   else
                   {
-                      content = item.ModuleData;
+                      content = item.ModData;
                   }
                   html = new HtmlString("<hr class=clearer />" + @content);
                   break;
               case "GradModule":
                   // TODO: Graduate module.
-                  content = fns.AdviseesModule(item.FacultyProfile.UserId, item.ModuleTitle);
+                  content = fns.AdviseesModule(item.FacultyProfile.UserId, item.ModTitle);
                   html = new HtmlString("<hr class=clearer />" + @content);
                   break;
               // TODO: Scopus feed module, other special modules?
@@ -70,14 +70,14 @@
                   break;
           }
           // Get the page ID that displays this module
-          string modData = item.ModuleData;
+          string modData = item.ModData;
           <tr class="tblRow">
           <td class="tblColumn"> 
-             @Html.ActionLink("Edit","EditFacultyModule", "Home", new { profileId = @Model.ProfileId, moduleId = @item.FacultyProfileModuleId}, new { profileId = @item.FacultyProfileModuleId, @class="edit-module-button btnStyleOne", data_moduleid=@item.FacultyProfileModuleId})
-             @Html.ActionLink("Del","DeleteModulePartial", "Home", new { profileId = @Model.ProfileId, moduleId = @item.FacultyProfileModuleId}, new {  profileId = @item.FacultyProfileModuleId, @class="delete-module-button btnStyleOne", data_moduleid=@item.FacultyProfileModuleId})
+             @Html.ActionLink("Edit","EditFacultyModule", "Home", new { profileId = @Model.ProfileId, moduleId = @item.ModId}, new { profileId = @item.ModId, @class="edit-module-button btnStyleOne", data_moduleid=@item.ModId})
+             @Html.ActionLink("Del","DeleteModulePartial", "Home", new { profileId = @Model.ProfileId, moduleId = @item.ModId}, new {  profileId = @item.ModId, @class="delete-module-button btnStyleOne", data_moduleid=@item.ModId})
           </td>
           <td id="modTitle" class="itemIdClass tblColumn">
-                   <strong>@Html.DisplayFor(m => item.ModuleTitle)</strong>
+                   <strong>@Html.DisplayFor(m => item.ModTitle)</strong>
           </td>
           <td id="modType" class="itemIdClass tblColumn">
                     @Html.DisplayFor(m => item.ModuleType)
@@ -126,11 +126,11 @@
              <p>@Html.DisplayFor(m => page.LinkURL)</p>
           </td> -->
           <td id="pageModules" class="itemIdClass tblColumn">
-          @foreach (var module in Model.FacultyProfileModules)
+          @foreach (var module in Model.ProfileMods)
           {
               if (module.FacultyPageId == page.FacultyPageId)
               {
-                 <p>@Html.DisplayFor(m => module.ModuleTitle)</p>
+                 <p>@Html.DisplayFor(m => module.ModTitle)</p>
              };
           }
           </td>

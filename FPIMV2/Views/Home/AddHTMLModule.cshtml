@@ -1,4 +1,4 @@
-﻿@model FPIMV2.Models.FacultyProfileModule
+﻿@model FPIMV2.Models.ProfileMod
 
 @{
     ViewBag.Title = "AddHTMLModule";
@@ -10,10 +10,11 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
+    @Html.HiddenFor(model => model.UserId)
     @Html.HiddenFor(model => model.ProfileId)
     @Html.HiddenFor(model => model.FacultyPageId)
     @Html.HiddenFor(model => model.ModuleType)
-    @Html.HiddenFor(model => model.DisplayOrder)
+    @Html.HiddenFor(model => model.DispOrder)
     
     <fieldset>
 
@@ -24,22 +25,22 @@
             <th scope="row">
                 <h3>Title:</h3>
                 <p class="ten">This heading will appear above your HTML block of content.</p>
-                 @Html.TextBoxFor(m=>m.ModuleTitle)
-                 @Html.ValidationMessageFor(model => model.ModuleTitle)
-             <!--   <input name="ModuleTitle" id="create-module-title" type="text" maxlength="150" size="50" class="twelve validate[required]"value="@Model.ModuleTitle" /> -->
+                 @Html.TextBoxFor(m=>m.ModTitle)
+                 @Html.ValidationMessageFor(model => model.ModTitle)
+             <!--   <input name="ModuleTitle" id="create-module-title" type="text" maxlength="150" size="50" class="twelve validate[required]"value="@Model.ModTitle" /> -->
             </th>
         </tr>
         <tr>
             <th colspan="2">
                 <h3>HTML Contents</h3>
-                 @Html.ValidationMessageFor(model => model.ModuleData)
+                 @Html.ValidationMessageFor(model => model.ModData)
                 <p class="ten">Raw HTML can be seen by clicking the <strong>Source</strong> button.</p>
                 <p class="ten"><strong>If the content you are using is coming from a Microsoft Office product</strong> (Word, Excel, PowerPoint), you'll have best results by using the Paste from Word toolbar button (clipboard with a W Word icon)</p>
             </th>
         </tr>
         <tr>
             <td colspan="2">
-                <textarea id="@Model.FacultyProfileModuleId" class="ckeditor" name="ModuleData">@Model.ModuleData</textarea>
+                <textarea id="@Model.ModId" class="ckeditor" name="ModuleData">@Model.ModData</textarea>
                 <script>
                     var profileId = '@(Model.ProfileId)';
 

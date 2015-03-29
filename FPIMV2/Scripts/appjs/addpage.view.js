@@ -71,8 +71,8 @@ $(document).ready(function () {
             $.each(data, function (i, value) {
                 // Create a draggable item for each module and add to the list
                // var moduleHTML = '<li class="ui-widget-content ui-corner-tr ui-sortable-handle available-module" id="' + value.FacultyProfileModuleId + '" data-modid="' + value.FacultyProfileModuleId + '" value="' + value.FacultyProfileModuleId + '">' +
-                var moduleHTML = '<li class="ui-state-default ui-sortable-handle" id="' + value.FacultyProfileModuleId + '" data-modid="' + value.FacultyProfileModuleId + '" value="' + value.FacultyProfileModuleId + '">' +
-                    '&nbsp' + value.ModuleTitle + '' + 
+                var moduleHTML = '<li class="ui-state-default ui-sortable-handle" id="' + value.ModId + '" data-modid="' + value.ModId + '" value="' + value.ModId + '">' +
+                    '&nbsp' + value.ModTitle + '' + 
                    // '<a href="" title = "View Module" class="ui-icon ui-icon-zoomin">View Module</a>' +
                    // '<a href="" title = "Add to Page" class="ui-icon ui-icon-plus">Add to Page</a>' +
                     '</li>'

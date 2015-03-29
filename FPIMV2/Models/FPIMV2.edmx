@@ -57,10 +57,6 @@
             <End Role="FacultyProfile" EntitySet="FacultyProfile" />
             <End Role="FacultyProfileModule" EntitySet="FacultyProfileModule" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProfileMods_FacultyPage" Association="PeopleModel.Store.FK_ProfileMods_FacultyPage">
-            <End Role="FacultyPage" EntitySet="FacultyPage" />
-            <End Role="ProfileMods" EntitySet="ProfileMods" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProfileMods_FacultyProfile" Association="PeopleModel.Store.FK_ProfileMods_FacultyProfile">
             <End Role="FacultyProfile" EntitySet="FacultyProfile" />
             <End Role="ProfileMods" EntitySet="ProfileMods" />
@@ -287,18 +283,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProfileMods_FacultyPage">
-          <End Role="FacultyPage" Type="PeopleModel.Store.FacultyPage" Multiplicity="0..1" />
-          <End Role="ProfileMods" Type="PeopleModel.Store.ProfileMods" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FacultyPage">
-              <PropertyRef Name="FacultyPageId" />
-            </Principal>
-            <Dependent Role="ProfileMods">
-              <PropertyRef Name="FacultyPageId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProfileMods_FacultyProfile">
           <End Role="FacultyProfile" Type="PeopleModel.Store.FacultyProfile" Multiplicity="0..1" />
           <End Role="ProfileMods" Type="PeopleModel.Store.ProfileMods" Multiplicity="*" />
@@ -462,12 +446,12 @@
           <EntitySet Name="FacultyAreasXRefs" EntityType="PeopleModel.FacultyAreasXRef" />
           <EntitySet Name="AddFacStaffs" EntityType="PeopleModel.AddFacStaff" />
           <EntitySet Name="ProfileMods" EntityType="PeopleModel.ProfileMod" />
-          <AssociationSet Name="FK_ProfileMods_FacultyPage" Association="PeopleModel.FK_ProfileMods_FacultyPage">
-            <End Role="FacultyPage" EntitySet="FacultyPages" />
-            <End Role="ProfileMod" EntitySet="ProfileMods" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProfileMods_FacultyProfile" Association="PeopleModel.FK_ProfileMods_FacultyProfile">
             <End Role="FacultyProfile" EntitySet="FacultyProfiles" />
+            <End Role="ProfileMod" EntitySet="ProfileMods" />
+          </AssociationSet>
+          <AssociationSet Name="FacultyPageProfileMod" Association="PeopleModel.FacultyPageProfileMod">
+            <End Role="FacultyPage" EntitySet="FacultyPages" />
             <End Role="ProfileMod" EntitySet="ProfileMods" />
           </AssociationSet>
         </EntityContainer>
@@ -568,7 +552,7 @@
           <Property Name="LinkURL" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="FacultyProfile" Relationship="PeopleModel.FacultyProfileFacultyPage" FromRole="FacultyPage" ToRole="FacultyProfile" />
           <NavigationProperty Name="FacultyProfileModules" Relationship="PeopleModel.FacultyPageFacultyProfileModule" FromRole="FacultyPage" ToRole="FacultyProfileModule" />
-          <NavigationProperty Name="ProfileMods" Relationship="PeopleModel.FK_ProfileMods_FacultyPage" FromRole="FacultyPage" ToRole="ProfileMod" />
+          <NavigationProperty Name="ProfileMods" Relationship="PeopleModel.FacultyPageProfileMod" FromRole="FacultyPage" ToRole="ProfileMod" />
         </EntityType>
         <EntityType Name="FacultyProfile">
           <Key>
@@ -830,22 +814,10 @@
           <Property Type="String" Name="ModData" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="SUAD" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="ESFAD" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Type="Int32" Name="FacultyPageId" />
-          <NavigationProperty Name="FacultyPage" Relationship="PeopleModel.FK_ProfileMods_FacultyPage" FromRole="ProfileMod" ToRole="FacultyPage" />
+          <Property Type="Int32" Name="FacultyPageId" Nullable="false" />
           <NavigationProperty Name="FacultyProfile" Relationship="PeopleModel.FK_ProfileMods_FacultyProfile" FromRole="ProfileMod" ToRole="FacultyProfile" />
+          <NavigationProperty Name="FacultyPage" Relationship="PeopleModel.FacultyPageProfileMod" FromRole="ProfileMod" ToRole="FacultyPage" />
         </EntityType>
-        <Association Name="FK_ProfileMods_FacultyPage">
-          <End Type="PeopleModel.FacultyPage" Role="FacultyPage" Multiplicity="0..1" />
-          <End Type="PeopleModel.ProfileMod" Role="ProfileMod" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FacultyPage">
-              <PropertyRef Name="FacultyPageId" />
-            </Principal>
-            <Dependent Role="ProfileMod">
-              <PropertyRef Name="FacultyPageId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProfileMods_FacultyProfile">
           <End Type="PeopleModel.FacultyProfile" Role="FacultyProfile" Multiplicity="0..1" />
           <End Type="PeopleModel.ProfileMod" Role="ProfileMod" Multiplicity="*" />
@@ -855,6 +827,18 @@
             </Principal>
             <Dependent Role="ProfileMod">
               <PropertyRef Name="ProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FacultyPageProfileMod">
+          <End Type="PeopleModel.FacultyPage" Role="FacultyPage" Multiplicity="1" />
+          <End Type="PeopleModel.ProfileMod" Role="ProfileMod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FacultyPage">
+              <PropertyRef Name="FacultyPageId" />
+            </Principal>
+            <Dependent Role="ProfileMod">
+              <PropertyRef Name="FacultyPageId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

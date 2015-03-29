@@ -1,4 +1,4 @@
-﻿@model FPIMV2.Models.FacultyProfileModule
+﻿@model FPIMV2.Models.ProfileMod
 
 @{
     ViewBag.Title = "AddGradModule";
@@ -10,10 +10,11 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
+    @Html.HiddenFor(model => model.UserId)
     @Html.HiddenFor(model => model.ProfileId)
     @Html.HiddenFor(model => model.FacultyPageId)
     @Html.HiddenFor(model => model.ModuleType)
-    @Html.HiddenFor(model => model.DisplayOrder)
+    @Html.HiddenFor(model => model.DispOrder)
     
     <fieldset>
 
