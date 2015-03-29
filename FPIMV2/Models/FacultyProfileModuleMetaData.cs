@@ -13,8 +13,8 @@ namespace FPIMV2.Models
            [StringLength(100, ErrorMessage = "Module Title length Should be less than 100 characters")]
            public string ModuleTitle { get; set; }
 
-           [Required(ErrorMessage = "Please add content to this module, or cancel using the button at the lower left.")]
-           public string ModuleData { get; set; }
+          // [Required(ErrorMessage = "Please add content to this module, or cancel using the button at the lower left.")]
+          // public string ModuleData { get; set; }
     }
     [MetadataType(typeof(FacultyProfileModuleMetaData))]
     public partial class FacultyProfileModule
